@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://0x52vg1d6dtb"]
+
+[ext_resource type="Texture2D" uid="uid://djo1i7dbp1bxf" path="res://assets/laser_small.png" id="1_hpe6b"]
+[ext_resource type="Script" path="res://projectiles/player_projectile_small.gd" id="1_pydf7"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="2_w5xmj"]
+
+[node name="PlayerProjectileSmall" type="Node2D"]
+script = ExtResource("1_pydf7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hpe6b")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_w5xmj")
+velocity = Vector2(0, -200)
+actor = NodePath("..")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.2, 0.3)

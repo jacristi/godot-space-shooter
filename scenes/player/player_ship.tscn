@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://kv3iri7trh6a"]
+[gd_scene load_steps=14 format=3 uid="uid://kv3iri7trh6a"]
 
+[ext_resource type="Script" path="res://scenes/player/player_ship.gd" id="1_fjqor"]
 [ext_resource type="Texture2D" uid="uid://djc7d2ky5b2w" path="res://assets/ship.png" id="1_wfpop"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="2_1bn0i"]
 [ext_resource type="Script" path="res://components/move_input_component.gd" id="3_waygv"]
 [ext_resource type="Resource" uid="uid://bmrcugdsoy8o3" path="res://scenes/player/ship_stats.tres" id="4_558jw"]
 [ext_resource type="Script" path="res://components/position_clamp_component.gd" id="5_yhg1b"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="7_u1olh"]
+[ext_resource type="PackedScene" uid="uid://0x52vg1d6dtb" path="res://projectiles/player_projectile_small.tscn" id="8_16wlu"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="9_gib0u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3td3"]
 atlas = ExtResource("1_wfpop")
@@ -46,6 +50,7 @@ animations = [{
 }]
 
 [node name="PlayerShip" type="Node2D"]
+script = ExtResource("1_fjqor")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lvhtt")
@@ -64,3 +69,23 @@ move_stats = ExtResource("4_558jw")
 [node name="PositionClampComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("5_yhg1b")
 actor = NodePath("..")
+
+[node name="ProjectileSourceLeft" type="Marker2D" parent="."]
+position = Vector2(-3, -2)
+
+[node name="ProjectileSourceRight" type="Marker2D" parent="."]
+position = Vector2(3, -2)
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("7_u1olh")
+scene = ExtResource("8_16wlu")
+
+[node name="FireRateTimer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("9_gib0u")
+sprite = NodePath("../AnimatedSprite2D")
+scale_amount = Vector2(1.25, 1.25)
+scale_duration = 0.25
