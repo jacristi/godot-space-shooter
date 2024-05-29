@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://kv3iri7trh6a"]
+[gd_scene load_steps=28 format=3 uid="uid://kv3iri7trh6a"]
 
 [ext_resource type="Script" path="res://scenes/player/player_ship.gd" id="1_fjqor"]
 [ext_resource type="Texture2D" uid="uid://djc7d2ky5b2w" path="res://assets/ship.png" id="1_wfpop"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="7_u1olh"]
 [ext_resource type="PackedScene" uid="uid://0x52vg1d6dtb" path="res://projectiles/player_projectile_small.tscn" id="8_16wlu"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="9_gib0u"]
+[ext_resource type="Texture2D" uid="uid://c3u18chwh1qox" path="res://assets/ship_flame.png" id="10_egbaw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3td3"]
 atlas = ExtResource("1_wfpop")
@@ -49,11 +50,121 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7267"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(0, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuq4q"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(8, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkxlx"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(16, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t506a"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(24, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfmwt"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgxbe"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3n68"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upquv"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtkrk"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doarn"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(8, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6iac4"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(16, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kqfx"]
+atlas = ExtResource("10_egbaw")
+region = Rect2(24, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p5o2b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7267")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuq4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkxlx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t506a")
+}],
+"loop": true,
+"name": &"bank_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfmwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgxbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3n68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upquv")
+}],
+"loop": true,
+"name": &"bank_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtkrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doarn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6iac4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kqfx")
+}],
+"loop": true,
+"name": &"center",
+"speed": 8.0
+}]
+
 [node name="PlayerShip" type="Node2D"]
 script = ExtResource("1_fjqor")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="SpriteAnchor" type="Node2D" parent="."]
+
+[node name="ShipAnimatedSprite" type="AnimatedSprite2D" parent="SpriteAnchor"]
 sprite_frames = SubResource("SpriteFrames_lvhtt")
+animation = &"center"
+autoplay = "center"
+
+[node name="ThrustAnimatedSprite" type="AnimatedSprite2D" parent="SpriteAnchor"]
+position = Vector2(0, 4)
+sprite_frames = SubResource("SpriteFrames_p5o2b")
 animation = &"center"
 autoplay = "center"
 
@@ -86,6 +197,6 @@ autostart = true
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("9_gib0u")
-sprite = NodePath("../AnimatedSprite2D")
+sprite = NodePath("../SpriteAnchor")
 scale_amount = Vector2(1.25, 1.25)
 scale_duration = 0.25
