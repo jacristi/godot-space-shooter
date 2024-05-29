@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://0x52vg1d6dtb"]
+[gd_scene load_steps=7 format=3 uid="uid://0x52vg1d6dtb"]
 
 [ext_resource type="Texture2D" uid="uid://djo1i7dbp1bxf" path="res://assets/laser_small.png" id="1_hpe6b"]
 [ext_resource type="Script" path="res://projectiles/player_projectile_small.gd" id="1_pydf7"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="2_w5xmj"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="4_oqmf5"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="5_1611q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wpwc"]
+size = Vector2(2, 4)
 
 [node name="PlayerProjectileSmall" type="Node2D"]
 script = ExtResource("1_pydf7")
@@ -24,3 +28,11 @@ script = ExtResource("4_oqmf5")
 sprite = NodePath("../Sprite2D")
 scale_amount = Vector2(2, 2)
 scale_duration = 1.0
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_1611q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_4wpwc")

@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://00dbmurglq45"]
+
+[ext_resource type="Script" path="res://components/move_component.gd" id="1_8btu3"]
+[ext_resource type="Script" path="res://enemies/enemy.gd" id="1_h2emu"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="2_lko55"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="3_r2n64"]
+[ext_resource type="Script" path="res://components/flash_component.gd" id="4_bdxlj"]
+[ext_resource type="Script" path="res://components/shake_component.gd" id="5_55vci"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="7_ytuho"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="8_itsm4"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="9_ha7el"]
+[ext_resource type="Script" path="res://components/destroyed_component.gd" id="10_lh6iy"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="11_kh874"]
+[ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="12_l0k32"]
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_h2emu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("1_8btu3")
+velocity = Vector2(0, 40)
+actor = NodePath("..")
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("2_lko55")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_r2n64")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_bdxlj")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("5_55vci")
+node = NodePath("../AnimatedSprite2D")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+script = ExtResource("7_ytuho")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("8_itsm4")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("9_ha7el")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+script = ExtResource("10_lh6iy")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+destroy_effect_spawner_component = NodePath("../SpawnerComponent")
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("11_kh874")
+scene = ExtResource("12_l0k32")
