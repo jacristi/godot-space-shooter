@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bg163mkpa1pci"]
+
+[ext_resource type="Texture2D" uid="uid://c8kb48nqbudf" path="res://assets/space.png" id="1_c6e1s"]
+[ext_resource type="Texture2D" uid="uid://bcaopryghcbmu" path="res://assets/far_stars.png" id="2_ler7n"]
+[ext_resource type="Texture2D" uid="uid://t742v5ksqt6e" path="res://assets/close_stars.png" id="3_o6a1h"]
+
+[node name="SpaceBackground" type="ParallaxBackground"]
+
+[node name="SpaceLayer" type="ParallaxLayer" parent="."]
+
+[node name="Space" type="TextureRect" parent="SpaceLayer"]
+offset_right = 160.0
+offset_bottom = 240.0
+texture = ExtResource("1_c6e1s")
+stretch_mode = 1
+
+[node name="FarStarsLayer" type="ParallaxLayer" parent="."]
+
+[node name="FarStars" type="TextureRect" parent="FarStarsLayer"]
+offset_right = 160.0
+offset_bottom = 240.0
+texture = ExtResource("2_ler7n")
+stretch_mode = 1
+
+[node name="NearStarsLayer" type="ParallaxLayer" parent="."]
+
+[node name="NearStars" type="TextureRect" parent="NearStarsLayer"]
+offset_right = 160.0
+offset_bottom = 240.0
+texture = ExtResource("3_o6a1h")
+stretch_mode = 1
