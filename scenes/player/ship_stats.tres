@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="PlayerShip1Stats" load_steps=2 format=3 uid="uid://bmrcugdsoy8o3"]
+[gd_resource type="Resource" script_class="ShipStats" load_steps=2 format=3 uid="uid://bmrcugdsoy8o3"]
 
-[ext_resource type="Script" path="res://components/player_ship1_stats.gd" id="1_1yidt"]
+[ext_resource type="Script" path="res://components/player_ship1_stats.gd" id="1_r10yv"]
 
 [resource]
-script = ExtResource("1_1yidt")
+script = ExtResource("1_r10yv")
+v_move_speed = 25.0
+h_move_speed = 75.0
