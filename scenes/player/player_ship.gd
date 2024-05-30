@@ -8,6 +8,7 @@ extends Node2D
 @onready var move_component: MoveComponent       = $MoveComponent
 @onready var ship_animated_sprite: AnimatedSprite2D   = $SpriteAnchor/ShipAnimatedSprite
 @onready var thrust_animated_sprite: AnimatedSprite2D = $SpriteAnchor/ThrustAnimatedSprite
+@onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 
 
 func _ready():
@@ -20,6 +21,7 @@ func _process(delta: float) -> void:
     
 
 func fire_projectiles() -> void:
+    audio_player.play_with_variance()
     spawner_component.spawn(projectile_source_left.global_position)
     spawner_component.spawn(projectile_source_right.global_position)
     scale_component.tween_scale()
