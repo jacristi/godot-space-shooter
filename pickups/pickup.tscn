@@ -1,0 +1,133 @@
+[gd_scene load_steps=25 format=3 uid="uid://bfgfj802ng1mt"]
+
+[ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
+[ext_resource type="Texture2D" uid="uid://caiq5b1xdr6yg" path="res://assets/energy_pickup.png" id="2_52vei"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="3_8g3hp"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="4_cha0t"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="5_51djb"]
+[ext_resource type="Script" path="res://components/flash_component.gd" id="6_5oq4s"]
+[ext_resource type="Script" path="res://components/shake_component.gd" id="7_3i3aa"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="8_7brgn"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="9_ly3yr"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="10_73utc"]
+[ext_resource type="Script" path="res://components/destroyed_component.gd" id="11_fqhq0"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="12_4ioft"]
+[ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="13_l4y4i"]
+[ext_resource type="Script" path="res://components/score_component.gd" id="14_kwssh"]
+[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="15_amcmb"]
+[ext_resource type="AudioStream" uid="uid://5v7oh1bvc3l4" path="res://sounds/hit_sound.wav" id="16_bfb54"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="17_7k5dx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1pll"]
+atlas = ExtResource("2_52vei")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5huoo"]
+atlas = ExtResource("2_52vei")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2idd"]
+atlas = ExtResource("2_52vei")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ve78e"]
+atlas = ExtResource("2_52vei")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wjdo3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1pll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5huoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2idd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ve78e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl3m7"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aj2w6"]
+size = Vector2(2, 2)
+
+[node name="Pickup" type="Node2D"]
+script = ExtResource("1_q6wj0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wjdo3")
+autoplay = "default"
+frame_progress = 0.98177
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("3_8g3hp")
+velocity = Vector2(0, 5)
+actor = NodePath("..")
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("4_cha0t")
+health = 10
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("5_51djb")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("6_5oq4s")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("7_3i3aa")
+node = NodePath("../AnimatedSprite2D")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_7brgn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_pl3m7")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("9_ly3yr")
+damage = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_aj2w6")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("10_73utc")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+script = ExtResource("11_fqhq0")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+destroy_effect_spawner_component = NodePath("../SpawnerComponent")
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("12_4ioft")
+scene = ExtResource("13_l4y4i")
+
+[node name="ScoreComponent" type="Node" parent="."]
+script = ExtResource("14_kwssh")
+game_stats = ExtResource("15_amcmb")
+adjust_amount = 10
+
+[node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_bfb54")
+bus = &"SFX"
+script = ExtResource("17_7k5dx")
