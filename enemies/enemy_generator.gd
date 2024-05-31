@@ -20,25 +20,25 @@ func _ready() -> void:
     green_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             GreenEnemyScene,
-            green_enemy_spawn_timer
-            
+            green_enemy_spawn_timer,
+            2
         )
     )
     yellow_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             YellowEnemyScene,
             yellow_enemy_spawn_timer,
-            5.0
+            10
         )
     )
     pink_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             PinkEnemyScene,
             pink_enemy_spawn_timer,
-            10
+            20
             )
         )
-        
+
     game_stats.score_changed.connect(check_enable_enemy_timers)
     
 func check_enable_enemy_timers(new_score: int):
@@ -47,6 +47,7 @@ func check_enable_enemy_timers(new_score: int):
     
     if new_score > 80:
         pink_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
 
 func handle_enemy_spawn(enemy_scene: PackedScene, timer: Timer, time_offset: float=1.0) -> void:
     spawner_component.scene = enemy_scene
