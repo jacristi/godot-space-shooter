@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://yyj83jss4nbu"]
+[gd_scene load_steps=8 format=3 uid="uid://yyj83jss4nbu"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_1juuu"]
 [ext_resource type="PackedScene" uid="uid://kv3iri7trh6a" path="res://scenes/player/player_ship.tscn" id="1_pygth"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dtkt6ce0d5p2g" path="res://effects/space_background.tscn" id="2_jcunf"]
 [ext_resource type="PackedScene" uid="uid://cjjsl54xehrvt" path="res://enemies/enemy_generator.tscn" id="3_o0xhe"]
 [ext_resource type="LabelSettings" uid="uid://cjof1qwn8asa1" path="res://fonts/default_label_settings.tres" id="5_tlyl2"]
+[ext_resource type="PackedScene" uid="uid://3etvr5r3lq15" path="res://ui/pause_menu.tscn" id="7_of8lj"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1juuu")
@@ -25,3 +26,9 @@ text = "Score"
 label_settings = ExtResource("5_tlyl2")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_of8lj")]
+offset_left = 81.0
+offset_top = 77.0
+offset_right = 81.0
+offset_bottom = 77.0
