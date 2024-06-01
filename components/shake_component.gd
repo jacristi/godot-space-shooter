@@ -22,10 +22,10 @@ func tween_shake():
     # Set the shake to the shake amount (shake is the value used in the process function to
     # shake the node)
     shake = shake_amount
-    
+
     # Create a tween
     var tween = create_tween()
-    
+
     # Tween the shake value from current down to 0 over the shake duration
     tween.tween_property(self, "shake", 0.0, shake_duration).from_current()
 

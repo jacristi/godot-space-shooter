@@ -25,6 +25,6 @@ func was_hurt(hitbox: HitboxComponent) -> void:
     scale_component.tween_scale()
     shake_component.tween_shake()
     audio_player.play_with_variance()
-    
+
 func give_score_on_death() -> void:
     score_component.adjust_score()

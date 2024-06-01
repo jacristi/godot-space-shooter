@@ -13,18 +13,18 @@ extends Enemy
 
 func _ready() -> void:
     super()
-    
+
     for state in states.get_children():
         state = state as StateComponent
         state.disable()
-        
+
     move_strafe_component.velocity.x = [-20, 20].pick_random()
-    
+
     move_down_state.state_finished.connect(strafe_state.enable)
     strafe_state.state_finished.connect(pause_state.enable)
     pause_state.state_finished.connect(run_fire_state)
     fire_state.state_finished.connect(move_down_state.enable)
-    
+
     move_down_state.enable()
 
 

@@ -40,11 +40,11 @@ func _ready() -> void:
         )
 
     game_stats.score_changed.connect(check_enable_enemy_timers)
-    
+
 func check_enable_enemy_timers(new_score: int):
     if new_score > 25:
         yellow_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
-    
+
     if new_score > 80:
         pink_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
