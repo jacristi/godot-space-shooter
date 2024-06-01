@@ -1,38 +1,59 @@
-[gd_scene load_steps=10 format=3 uid="uid://bn37hg8rvt4in"]
+[gd_scene load_steps=13 format=3 uid="uid://bn37hg8rvt4in"]
 
 [ext_resource type="PackedScene" uid="uid://bfgfj802ng1mt" path="res://pickups/pickup.tscn" id="1_lcx6e"]
-[ext_resource type="Texture2D" uid="uid://caiq5b1xdr6yg" path="res://assets/energy_pickup.png" id="2_nn73v"]
+[ext_resource type="Texture2D" uid="uid://yapodnb80tn2" path="res://assets/pickups.png" id="2_rmyun"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1xbmg"]
-atlas = ExtResource("2_nn73v")
-region = Rect2(0, 0, 8, 8)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1itdo"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwjxy"]
-atlas = ExtResource("2_nn73v")
-region = Rect2(8, 0, 8, 8)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j77n7"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5bu0i"]
-atlas = ExtResource("2_nn73v")
-region = Rect2(16, 0, 8, 8)
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8sg8"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rbv10"]
-atlas = ExtResource("2_nn73v")
-region = Rect2(24, 0, 8, 8)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xphf"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_a3w7m"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d3j6"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx0wq"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lxd1"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grv4a"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1xbmg")
+"texture": SubResource("AtlasTexture_1itdo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hwjxy")
+"texture": SubResource("AtlasTexture_j77n7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5bu0i")
+"texture": SubResource("AtlasTexture_k8sg8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rbv10")
+"texture": SubResource("AtlasTexture_7xphf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d3j6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx0wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lxd1")
 }],
 "loop": true,
 "name": &"default",
@@ -48,9 +69,8 @@ size = Vector2(6, 6)
 [node name="BluePickup" instance=ExtResource("1_lcx6e")]
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-sprite_frames = SubResource("SpriteFrames_a3w7m")
-frame = 1
-frame_progress = 0.292507
+sprite_frames = SubResource("SpriteFrames_grv4a")
+frame_progress = 0.0670588
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="3"]
 position = Vector2(2.38419e-07, 2.38419e-07)
