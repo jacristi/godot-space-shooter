@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var pickup_score: int
 
 @onready var move_component:  MoveComponent  = $MoveComponent
 @onready var stats_component: StatsComponent = $StatsComponent
@@ -32,5 +33,5 @@ func handle_on_death() -> void:
 
 func handle_on_collect(hurtbox: HurtboxComponent) -> void:
 
-    score_component.adjust_score(150)
+    score_component.adjust_score(pickup_score)
     collected_component.destroy()

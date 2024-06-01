@@ -67,10 +67,14 @@ size = Vector2(4, 4)
 size = Vector2(6, 6)
 
 [node name="BluePickup" instance=ExtResource("1_lcx6e")]
+pickup_score = 300
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_grv4a")
-frame_progress = 0.0670588
+frame_progress = 0.417294
+
+[node name="MoveComponent" parent="." index="1"]
+velocity = Vector2(0, 15)
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="3"]
 position = Vector2(2.38419e-07, 2.38419e-07)
@@ -78,6 +82,7 @@ scale = Vector2(0.4, 0.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_1i5wb")
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_ltjyi")
