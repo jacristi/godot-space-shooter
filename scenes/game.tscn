@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://yyj83jss4nbu"]
+[gd_scene load_steps=9 format=3 uid="uid://yyj83jss4nbu"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_1juuu"]
 [ext_resource type="PackedScene" uid="uid://kv3iri7trh6a" path="res://scenes/player/player_ship.tscn" id="1_pygth"]
 [ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="2_cxryx"]
 [ext_resource type="PackedScene" uid="uid://dtkt6ce0d5p2g" path="res://effects/space_background.tscn" id="2_jcunf"]
 [ext_resource type="PackedScene" uid="uid://cjjsl54xehrvt" path="res://enemies/enemy_generator.tscn" id="3_o0xhe"]
+[ext_resource type="PackedScene" uid="uid://di2ph76flv6jj" path="res://pickups/pickup_generator.tscn" id="5_824rs"]
 [ext_resource type="LabelSettings" uid="uid://cjof1qwn8asa1" path="res://fonts/default_label_settings.tres" id="5_tlyl2"]
 [ext_resource type="PackedScene" uid="uid://3etvr5r3lq15" path="res://ui/pause_menu.tscn" id="7_of8lj"]
 
@@ -16,6 +17,8 @@ game_stats = ExtResource("2_cxryx")
 position = Vector2(80, 216)
 
 [node name="SpaceBackground" parent="." instance=ExtResource("2_jcunf")]
+
+[node name="PickupGenerator" parent="." instance=ExtResource("5_824rs")]
 
 [node name="EnemyGenerator" parent="." instance=ExtResource("3_o0xhe")]
 
