@@ -10,7 +10,8 @@ extends Node2D
 @onready var move_component: MoveComponent       = $MoveComponent
 @onready var ship_animated_sprite: AnimatedSprite2D   = $SpriteAnchor/ShipAnimatedSprite
 @onready var thrust_animated_sprite: AnimatedSprite2D = $SpriteAnchor/ThrustAnimatedSprite
-@onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
+@onready var shoot_audio_player: VariablePitchAudioStreamPlayer = $ShootAudioStreamPlayer
+@onready var level_up_audio_stream_player: VariablePitchAudioStreamPlayer = $LevelUpAudioStreamPlayer
 
 
 var TIMER_POINT_BREAKS = {
@@ -36,11 +37,12 @@ func _ready():
 
 func update_fire_rate(new_score: int) -> void:
     var t = fire_rate_timer.wait_time
-    
+
     for k in TIMER_POINT_BREAKS:
         var v = TIMER_POINT_BREAKS[k]
         if new_score > k and t > v:
             fire_rate_timer.wait_time = v
+            level_up_audio_stream_player.play_with_variance()
             print('changed: ' + str(fire_rate_timer.wait_time))
 
 
@@ -49,7 +51,7 @@ func _process(delta: float) -> void:
 
 
 func fire_projectiles() -> void:
-    audio_player.play_with_variance()
+    shoot_audio_player.play_with_variance()
     spawner_component.spawn(projectile_source_left.global_position)
     spawner_component.spawn(projectile_source_right.global_position)
     scale_component.tween_scale()

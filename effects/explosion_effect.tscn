@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dfeu7ev8hphnj" path="res://assets/explosion.png" id="1_36fad"]
 [ext_resource type="Script" path="res://components/onetime_animated_effect.gd" id="1_th1t3"]
-[ext_resource type="AudioStream" uid="uid://bc5tily36yrs4" path="res://sounds/explosion_sound.wav" id="3_hhmuo"]
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="3_t6ce6"]
+[ext_resource type="AudioStream" uid="uid://bc5tily36yrs4" path="res://sfx/orig/explosion_sound.wav" id="3_yjgjv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cse4f"]
 atlas = ExtResource("1_36fad")
@@ -56,8 +56,8 @@ frame_progress = 1.0
 script = ExtResource("1_th1t3")
 
 [node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_hhmuo")
-volume_db = -12.0
+stream = ExtResource("3_yjgjv")
+volume_db = -11.716
 bus = &"SFX"
 script = ExtResource("3_t6ce6")
 auto_play_with_variance = true

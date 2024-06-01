@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bn37hg8rvt4in"]
+
+[ext_resource type="PackedScene" uid="uid://bfgfj802ng1mt" path="res://pickups/pickup.tscn" id="1_lcx6e"]
+[ext_resource type="Texture2D" uid="uid://caiq5b1xdr6yg" path="res://assets/energy_pickup.png" id="2_nn73v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xbmg"]
+atlas = ExtResource("2_nn73v")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwjxy"]
+atlas = ExtResource("2_nn73v")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bu0i"]
+atlas = ExtResource("2_nn73v")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbv10"]
+atlas = ExtResource("2_nn73v")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a3w7m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xbmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwjxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bu0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbv10")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1i5wb"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltjyi"]
+size = Vector2(6, 6)
+
+[node name="BluePickup" instance=ExtResource("1_lcx6e")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_a3w7m")
+frame = 1
+frame_progress = 0.292507
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(0.4, 0.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_1i5wb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_ltjyi")
