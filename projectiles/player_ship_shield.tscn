@@ -86,7 +86,7 @@ actor = NodePath("..")
 game_stats = ExtResource("6_am3n5")
 
 [node name="DurationTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 8.0
 one_shot = true
 autostart = true
 

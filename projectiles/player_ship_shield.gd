@@ -13,7 +13,7 @@ func _ready():
     )
 
 func _process(delta: float) -> void:
-    if duration_timer.time_left <= 2.6:
+    if duration_timer.time_left <= 3.25:
         set_flash_continuous()
 
 
