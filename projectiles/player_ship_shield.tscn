@@ -1,0 +1,99 @@
+[gd_scene load_steps=15 format=3 uid="uid://xxsws20p7731"]
+
+[ext_resource type="Script" path="res://projectiles/player_ship_shield.gd" id="1_ky6ca"]
+[ext_resource type="Texture2D" uid="uid://bgnhgpwp2kwot" path="res://assets/shield_pickup.png" id="2_xadqe"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="3_i4ul4"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="4_466j0"]
+[ext_resource type="Script" path="res://components/follow_component.gd" id="5_jmms0"]
+[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="6_am3n5"]
+[ext_resource type="Script" path="res://components/flash_component.gd" id="7_u8vj0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boi8x"]
+atlas = ExtResource("2_xadqe")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcw1c"]
+atlas = ExtResource("2_xadqe")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b2h0"]
+atlas = ExtResource("2_xadqe")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77ryb"]
+atlas = ExtResource("2_xadqe")
+region = Rect2(60, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwym1"]
+atlas = ExtResource("2_xadqe")
+region = Rect2(80, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bwx6v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boi8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcw1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5b2h0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77ryb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwym1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ohwug"]
+
+[node name="PlayerShipShield" type="Node2D"]
+script = ExtResource("1_ky6ca")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bwx6v")
+autoplay = "default"
+frame_progress = 0.0885023
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(5.36442e-07, 0)
+scale = Vector2(0.9, 0.9)
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_i4ul4")
+sprite = NodePath("../AnimatedSprite2D")
+scale_amount = Vector2(2, 2)
+scale_duration = 1.0
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("4_466j0")
+damage = 12.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_ohwug")
+
+[node name="FollowComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("5_jmms0")
+actor = NodePath("..")
+game_stats = ExtResource("6_am3n5")
+
+[node name="DurationTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
+[node name="FlashTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 0.5
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("7_u8vj0")
+sprite = NodePath("../AnimatedSprite2D")

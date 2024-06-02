@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://bn37hg8rvt4in"]
+
+[ext_resource type="PackedScene" uid="uid://bfgfj802ng1mt" path="res://pickups/pickup.tscn" id="1_lcx6e"]
+[ext_resource type="Texture2D" uid="uid://yapodnb80tn2" path="res://assets/pickups.png" id="2_rmyun"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1itdo"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j77n7"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8sg8"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xphf"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d3j6"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx0wq"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lxd1"]
+atlas = ExtResource("2_rmyun")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grv4a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1itdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j77n7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8sg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xphf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d3j6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx0wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lxd1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1i5wb"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltjyi"]
+size = Vector2(6, 6)
+
+[node name="BluePickup" instance=ExtResource("1_lcx6e")]
+pickup_score = 300
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_grv4a")
+frame_progress = 0.294251
+
+[node name="MoveComponent" parent="." index="1"]
+velocity = Vector2(0, 15)
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(0.4, 0.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_1i5wb")
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_ltjyi")

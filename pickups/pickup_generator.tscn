@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://di2ph76flv6jj"]
+
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="1_a116s"]
+[ext_resource type="Script" path="res://pickups/pickup_generator.gd" id="1_xw532"]
+[ext_resource type="PackedScene" uid="uid://0dqkb5n4y50j" path="res://pickups/yellow_pickup.tscn" id="3_cj8ys"]
+[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="3_itmc1"]
+[ext_resource type="PackedScene" uid="uid://bn37hg8rvt4in" path="res://pickups/blue_pickup.tscn" id="3_o20su"]
+[ext_resource type="PackedScene" uid="uid://chrwe6wygwpss" path="res://pickups/green_pickup.tscn" id="4_r45pj"]
+
+[node name="PickupGenerator" type="Node2D"]
+script = ExtResource("1_xw532")
+BluePickupScene = ExtResource("3_o20su")
+YellowPickupScene = ExtResource("3_cj8ys")
+GreenPickupScene = ExtResource("4_r45pj")
+game_stats = ExtResource("3_itmc1")
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("1_a116s")
+scene = ExtResource("3_o20su")
+
+[node name="BluePickupSpawnTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 45.0
+one_shot = true
+autostart = true
+
+[node name="YelllowPickupSpawnTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 80.0
+one_shot = true
+autostart = true
+
+[node name="GreenPickupSpawnTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 60.0
+one_shot = true
+autostart = true

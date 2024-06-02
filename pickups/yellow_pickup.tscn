@@ -1,0 +1,95 @@
+[gd_scene load_steps=15 format=3 uid="uid://0dqkb5n4y50j"]
+
+[ext_resource type="PackedScene" uid="uid://bfgfj802ng1mt" path="res://pickups/pickup.tscn" id="1_81su2"]
+[ext_resource type="Texture2D" uid="uid://yapodnb80tn2" path="res://assets/pickups.png" id="2_s3bju"]
+[ext_resource type="PackedScene" uid="uid://dj8gox2cs60nn" path="res://projectiles/yellow_pickup_projectile.tscn" id="3_bccy1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rb587"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_futsf"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oijkh"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xjlq"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26w64"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcgs1"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yew1"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y7sm"]
+atlas = ExtResource("2_s3bju")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p73qu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rb587")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_futsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oijkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xjlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26w64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcgs1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yew1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y7sm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmt0d"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otr3n"]
+size = Vector2(6, 6)
+
+[node name="YellowPickup" instance=ExtResource("1_81su2")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_p73qu")
+frame = 7
+frame_progress = 0.749248
+
+[node name="MoveComponent" parent="." index="1"]
+velocity = Vector2(0, 25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_vmt0d")
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_otr3n")
+
+[node name="CollectedSpawnerComponent" parent="." index="13"]
+scene = ExtResource("3_bccy1")

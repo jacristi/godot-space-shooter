@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://nosut8si5fh1"]
+
+[ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="1_2mw24"]
+[ext_resource type="Texture2D" uid="uid://0bo65v54r6cj" path="res://assets/explosions.png" id="2_big4s"]
+[ext_resource type="AudioStream" uid="uid://dmvk7yrt6ufwy" path="res://sfx/pickup_sound_1.wav" id="3_7c6q5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ake3w"]
+atlas = ExtResource("2_big4s")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4hf6"]
+atlas = ExtResource("2_big4s")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81bgf"]
+atlas = ExtResource("2_big4s")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sua5g"]
+atlas = ExtResource("2_big4s")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7yft"]
+atlas = ExtResource("2_big4s")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5qmt"]
+atlas = ExtResource("2_big4s")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgmpt"]
+atlas = ExtResource("2_big4s")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b0qgx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ake3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4hf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81bgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sua5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7yft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5qmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgmpt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="BlueExplosionEffect" instance=ExtResource("1_2mw24")]
+sprite_frames = SubResource("SpriteFrames_b0qgx")
+frame = 5
+frame_progress = 0.0059667
+
+[node name="VariablePitchAudioStreamPlayer" parent="." index="0"]
+stream = ExtResource("3_7c6q5")

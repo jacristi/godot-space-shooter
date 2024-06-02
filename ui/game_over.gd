@@ -16,7 +16,7 @@ func _ready() -> void:
     if game_stats.score > game_stats.high_score:
         game_stats.high_score = game_stats.score
         save_high_score()
-        
+
     score_value_label.text = str(game_stats.score)
     high_score_value_label.text = str(game_stats.high_score)
 
@@ -29,14 +29,14 @@ func _process(delta: float) -> void:
 
 func load_high_score() -> void:
     var config = ConfigFile.new()
-    var error = config.load(save_path)  
+    var error = config.load(save_path)
     if error != OK: return
-    
+
     game_stats.high_score = config.get_value("game", high_score_key)
-    
+
 
 func save_high_score() -> void:
     var config = ConfigFile.new()
     config.set_value("game", high_score_key, game_stats.high_score)
     config.save(save_path)
-    
+
