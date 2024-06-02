@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var self_node: Node2D
 @export var game_stats: GameStats
 
 @onready var fire_rate_timer: Timer              = $FireRateTimer
@@ -41,6 +42,7 @@ var TIMER_POINT_BREAKS = {
 func _ready():
     fire_rate_timer.timeout.connect(fire_projectiles)
     game_stats.score_changed.connect(update_fire_rate)
+    game_stats.player = self_node
 
 
 func update_fire_rate(new_score: int) -> void:

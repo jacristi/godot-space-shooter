@@ -81,6 +81,9 @@ sprite_frames = SubResource("SpriteFrames_p73qu")
 frame = 7
 frame_progress = 0.749248
 
+[node name="MoveComponent" parent="." index="1"]
+velocity = Vector2(0, 25)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_vmt0d")
 disabled = true

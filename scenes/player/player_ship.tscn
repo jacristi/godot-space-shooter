@@ -161,8 +161,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="PlayerShip" type="Node2D"]
+[node name="PlayerShip" type="Node2D" node_paths=PackedStringArray("self_node")]
 script = ExtResource("1_fjqor")
+self_node = NodePath(".")
 game_stats = ExtResource("2_5khej")
 
 [node name="SpriteAnchor" type="Node2D" parent="."]

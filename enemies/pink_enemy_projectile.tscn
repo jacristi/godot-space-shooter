@@ -1,10 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://mfl3s8qf3rqq"]
+[gd_scene load_steps=19 format=3 uid="uid://mfl3s8qf3rqq"]
 
 [ext_resource type="Script" path="res://enemies/pink_enemy_projectile.gd" id="1_2l6lw"]
 [ext_resource type="Texture2D" uid="uid://dvdqvmmqu3o8i" path="res://assets/pink_enemy_projectile.png" id="1_fs6qf"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_60pe4"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="3_7oqgp"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="4_ba2tg"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="4_jtbpj"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="7_nc07f"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="8_bhxio"]
+[ext_resource type="Script" path="res://components/destroyed_component.gd" id="9_lwggx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpi17"]
 atlas = ExtResource("1_fs6qf")
@@ -45,6 +49,21 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3exes"]
 size = Vector2(2, 2)
 
+[sub_resource type="Animation" id="Animation_mmr3w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_vlypb"]
 resource_name = "oscillation"
 loop_mode = 1
@@ -59,21 +78,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-4, 0), Vector2(4, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_mmr3w"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ow2kn"]
@@ -100,6 +104,14 @@ script = ExtResource("2_60pe4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor/HitboxComponent"]
 shape = SubResource("RectangleShape2D_3exes")
 
+[node name="HurtboxComponent" type="Area2D" parent="Anchor"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_ba2tg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor/HurtboxComponent"]
+shape = SubResource("RectangleShape2D_3exes")
+
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("3_7oqgp")
 velocity = Vector2(0, 40)
@@ -119,3 +131,17 @@ libraries = {
 "": SubResource("AnimationLibrary_ow2kn")
 }
 autoplay = "oscillation"
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("7_nc07f")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("8_bhxio")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../Anchor/HurtboxComponent")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+script = ExtResource("9_lwggx")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+destroy_effect_spawner_component = NodePath("")
