@@ -1,0 +1,142 @@
+[gd_scene load_steps=13 format=3 uid="uid://dj8gox2cs60nn"]
+
+[ext_resource type="Texture2D" uid="uid://bxo4yuoou4f3" path="res://assets/yellow_pickup_projectile.png" id="1_gh6fg"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="2_abl6h"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="3_l7623"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="4_4qgp3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ualp"]
+size = Vector2(85, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkmi7"]
+atlas = ExtResource("1_gh6fg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d01ki"]
+atlas = ExtResource("1_gh6fg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgbxw"]
+atlas = ExtResource("1_gh6fg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcfm5"]
+atlas = ExtResource("1_gh6fg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3r3k"]
+atlas = ExtResource("1_gh6fg")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6quhx"]
+atlas = ExtResource("1_gh6fg")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_popwo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkmi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d01ki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgbxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcfm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3r3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6quhx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="YellowPickupProjectile" type="Node2D"]
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_abl6h")
+velocity = Vector2(0, -100)
+actor = NodePath("..")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.5, 3.57628e-07)
+scale = Vector2(4.35, 0.6)
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_l7623")
+sprite = NodePath("../Projectile1/AnimatedSprite2D")
+scale_amount = Vector2(2, 2)
+scale_duration = 1.0
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_4qgp3")
+damage = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_7ualp")
+
+[node name="Projectile1" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile1"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame = 3
+frame_progress = 0.59684
+
+[node name="Projectile2" type="Node2D" parent="."]
+position = Vector2(-12, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile2"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame_progress = 0.918409
+
+[node name="Projectile3" type="Node2D" parent="."]
+position = Vector2(12, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile3"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame_progress = 0.918409
+
+[node name="Projectile4" type="Node2D" parent="."]
+position = Vector2(-24, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile4"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame_progress = 0.918409
+
+[node name="Projectile5" type="Node2D" parent="."]
+position = Vector2(24, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile5"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame_progress = 0.918409
+
+[node name="Projectile6" type="Node2D" parent="."]
+position = Vector2(-36, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile6"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame_progress = 0.918409
+
+[node name="Projectile7" type="Node2D" parent="."]
+position = Vector2(37, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile7"]
+sprite_frames = SubResource("SpriteFrames_popwo")
+autoplay = "default"
+frame_progress = 0.918409

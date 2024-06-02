@@ -71,7 +71,7 @@ pickup_score = 300
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_grv4a")
-frame_progress = 0.417294
+frame_progress = 0.294251
 
 [node name="MoveComponent" parent="." index="1"]
 velocity = Vector2(0, 15)

@@ -27,8 +27,14 @@ var TIMER_POINT_BREAKS = {
         2200: .15,
         2600: .125,
         3000: .1,
-        4000: .075,
-        5000: .05,
+        5000: .075,
+        9000: .05,
+        16000: .025,
+        25000: .0225,
+        35000: .02,
+        50000: .0175,
+        70000: .015,
+        100000: .01,
     }
 
 
@@ -45,7 +51,6 @@ func update_fire_rate(new_score: int) -> void:
         if new_score > k and t > v:
             fire_rate_timer.wait_time = v
             level_up_audio_stream_player.play_with_variance()
-            print('changed: ' + str(fire_rate_timer.wait_time))
 
 
 func _process(delta: float) -> void:

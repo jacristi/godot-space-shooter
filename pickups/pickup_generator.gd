@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var BluePickupScene: PackedScene
+@export var YellowPickupScene: PackedScene
 
 var margin := 8
 var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
@@ -9,6 +10,7 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 
 @onready var spawner_component: SpawnerComponent = $SpawnerComponent
 @onready var blue_pickup_spawn_timer: Timer = $BluePickupSpawnTimer
+@onready var yelllow_pickup_spawn_timer: Timer = $YelllowPickupSpawnTimer
 
 
 func _ready() -> void:
@@ -19,12 +21,22 @@ func _ready() -> void:
         )
     )
 
+    yelllow_pickup_spawn_timer.timeout.connect(
+        handle_pickup_spawn.bind(
+            YellowPickupScene,
+            yelllow_pickup_spawn_timer
+        )
+    )
+
     game_stats.score_changed.connect(check_enable_pickup_timers)
 
 
 func check_enable_pickup_timers(new_score: int):
     if new_score > 100:
         blue_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
+    if new_score > 500:
+        yelllow_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
 
 func handle_pickup_spawn(pickup_scene: PackedScene, timer: Timer) -> void:

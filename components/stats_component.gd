@@ -4,14 +4,14 @@ extends Node
 
 # Create the health variable and connect a setter
 @export var health: int = 1:
-	set(value):
-		health = value
-		
-		# Signal out that the health has changed
-		health_changed.emit()
-		
-		# Signal out when health is at 0
-		if health == 0: no_health.emit()
+    set(value):
+        health = value
+
+        # Signal out that the health has changed
+        health_changed.emit()
+
+        # Signal out when health is at 0
+        if health <= 0: no_health.emit()
 
 # Create our signals for health
 signal health_changed() # Emit when the health value has changed
