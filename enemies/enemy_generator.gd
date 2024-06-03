@@ -3,6 +3,7 @@ extends Node2D
 @export var GreenEnemyScene: PackedScene
 @export var YellowEnemyScene: PackedScene
 @export var PinkEnemyScene: PackedScene
+@export var RedEnemyScene: PackedScene
 
 @export var game_stats: GameStats
 
@@ -14,6 +15,7 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var green_enemy_spawn_timer: Timer  = $GreenEnemySpawnTimer
 @onready var yellow_enemy_spawn_timer: Timer = $YellowEnemySpawnTimer
 @onready var pink_enemy_spawn_timer: Timer   = $PinkEnemySpawnTimer
+@onready var red_enemy_spawn_timer: Timer = $RedEnemySpawnTimer
 
 
 func _ready() -> void:
@@ -21,21 +23,29 @@ func _ready() -> void:
         handle_enemy_spawn.bind(
             GreenEnemyScene,
             green_enemy_spawn_timer,
-            2
+            5
         )
     )
     yellow_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             YellowEnemyScene,
             yellow_enemy_spawn_timer,
-            10
+            30
         )
     )
     pink_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             PinkEnemyScene,
             pink_enemy_spawn_timer,
-            20
+            50
+            )
+        )
+
+    red_enemy_spawn_timer.timeout.connect(
+        handle_enemy_spawn.bind(
+            RedEnemyScene,
+            red_enemy_spawn_timer,
+            120
             )
         )
 
@@ -48,8 +58,15 @@ func check_enable_enemy_timers(new_score: int):
     if new_score > 80:
         pink_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
+    if new_score > 50:
+        red_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-func handle_enemy_spawn(enemy_scene: PackedScene, timer: Timer, time_offset: float=1.0) -> void:
+
+func handle_enemy_spawn(
+        enemy_scene: PackedScene,
+        timer: Timer,
+        time_offset: float=1.0
+    ) -> void:
     spawner_component.scene = enemy_scene
     spawner_component.spawn(
         Vector2(

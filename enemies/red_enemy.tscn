@@ -1,0 +1,138 @@
+[gd_scene load_steps=17 format=3 uid="uid://3xntr8qxh4wt"]
+
+[ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_2ehnv"]
+[ext_resource type="Script" path="res://enemies/red_enemy.gd" id="2_4p67c"]
+[ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="2_aculg"]
+[ext_resource type="Texture2D" uid="uid://djb7bi54kko6v" path="res://assets/enemies.png" id="2_dddo1"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="3_mptl4"]
+[ext_resource type="Script" path="res://components/border_bounce_component.gd" id="4_ik4bt"]
+[ext_resource type="Script" path="res://components/state_component.gd" id="5_w7xsl"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="6_tyi7e"]
+[ext_resource type="PackedScene" uid="uid://bf1xy1nwgkv4d" path="res://enemies/red_enemy_projectile.tscn" id="8_w4fov"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5khl"]
+atlas = ExtResource("2_dddo1")
+region = Rect2(0, 32, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rj7xt"]
+atlas = ExtResource("2_dddo1")
+region = Rect2(8, 32, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgt2v"]
+atlas = ExtResource("2_dddo1")
+region = Rect2(16, 32, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk2mk"]
+atlas = ExtResource("2_dddo1")
+region = Rect2(24, 32, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pefsp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5khl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rj7xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgt2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk2mk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4qrm"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05yh8"]
+size = Vector2(4, 6)
+
+[node name="RedEnemy" instance=ExtResource("1_2ehnv")]
+script = ExtResource("2_4p67c")
+num_projectile_shots = 3
+num_projectile_cycles = 3
+strafe_velocity = Vector2(40, 0)
+
+[node name="States" type="Node" parent="." index="0"]
+
+[node name="EnterState" type="Node" parent="States" index="0"]
+unique_name_in_owner = true
+script = ExtResource("2_aculg")
+duration = 1.5
+
+[node name="MoveEnterComponent" type="Node" parent="States/EnterState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("3_mptl4")
+velocity = Vector2(0, 20)
+actor = NodePath("../../..")
+
+[node name="IdleState" type="Node" parent="States" index="1"]
+unique_name_in_owner = true
+script = ExtResource("2_aculg")
+
+[node name="StrafeState" type="Node" parent="States" index="2"]
+unique_name_in_owner = true
+script = ExtResource("2_aculg")
+duration = 1.5
+
+[node name="MoveStrafeComponent" type="Node" parent="States/StrafeState" index="0" node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("3_mptl4")
+actor = NodePath("../../..")
+
+[node name="BorderBounceComponent" type="Node" parent="States/StrafeState" index="1" node_paths=PackedStringArray("actor", "move_component")]
+script = ExtResource("4_ik4bt")
+actor = NodePath("../../..")
+move_component = NodePath("../MoveStrafeComponent")
+
+[node name="PauseState" type="Node" parent="States" index="3"]
+unique_name_in_owner = true
+script = ExtResource("2_aculg")
+
+[node name="FireState" type="Node" parent="States" index="4"]
+script = ExtResource("5_w7xsl")
+
+[node name="ProjectileSpawner" type="Node2D" parent="States/FireState" index="0"]
+unique_name_in_owner = true
+script = ExtResource("6_tyi7e")
+scene = ExtResource("8_w4fov")
+
+[node name="ProjectileTimer" type="Timer" parent="States/FireState" index="1"]
+wait_time = 0.5
+one_shot = true
+
+[node name="RetreatState" type="Node" parent="States" index="5"]
+script = ExtResource("5_w7xsl")
+
+[node name="MoveRetreatComponent" type="Node" parent="States/RetreatState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("3_mptl4")
+velocity = Vector2(0, -50)
+actor = NodePath("../../..")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_pefsp")
+frame_progress = 0.323597
+
+[node name="MoveComponent" parent="." index="2"]
+process_mode = 4
+velocity = Vector2(0, 0)
+
+[node name="StatsComponent" parent="." index="3"]
+health = 10
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="4"]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_g4qrm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_05yh8")
+
+[node name="ScoreComponent" parent="." index="13"]
+adjust_amount = 50
