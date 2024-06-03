@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://bf1xy1nwgkv4d"]
+
+[ext_resource type="Script" path="res://components/move_component.gd" id="1_pgmur"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="2_jrgg1"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="3_501p0"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="4_3ox8d"]
+[ext_resource type="Script" path="res://components/destroyed_component.gd" id="5_jqlqb"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="6_ccgom"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="7_hkchv"]
+[ext_resource type="Texture2D" uid="uid://5qynldr5u5lp" path="res://assets/red_enemy_projectie.png" id="8_c2r66"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwadx"]
+size = Vector2(8, 4)
+
+[node name="RedEnemyProjectile" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("8_c2r66")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("1_pgmur")
+velocity = Vector2(0, 80)
+actor = NodePath("..")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.2, 0.2)
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_jrgg1")
+sprite = NodePath("../Sprite2D")
+scale_amount = Vector2(2, 2)
+scale_duration = 0.75
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("3_501p0")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("4_3ox8d")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
+script = ExtResource("5_jqlqb")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("6_ccgom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_qwadx")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("7_hkchv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_qwadx")

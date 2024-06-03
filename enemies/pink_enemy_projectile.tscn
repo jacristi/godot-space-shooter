@@ -140,8 +140,7 @@ script = ExtResource("8_bhxio")
 stats_component = NodePath("../StatsComponent")
 hurtbox_component = NodePath("../Anchor/HurtboxComponent")
 
-[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
 script = ExtResource("9_lwggx")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-destroy_effect_spawner_component = NodePath("")
