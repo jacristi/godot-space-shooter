@@ -23,14 +23,14 @@ func _ready() -> void:
         handle_enemy_spawn.bind(
             GreenEnemyScene,
             green_enemy_spawn_timer,
-            5
+            2
         )
     )
     yellow_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             YellowEnemyScene,
             yellow_enemy_spawn_timer,
-            30
+            10
         )
     )
     pink_enemy_spawn_timer.timeout.connect(
