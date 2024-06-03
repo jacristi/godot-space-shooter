@@ -35,7 +35,7 @@ horizontal_alignment = 1
 
 [node name="Start Label" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "PRESS 'SPACE' TO PLAY
+text = "PRESS 'SPACE / A' TO PLAY
 "
 label_settings = ExtResource("3_5iw4i")
 horizontal_alignment = 1

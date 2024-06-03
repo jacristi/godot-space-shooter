@@ -81,6 +81,6 @@ layout_mode = 2
 
 [node name="MenuLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "PRESS 'SPACE' TO RETURN"
+text = "PRESS 'SPACE / A' TO RETURN"
 label_settings = ExtResource("3_xhgei")
 horizontal_alignment = 1
