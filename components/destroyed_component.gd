@@ -18,6 +18,6 @@ func destroy() -> void:
         2. Frees entity object
     """
     if spawner_component != null:
-        spawner_component.spawn_scene(actor.global_position)
+        spawner_component.spawn(actor.global_position)
 
     actor.queue_free()
