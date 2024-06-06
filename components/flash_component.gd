@@ -4,8 +4,7 @@ extends Node
 
 var timer: Timer = Timer.new()
 var original_sprite_material: Material
-
-@export var flash_material: Material
+@export var flash_material: Material = preload("res://effects/white_flash_material.tres")
 @export var sprite: CanvasItem
 @export var flash_duration: = 0.2
 
@@ -22,7 +21,6 @@ func flash(override_flash_material=null) -> void:
     var material_to_use = flash_material
 
     if override_flash_material != null:
-        print('use override material')
         material_to_use = override_flash_material
 
     sprite.material = material_to_use
