@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://3xntr8qxh4wt"]
+[gd_scene load_steps=19 format=3 uid="uid://3xntr8qxh4wt"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_2ehnv"]
 [ext_resource type="Script" path="res://enemies/red_enemy.gd" id="2_4p67c"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://components/state_component.gd" id="5_w7xsl"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="6_tyi7e"]
 [ext_resource type="PackedScene" uid="uid://bf1xy1nwgkv4d" path="res://enemies/red_enemy_projectile.tscn" id="8_w4fov"]
+[ext_resource type="AudioStream" uid="uid://b62e7y0c5wn7u" path="res://sfx/enemy_fire_sound_2.wav" id="10_qnjuh"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="11_sgeo5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a5khl"]
 atlas = ExtResource("2_dddo1")
@@ -136,3 +138,10 @@ shape = SubResource("RectangleShape2D_05yh8")
 
 [node name="ScoreComponent" parent="." index="13"]
 adjust_amount = 50
+
+[node name="FireAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="15"]
+stream = ExtResource("10_qnjuh")
+volume_db = -4.0
+bus = &"SFX"
+script = ExtResource("11_sgeo5")
+pitch_min = 0.8

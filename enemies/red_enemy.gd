@@ -20,6 +20,7 @@ var current_proj_count := 0
 
 @onready var move_strafe_component: MoveComponent = %MoveStrafeComponent
 @onready var projectile_spawner: SpawnerComponent = %ProjectileSpawner
+@onready var fire_audio_stream_player: VariablePitchAudioStreamPlayer = $FireAudioStreamPlayer
 
 
 func _ready() -> void:
@@ -66,6 +67,7 @@ func run_fire_state() -> void:
 
 func fire_projectile() -> void:
     scale_component.tween_scale()
+    fire_audio_stream_player.play()
     projectile_spawner.spawn(global_position)
     current_shot_count += 1
 

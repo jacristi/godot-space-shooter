@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://2od6dvg0w31"]
+[gd_scene load_steps=20 format=3 uid="uid://2od6dvg0w31"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_sffww"]
 [ext_resource type="Texture2D" uid="uid://cdekgq7eljb7e" path="res://assets/pink_enemy.png" id="2_abpib"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="5_r7n00"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="7_wxmm8"]
 [ext_resource type="PackedScene" uid="uid://mfl3s8qf3rqq" path="res://enemies/pink_enemy_projectile.tscn" id="8_2mwl1"]
+[ext_resource type="AudioStream" uid="uid://dj3egtcnvp1fs" path="res://sfx/enemy_fire_sound_1.wav" id="10_r84dq"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="11_yosu8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_28ebx"]
 atlas = ExtResource("2_abpib")
@@ -127,3 +129,10 @@ shape = SubResource("RectangleShape2D_ryxwd")
 
 [node name="ScoreComponent" parent="." index="13"]
 adjust_amount = 20
+
+[node name="FireAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="15"]
+stream = ExtResource("10_r84dq")
+volume_db = -4.0
+bus = &"SFX"
+script = ExtResource("11_yosu8")
+pitch_min = 0.8

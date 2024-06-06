@@ -10,6 +10,7 @@ extends Enemy
 
 @onready var move_strafe_component: MoveComponent = %MoveStrafeComponent
 @onready var projectile_spawner: SpawnerComponent = %ProjectileSpawner
+@onready var fire_audio_stream_player: VariablePitchAudioStreamPlayer = $FireAudioStreamPlayer
 
 func _ready() -> void:
     super()
@@ -30,7 +31,11 @@ func _ready() -> void:
 
 func run_fire_state() -> void:
     fire_state.enable()
-    scale_component.tween_scale()
-    projectile_spawner.spawn(global_position)
+    fire_projectile()
     fire_state.disable()
     fire_state.state_finished.emit()
+
+func fire_projectile() -> void:
+    scale_component.tween_scale()
+    projectile_spawner.spawn(global_position)
+    fire_audio_stream_player.play()
