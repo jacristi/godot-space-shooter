@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bfgfj802ng1mt"]
+[gd_scene load_steps=18 format=3 uid="uid://bfgfj802ng1mt"]
 
 [ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="3_8g3hp"]
 [ext_resource type="Script" path="res://components/stats_component.gd" id="4_cha0t"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="5_51djb"]
 [ext_resource type="Script" path="res://components/flash_component.gd" id="6_5oq4s"]
-[ext_resource type="Material" uid="uid://c1pbvjfcj8cer" path="res://effects/green_flash_material.tres" id="6_8yxht"]
 [ext_resource type="Script" path="res://components/shake_component.gd" id="7_3i3aa"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="8_7brgn"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="9_ly3yr"]
@@ -42,7 +41,6 @@ sprite = NodePath("../AnimatedSprite2D")
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("6_5oq4s")
-flash_material = ExtResource("6_8yxht")
 sprite = NodePath("../AnimatedSprite2D")
 
 [node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("node")]
