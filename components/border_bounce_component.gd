@@ -2,37 +2,50 @@
 class_name BorderBounceComponent
 extends Node
 
-# The margin is used to allow actors to bounce before reaching the edge of the border
 @export var margin: = 8
-
-# Export the actor that this component will operate on
 @export var actor: Node2D
-
-# We need to grab the move component of the actor in order to change its velocity when bouncing
 @export var move_component: MoveComponent
 
-# Define the left and right borders to bounce on
-var left_border = 0
-# Use the display viewport width to get the right border of the screen
-var right_border = ProjectSettings.get_setting("display/window/size/viewport_width")
 
-func _process(delta: float) -> void:
-    # If the actor's x position is less than the left border plus the margin,
-    # bounce off the left side of the screen
-    if actor.global_position.x < left_border + margin:
-        # Prevent the actor for going past the border + the margin
-        actor.global_position.x = left_border + margin
-        # When bouncing we use the .bounce function which takes a wall normal
-        # This wall normal is the direction of the face of the wall
-        # (it's a bit counter intuitive but a wall on the left would have a wall face with a normal of RIGHT)
+@export var should_bounce_off_left: bool   = true
+@export var should_bounce_off_right: bool  = true
+@export var should_bounce_off_top: bool    = false
+@export var should_bounce_off_bottom: bool = false
+
+var left_clamp:   float
+var right_clamp:  float
+var top_clamp:    float
+var bottom_clamp: float
+
+var top_border    = 0
+var left_border   = 0
+var right_border  = ProjectSettings.get_setting("display/window/size/viewport_width")
+var bottom_border = ProjectSettings.get_setting("display/window/size/viewport_height")
+
+func _ready() -> void:
+    top_clamp    = top_border + margin
+    left_clamp   = left_border + margin
+    right_clamp  = right_border - margin
+    bottom_clamp = bottom_border - margin
+
+
+func handle_border_breach() -> void:
+    if actor.global_position.x < left_clamp and should_bounce_off_left:
+        actor.global_position.x = left_clamp
         move_component.velocity = move_component.velocity.bounce(Vector2.RIGHT)
-    # If the actor's x position is greater than the right border plus the margin,
-    # bounce off the right side of the screen
-    elif actor.global_position.x > right_border - margin:
-        # Prevent the actor for going past the border + the margin
-        actor.global_position.x = right_border - margin
-        # When bouncing we use the .bounce function which takes a wall normal
-        # This wall normal is the direction of the face of the wall
-        # (it's a bit counter intuitive but a wall on the right would have a wall face with a normal of LEFT)
+
+    if actor.global_position.x > right_clamp and should_bounce_off_right:
+        actor.global_position.x = right_clamp
         move_component.velocity = move_component.velocity.bounce(Vector2.LEFT)
 
+    if actor.global_position.y < top_clamp and should_bounce_off_top:
+        actor.global_position.y = top_clamp
+        move_component.velocity = move_component.velocity.bounce(Vector2.DOWN)
+
+    if actor.global_position.y > bottom_clamp and should_bounce_off_bottom:
+        actor.global_position.y = bottom_clamp
+        move_component.velocity = move_component.velocity.bounce(Vector2.DOWN)
+
+
+func _process(delta: float) -> void:
+    handle_border_breach()

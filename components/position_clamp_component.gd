@@ -2,21 +2,39 @@
 class_name PositionClampComponent
 extends Node2D
 
-# Export the actor who's position will be clamped
 @export var actor: Node2D
-
-# Export a margin for left and right (margin.x) and top and bottom (margin.y)
 @export var margin: = 8
 
-# Define the left and right borders to bounce on
-var left_border = 0
-# Use the display viewport width to get the right border of the screen
-var right_border = ProjectSettings.get_setting("display/window/size/viewport_width")
+var left_clamp:   float
+var right_clamp:  float
+var top_clamp:    float
+var bottom_clamp: float
 
-var bottom_border = 0
-var top_border = ProjectSettings.get_setting("display/window/size/viewport_height")
+var top_border    = 0
+var left_border   = 0
+var right_border  = ProjectSettings.get_setting("display/window/size/viewport_width")
+var bottom_border = ProjectSettings.get_setting("display/window/size/viewport_height")
+
+func _ready() -> void:
+    top_clamp    = top_border + margin
+    left_clamp   = left_border + margin
+    right_clamp  = right_border - margin
+    bottom_clamp = bottom_border - margin
+
+
+func _clamp_entity_position() -> void:
+    """ Clamp vertical and horizontal positions based on viewport borders +/- margin """
+    actor.global_position.x = clamp(
+        actor.global_position.x,
+        left_clamp,
+        right_clamp
+        )
+    actor.global_position.y = clamp(
+        actor.global_position.y,
+        top_clamp,
+        bottom_clamp
+        )
+
 
 func _process(delta: float) -> void:
-    # clamp the x position of the actor between the left border and the right border (accounting for the margin)
-    actor.global_position.x = clamp(actor.global_position.x, left_border+margin, right_border-margin)
-    actor.global_position.y = clamp(actor.global_position.y, bottom_border+margin, top_border-margin)
+    _clamp_entity_position()

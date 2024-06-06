@@ -14,17 +14,17 @@ extends StateComponent
 var timer: = Timer.new()
 
 func _ready() -> void:
-	# Add the timer as a child so we can use it
-	add_child(timer)
-	
-	# Connect to the timeout functino on the timer
-	timer.timeout.connect(func():
-		# Emit finished because this state is finished
-		state_finished.emit()
-		
-		# Disable this state
-		disable()
-	)
-	
-	# Start the timer whenever this state is enabled
-	enabled.connect(timer.start.bind(duration))
+    # Add the timer as a child so we can use it
+    add_child(timer)
+
+    # Connect to the timeout functino on the timer
+    timer.timeout.connect(func():
+        # Emit finished because this state is finished
+        state_finished.emit()
+
+        # Disable this state
+        disable()
+    )
+
+    # Start the timer whenever this state is enabled
+    enabled.connect(timer.start.bind(duration))

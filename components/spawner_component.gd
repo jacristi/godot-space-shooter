@@ -2,22 +2,34 @@
 class_name SpawnerComponent
 extends Node2D
 
-# Export the dependencies for this component
-# The scene we want to spawn
+
 @export var scene: PackedScene
 
-# Spawn an instance of the scene at a specific global position on a parent
-# By default the parent is the current "main" scene , but you can pass in
-# an alternative parent if you so choose.
-func spawn(global_spawn_position: Vector2 = global_position, parent: Node = get_tree().current_scene) -> Node:
-    assert(scene is PackedScene, "Error: The scene export was never set on this spawner component.")
-    # Instance the scene
-    var instance = scene.instantiate()
-    # Add it as a child of the parent
+func spawn(
+        global_spawn_position: Vector2=global_position,
+        override_scene_to_spawn: PackedScene=null,
+        parent: Node=get_tree().current_scene
+    ) -> Node:
+    """
+        1. Check scene is valid
+        2. Create instance of scene
+        3. Set instance's parent
+        4. Set instance's position
+
+        returns the instance in event calling function in case
+        the caller wants to operate on it further
+    """
+
+    var scene_to_spawn = scene
+
+    if override_scene_to_spawn != null:
+        scene_to_spawn = override_scene_to_spawn
+
+    assert(scene_to_spawn is PackedScene, "Error: Given object to spawn is not a valid PackedScene.")
+
+    # Create instance, set its parent and position
+    var instance = scene_to_spawn.instantiate()
     parent.add_child(instance)
-    # Update the global position of the instance.
-    # (This must be done after adding it as a child)
     instance.global_position = global_spawn_position
-    # Return the instance in case we want to perform any other operations
-    # on it after instancing it.
+
     return instance
