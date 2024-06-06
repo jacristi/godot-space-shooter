@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfgfj802ng1mt"]
+[gd_scene load_steps=19 format=3 uid="uid://bfgfj802ng1mt"]
 
 [ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="3_8g3hp"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="15_amcmb"]
 [ext_resource type="AudioStream" uid="uid://5v7oh1bvc3l4" path="res://sfx/orig/hit_sound.wav" id="16_v86n2"]
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="17_7k5dx"]
+[ext_resource type="AudioStream" uid="uid://br0xxi5eq7prb" path="res://sfx/pickup_blip_sound_1.wav" id="18_0oecl"]
 
 [node name="Pickup" type="Node2D"]
 script = ExtResource("1_q6wj0")
@@ -88,6 +89,14 @@ game_stats = ExtResource("15_amcmb")
 stream = ExtResource("16_v86n2")
 bus = &"SFX"
 script = ExtResource("17_7k5dx")
+
+[node name="BlipAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_0oecl")
+volume_db = -4.0
+bus = &"SFX"
+script = ExtResource("17_7k5dx")
+pitch_min = 0.4
+pitch_max = 0.7
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.75

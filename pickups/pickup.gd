@@ -12,9 +12,12 @@ extends Node2D
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var hitbox_component:  HitboxComponent  = $HitboxComponent
 @onready var destroyed_component: DestroyedComponent = $DestroyedComponent
-@onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 @onready var collected_component: DestroyedComponent = $CollectedComponent
 @onready var flash_timer: Timer = $FlashTimer
+
+@onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
+@onready var blip_audio_stream_player: VariablePitchAudioStreamPlayer = $BlipAudioStreamPlayer
+
 
 
 func _ready() -> void:
@@ -23,6 +26,8 @@ func _ready() -> void:
     hurtbox_component.hurt.connect(was_hurt)
     hitbox_component.hit_hurtbox.connect(handle_on_collect)
     flash_timer.timeout.connect(flash_component.flash)
+    flash_timer.timeout.connect(blip_audio_stream_player.play)
+
 
 
 func was_hurt(_hitbox: HitboxComponent) -> void:

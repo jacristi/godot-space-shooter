@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://xxsws20p7731"]
+[gd_scene load_steps=17 format=3 uid="uid://xxsws20p7731"]
 
 [ext_resource type="Script" path="res://projectiles/player_ship_shield.gd" id="1_ky6ca"]
 [ext_resource type="Texture2D" uid="uid://bgnhgpwp2kwot" path="res://assets/shield_pickup.png" id="2_xadqe"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://components/follow_component.gd" id="5_jmms0"]
 [ext_resource type="Material" uid="uid://buwowimmf24fr" path="res://effects/red_flash_material.tres" id="7_3d0ir"]
 [ext_resource type="Script" path="res://components/flash_component.gd" id="7_u8vj0"]
+[ext_resource type="AudioStream" uid="uid://65yhvl8niuha" path="res://sfx/pickup_sound_3.wav" id="8_clbei"]
+[ext_resource type="AudioStream" uid="uid://by1uk0br6p4cy" path="res://sfx/shield_down_sound.wav" id="9_48l23"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boi8x"]
 atlas = ExtResource("2_xadqe")
@@ -97,3 +99,10 @@ wait_time = 0.5
 script = ExtResource("7_u8vj0")
 flash_material = ExtResource("7_3d0ir")
 sprite = NodePath("../AnimatedSprite2D")
+
+[node name="ShieldUpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_clbei")
+bus = &"SFX"
+
+[node name="ShieldDownAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_48l23")

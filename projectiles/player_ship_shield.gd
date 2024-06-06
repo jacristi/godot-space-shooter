@@ -4,6 +4,9 @@ extends Node2D
 @onready var flash_component: FlashComponent = $FlashComponent
 @onready var flash_timer: Timer = $FlashTimer
 
+@onready var shield_up_audio: AudioStreamPlayer = $ShieldUpAudio
+@onready var shield_down_audio: AudioStreamPlayer = $ShieldDownAudio
+
 
 var is_flashing := false
 
@@ -11,6 +14,7 @@ func _ready():
     duration_timer.timeout.connect(
         dissipate_shield
     )
+    shield_up_audio.play()
 
 
 func _process(_delta: float) -> void:
@@ -33,3 +37,4 @@ func set_flash_continuous() -> void:
 
 func warn_end_of_life() -> void:
     flash_component.flash()
+    shield_down_audio.play()
