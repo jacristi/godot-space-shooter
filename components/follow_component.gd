@@ -6,10 +6,7 @@ var player: Node2D
 @export var actor: Node2D
 
 func _ready() -> void:
-    print("--------")
     player = get_tree().get_first_node_in_group("player")
-    print(player)
-    print("--------")
 
 
 func handle_follow_player() -> void:
@@ -25,4 +22,3 @@ func handle_follow_player() -> void:
 
 func _process(_delta: float) -> void:
     handle_follow_player()
-    print("ASDSAF")

@@ -8,7 +8,6 @@ extends Node2D
 var is_flashing := false
 
 func _ready():
-    print("ASDASFASDFASF")
     duration_timer.timeout.connect(
         dissipate_shield
     )
@@ -20,7 +19,6 @@ func _process(_delta: float) -> void:
 
 
 func dissipate_shield():
-    print("TIME UP END SHIELD")
     queue_free()
 
 
@@ -34,5 +32,4 @@ func set_flash_continuous() -> void:
 
 
 func warn_end_of_life() -> void:
-    print("Play sound here....")
     flash_component.flash()
