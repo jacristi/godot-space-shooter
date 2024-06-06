@@ -95,5 +95,8 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_tvkmt")
 
+[node name="CollectedComponent" parent="." index="12" node_paths=PackedStringArray("spawner_component")]
+spawner_component = NodePath("../CollectedSpawnerComponent")
+
 [node name="CollectedSpawnerComponent" parent="." index="13"]
 scene = ExtResource("2_urcgm")

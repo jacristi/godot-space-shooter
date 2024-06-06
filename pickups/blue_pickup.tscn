@@ -86,3 +86,6 @@ disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_ltjyi")
+
+[node name="CollectedComponent" parent="." index="12" node_paths=PackedStringArray("spawner_component")]
+spawner_component = NodePath("../CollectedSpawnerComponent")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://xxsws20p7731"]
+[gd_scene load_steps=15 format=3 uid="uid://xxsws20p7731"]
 
 [ext_resource type="Script" path="res://projectiles/player_ship_shield.gd" id="1_ky6ca"]
 [ext_resource type="Texture2D" uid="uid://bgnhgpwp2kwot" path="res://assets/shield_pickup.png" id="2_xadqe"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="3_i4ul4"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="4_466j0"]
 [ext_resource type="Script" path="res://components/follow_component.gd" id="5_jmms0"]
+[ext_resource type="Material" uid="uid://buwowimmf24fr" path="res://effects/red_flash_material.tres" id="7_3d0ir"]
 [ext_resource type="Script" path="res://components/flash_component.gd" id="7_u8vj0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boi8x"]
@@ -94,4 +95,5 @@ wait_time = 0.5
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("7_u8vj0")
+flash_material = ExtResource("7_3d0ir")
 sprite = NodePath("../AnimatedSprite2D")

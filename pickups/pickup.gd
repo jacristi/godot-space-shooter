@@ -14,6 +14,7 @@ extends Node2D
 @onready var destroyed_component: DestroyedComponent = $DestroyedComponent
 @onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 @onready var collected_component: DestroyedComponent = $CollectedComponent
+@onready var flash_timer: Timer = $FlashTimer
 
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _ready() -> void:
     visible_on_screen_notifier_2d.screen_exited.connect(queue_free)
     hurtbox_component.hurt.connect(was_hurt)
     hitbox_component.hit_hurtbox.connect(handle_on_collect)
+    flash_timer.timeout.connect(flash_component.flash)
 
 
 func was_hurt(_hitbox: HitboxComponent) -> void:
