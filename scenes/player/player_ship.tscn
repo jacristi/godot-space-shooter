@@ -231,11 +231,10 @@ hurtbox_component = NodePath("../HurtboxComponent")
 script = ExtResource("7_u1olh")
 scene = ExtResource("14_uj82o")
 
-[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
 script = ExtResource("15_mc00b")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-destroy_effect_spawner_component = NodePath("../ExplosionSpawnerComponent")
 
 [node name="ShootAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_cp0nx")

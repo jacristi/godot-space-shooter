@@ -14,6 +14,6 @@ func _on_pause_button_pressed():
         show()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("fire"):
         _on_pause_button_pressed()

@@ -22,16 +22,18 @@ func _ready() -> void:
     hurtbox_component.hurt.connect(was_hurt)
     hitbox_component.hit_hurtbox.connect(handle_on_collect)
 
-func was_hurt(hitbox: HitboxComponent) -> void:
+
+func was_hurt(_hitbox: HitboxComponent) -> void:
     flash_component.flash()
     scale_component.tween_scale()
     shake_component.tween_shake()
     audio_player.play_with_variance()
 
+
 func handle_on_death() -> void:
     pass
 
-func handle_on_collect(hurtbox: HurtboxComponent) -> void:
 
+func handle_on_collect(_hurtbox: HurtboxComponent) -> void:
     score_component.adjust_score(pickup_score)
     collected_component.destroy()

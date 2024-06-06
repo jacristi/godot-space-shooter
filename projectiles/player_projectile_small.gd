@@ -11,5 +11,5 @@ func _ready() -> void:
     hitbox_component.hit_hurtbox.connect(hit_target)
 
 
-func hit_target(hurtbox: HurtboxComponent) -> void:
+func hit_target(_hurtbox: HurtboxComponent) -> void:
     queue_free()

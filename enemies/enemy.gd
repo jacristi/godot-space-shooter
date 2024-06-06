@@ -20,7 +20,7 @@ func _ready() -> void:
     hurtbox_component.hurt.connect(was_hurt)
     hitbox_component.hit_hurtbox.connect(destroyed_component.destroy.unbind(1))
 
-func was_hurt(hitbox: HitboxComponent) -> void:
+func was_hurt(_hitbox: HitboxComponent) -> void:
     flash_component.flash()
     scale_component.tween_scale()
     shake_component.tween_shake()

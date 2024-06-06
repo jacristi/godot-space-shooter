@@ -60,11 +60,10 @@ script = ExtResource("9_ha7el")
 stats_component = NodePath("../StatsComponent")
 hurtbox_component = NodePath("../HurtboxComponent")
 
-[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
 script = ExtResource("10_lh6iy")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-destroy_effect_spawner_component = NodePath("../SpawnerComponent")
 
 [node name="SpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("11_kh874")

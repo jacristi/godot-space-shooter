@@ -47,5 +47,5 @@ func handle_border_breach() -> void:
         move_component.velocity = move_component.velocity.bounce(Vector2.DOWN)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     handle_border_breach()

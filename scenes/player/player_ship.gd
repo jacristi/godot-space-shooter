@@ -47,7 +47,7 @@ func update_fire_rate(new_score: int) -> void:
             level_up_audio_stream_player.play_with_variance()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     animate_ship()
 
 

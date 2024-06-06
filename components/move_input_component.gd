@@ -5,7 +5,7 @@ extends Node
 @export var move_component: MoveComponent
 @export var move_stats: ShipStats
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
     var input_h_axis = Input.get_axis("move_left", "move_right")
     var input_v_axis = Input.get_axis("move_up", "move_down")
 

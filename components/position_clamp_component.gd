@@ -36,5 +36,5 @@ func _clamp_entity_position() -> void:
         )
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     _clamp_entity_position()

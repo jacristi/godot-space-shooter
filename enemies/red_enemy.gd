@@ -69,5 +69,5 @@ func fire_projectile() -> void:
     projectile_spawner.spawn(global_position)
     current_shot_count += 1
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     pass#rint(velocity.x)

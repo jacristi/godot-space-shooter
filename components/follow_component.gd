@@ -1,16 +1,28 @@
 class_name FollowComponent
 extends Node
 
-var focus: Node2D
+
+var player: Node2D
 @export var actor: Node2D
-@export var game_stats: GameStats
+
+func _ready() -> void:
+    print("--------")
+    player = get_tree().get_first_node_in_group("player")
+    print(player)
+    print("--------")
 
 
-func _ready():
-    focus = game_stats.player
-
-func _process(delta: float) -> void:
-    if is_instance_valid(focus):
-        actor.position = focus.global_position
-    else:
+func handle_follow_player() -> void:
+    """
+        Constantly set this entity's position to player position
+        If player is invalid (i.e. destroyed), free this object
+    """
+    if not is_instance_valid(player):
         queue_free()
+
+    actor.position = player.global_position
+
+
+func _process(_delta: float) -> void:
+    handle_follow_player()
+    print("ASDSAF")

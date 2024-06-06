@@ -8,11 +8,13 @@ extends Node2D
 var is_flashing := false
 
 func _ready():
+    print("ASDASFASDFASF")
     duration_timer.timeout.connect(
         dissipate_shield
     )
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
     if duration_timer.time_left <= 3.25:
         set_flash_continuous()
 

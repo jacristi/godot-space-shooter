@@ -21,7 +21,7 @@ func _ready() -> void:
     high_score_value_label.text = str(game_stats.high_score)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("fire"):
         game_stats.score = 0
         get_tree().change_scene_to_file("res://ui/menu.tscn")
