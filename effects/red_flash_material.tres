@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://buwowimmf24fr"]
+
+[ext_resource type="Shader" path="res://effects/red_flash_material.gdshader" id="1_227ek"]
+
+[resource]
+shader = ExtResource("1_227ek")
