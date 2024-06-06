@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_r10yv")
-v_move_speed = 25.0
+v_move_speed = 50.0
 h_move_speed = 75.0
