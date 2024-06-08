@@ -14,10 +14,12 @@ func handle_follow_player() -> void:
         Constantly set this entity's position to player position
         If player is invalid (i.e. destroyed), free this object
     """
-    if not is_instance_valid(player):
+    if is_instance_valid(player):
+        actor.position = player.global_position
+    else:
         queue_free()
 
-    actor.position = player.global_position
+
 
 
 func _process(_delta: float) -> void:

@@ -42,7 +42,7 @@ func update_fire_rate(new_score: int) -> void:
 
     for k in TIMER_POINT_BREAKS:
         var v = TIMER_POINT_BREAKS[k]
-        if new_score > k and t > v:
+        if new_score >= k and t > v:
             fire_rate_timer.wait_time = v
             level_up_audio_stream_player.play_with_variance()
 

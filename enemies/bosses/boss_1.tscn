@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://b00xggipdcllj"]
+
+[ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_0q71p"]
+[ext_resource type="Script" path="res://enemies/bosses/boss_1.gd" id="2_8yc0a"]
+[ext_resource type="Texture2D" uid="uid://epeb8rwed0fb" path="res://assets/boss_1.png" id="2_f1s3j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp317"]
+atlas = ExtResource("2_f1s3j")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujhaj"]
+atlas = ExtResource("2_f1s3j")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pibp5"]
+atlas = ExtResource("2_f1s3j")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrlwe"]
+atlas = ExtResource("2_f1s3j")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_teddp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp317")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujhaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pibp5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrlwe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl781"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaqwq"]
+size = Vector2(12, 10)
+
+[node name="Boss1" instance=ExtResource("1_0q71p")]
+script = ExtResource("2_8yc0a")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_teddp")
+autoplay = "default"
+frame_progress = 0.592286
+
+[node name="MoveComponent" parent="." index="1"]
+velocity = Vector2(0, 10)
+
+[node name="StatsComponent" parent="." index="2"]
+health = 25
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(1.19209e-07, -0.5)
+scale = Vector2(0.8, 1.25)
+
+[node name="ScaleComponent" parent="." index="4"]
+scale_amount = Vector2(1.15, 1.15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_pl781")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eaqwq")
+
+[node name="ScoreComponent" parent="." index="12"]
+adjust_amount = 500
