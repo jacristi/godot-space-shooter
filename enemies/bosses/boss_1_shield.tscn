@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=3 uid="uid://c42pv0oh4anv6"]
+
+[ext_resource type="Texture2D" uid="uid://c1x0briub4isi" path="res://assets/boss_shield_1.png" id="1_4qa73"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="1_dbr8c"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="2_6l0yy"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="3_1prcj"]
+[ext_resource type="Script" path="res://components/destroyed_component.gd" id="4_85pgq"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="5_anauw"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="6_fgo6l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8biju"]
+atlas = ExtResource("1_4qa73")
+region = Rect2(0, 0, 24, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxxx8"]
+atlas = ExtResource("1_4qa73")
+region = Rect2(24, 0, 24, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40fqp"]
+atlas = ExtResource("1_4qa73")
+region = Rect2(48, 0, 24, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds8so"]
+atlas = ExtResource("1_4qa73")
+region = Rect2(72, 0, 24, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tfb0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8biju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxxx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40fqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ds8so")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqb6i"]
+size = Vector2(20, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qdwog"]
+size = Vector2(20, 4)
+
+[node name="Boss1Shield" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tfb0m")
+autoplay = "default"
+frame = 2
+frame_progress = 0.436152
+
+[node name="ScaleComponent" type="Node" parent="."]
+script = ExtResource("1_dbr8c")
+scale_amount = Vector2(2, 2)
+scale_duration = 0.75
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("6_fgo6l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_rqb6i")
+debug_color = Color(0.939878, 9.91493e-06, 0.617459, 0.42)
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("2_6l0yy")
+health = 500
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("3_1prcj")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
+script = ExtResource("4_85pgq")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("5_anauw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_qdwog")
+debug_color = Color(0.285519, 0.63055, 0, 0.42)

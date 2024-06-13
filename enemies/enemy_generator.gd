@@ -20,14 +20,22 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var pink_enemy_spawn_timer: Timer   = $PinkEnemySpawnTimer
 @onready var red_enemy_spawn_timer: Timer = $RedEnemySpawnTimer
 
-@onready var event_start_timer: Timer = $EventStartTimer
-@onready var event_end_timer: Timer = $EventEndTimer
+@onready var boss_event_start_timer: Timer = $BossEventStartTimer
+@onready var boss_event_end_timer: Timer = $BossEventEndTimer
 
-var is_event_in_progress = false
+var is_boss_event_in_progress = false
+
+var enemy_types_enabled = {
+    'green':  false,
+    'yellow': false,
+    'pink':   false,
+    'red':    false,
+}
+
+signal boss_event_complete()
+
 
 func _ready() -> void:
-    event_start_timer.timeout.connect(handle_event)
-    event_end_timer.timeout.connect(handle_event_complete)
     green_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             GreenEnemyScene,
@@ -58,20 +66,27 @@ func _ready() -> void:
             )
         )
 
-    game_stats.score_changed.connect(check_enable_enemy_timers)
 
-func check_enable_enemy_timers(new_score: int):
-    if new_score > 25:
+func enable_new_enemy(enemy_type: String) -> void:
+    if not enemy_types_enabled.has(enemy_type):
+        print('invalid enemy: ' + enemy_type)
+        return
+
+    if enemy_types_enabled[enemy_type] == true:
+        return
+
+    print("ENABLING ENEMY: " + enemy_type)
+
+    if enemy_type == 'yellow':
         yellow_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score > 80:
+    if enemy_type == 'pink':
         pink_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score > 50:
+    if enemy_type == 'red':
         red_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score >= 1000 and new_score < 2000 and current_boss_index == 0 and not is_event_in_progress:
-        handle_event_start()
+    enemy_types_enabled[enemy_type] = true
 
 
 func handle_enemy_spawn(
@@ -80,7 +95,7 @@ func handle_enemy_spawn(
         time_offset: float=1.0
     ) -> void:
 
-    if not is_event_in_progress:
+    if not is_boss_event_in_progress:
         spawner_component.scene = enemy_scene
         spawner_component.spawn(
             Vector2(
@@ -92,20 +107,20 @@ func handle_enemy_spawn(
     timer.start(spawn_rate + randf_range(0.25, 0.5))
 
 
-func handle_event_end() -> void:
-    event_end_timer.start()
+func handle_boss_event_end() -> void:
+    boss_event_end_timer.start()
+    await boss_event_end_timer.timeout
+    boss_event_complete.emit()
+    is_boss_event_in_progress = false
 
 
-func handle_event_complete() -> void:
-    is_event_in_progress = false
+func handle_boss_event_start() -> void:
+    boss_event_start_timer.start()
+    await boss_event_start_timer.timeout
+    handle_boss_event()
 
 
-func handle_event_start() -> void:
-    is_event_in_progress = true
-    event_start_timer.start()
-
-
-func handle_event() -> void:
+func handle_boss_event() -> void:
     spawner_component.scene = BossScenes[current_boss_index]
     current_boss_index += 1
     var boss_instance = spawner_component.spawn(
@@ -114,5 +129,5 @@ func handle_event() -> void:
             -16
             )
         )
-    boss_instance.stats_component.no_health.connect(handle_event_end)
+    boss_instance.stats_component.no_health.connect(handle_boss_event_end)
 

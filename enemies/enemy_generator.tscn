@@ -27,27 +27,23 @@ one_shot = true
 autostart = true
 
 [node name="YellowEnemySpawnTimer" type="Timer" parent="."]
-process_mode = 4
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 autostart = true
 
 [node name="PinkEnemySpawnTimer" type="Timer" parent="."]
-process_mode = 4
-wait_time = 15.0
 one_shot = true
 autostart = true
 
 [node name="RedEnemySpawnTimer" type="Timer" parent="."]
-process_mode = 4
-wait_time = 45.0
+wait_time = 50.0
 one_shot = true
 autostart = true
 
-[node name="EventStartTimer" type="Timer" parent="."]
+[node name="BossEventStartTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="EventEndTimer" type="Timer" parent="."]
+[node name="BossEventEndTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true

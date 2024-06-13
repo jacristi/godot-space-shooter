@@ -84,6 +84,7 @@ duration = 1.5
 [node name="MoveStrafeComponent" type="Node" parent="States/StrafeState" index="0" node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("3_mptl4")
+velocity = Vector2(50, 0)
 actor = NodePath("../../..")
 
 [node name="BorderBounceComponent" type="Node" parent="States/StrafeState" index="1" node_paths=PackedStringArray("actor", "move_component")]

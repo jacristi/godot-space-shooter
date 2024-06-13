@@ -67,7 +67,7 @@ size = Vector2(4, 4)
 size = Vector2(6, 6)
 
 [node name="BluePickup" instance=ExtResource("1_lcx6e")]
-pickup_score = 300
+pickup_score = 150
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_grv4a")
