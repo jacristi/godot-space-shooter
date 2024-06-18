@@ -70,7 +70,7 @@ func _ready() -> void:
         handle_enemy_spawn.bind(
             HomingEnemyScene,
             homing_enemy_spawn_timer,
-            120
+            150
             )
         )
 
@@ -113,6 +113,7 @@ func handle_enemy_spawn(
             -16
             )
         )
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.01))
-    timer.start()#spawn_rate + randf_range(0.25, 0.5))
+
+    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
+    timer.start(spawn_rate + randf_range(0.25, 0.5))
 
