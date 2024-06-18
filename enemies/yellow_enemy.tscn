@@ -42,7 +42,7 @@ autoplay = "default"
 frame_progress = 0.521106
 
 [node name="MoveComponent" parent="." index="1"]
-velocity = Vector2(0, 20)
+velocity = Vector2(20, 30)
 
 [node name="StatsComponent" parent="." index="2"]
 health = 6

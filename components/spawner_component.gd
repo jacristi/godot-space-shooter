@@ -29,7 +29,7 @@ func spawn(
 
     # Create instance, set its parent and position
     var instance = scene_to_spawn.instantiate()
-    parent.add_child(instance) # TODO figure out call_deferred for this
+    parent.add_child.call_deferred(instance)
     instance.set_deferred("global_position", global_spawn_position)
 
     return instance

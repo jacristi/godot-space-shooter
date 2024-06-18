@@ -1,0 +1,104 @@
+[gd_scene load_steps=15 format=3 uid="uid://dcfckrb4gg888"]
+
+[ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_a0uvx"]
+[ext_resource type="Script" path="res://enemies/homing_enemy.gd" id="2_5ai5s"]
+[ext_resource type="Texture2D" uid="uid://xaaq01rlgik0" path="res://assets/homing_enemy.png" id="2_168m2"]
+[ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="2_fxf4v"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="3_g8m3b"]
+[ext_resource type="Script" path="res://components/state_component.gd" id="4_dhqfv"]
+[ext_resource type="Script" path="res://components/lerp_component.gd" id="6_iwese"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b8o3"]
+atlas = ExtResource("2_168m2")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72gqp"]
+atlas = ExtResource("2_168m2")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65k4d"]
+atlas = ExtResource("2_168m2")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prg44"]
+atlas = ExtResource("2_168m2")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3pdv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b8o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72gqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65k4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prg44")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3mxp"]
+size = Vector2(6, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5win5"]
+size = Vector2(4, 7)
+
+[node name="HomingEnemy" instance=ExtResource("1_a0uvx")]
+script = ExtResource("2_5ai5s")
+
+[node name="States" type="Node" parent="." index="0"]
+
+[node name="SpawnState" type="Node" parent="States" index="0"]
+script = ExtResource("2_fxf4v")
+
+[node name="MoveComponent" type="Node" parent="States/SpawnState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("3_g8m3b")
+velocity = Vector2(0, 20)
+actor = NodePath("../../..")
+
+[node name="LineUpState" type="Node" parent="States" index="1"]
+script = ExtResource("2_fxf4v")
+duration = 2.0
+
+[node name="LerpComponent" type="Node" parent="States/LineUpState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_iwese")
+lerp_amount = 2.0
+actor = NodePath("../../..")
+
+[node name="FlyDownState" type="Node" parent="States" index="2"]
+script = ExtResource("4_dhqfv")
+
+[node name="MoveComponent" type="Node" parent="States/FlyDownState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("3_g8m3b")
+velocity = Vector2(0, 200)
+actor = NodePath("../../..")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_u3pdv")
+autoplay = "default"
+
+[node name="MoveComponent" parent="." index="2"]
+process_mode = 4
+velocity = Vector2(0, 0)
+
+[node name="StatsComponent" parent="." index="3"]
+health = 15
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="4"]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(0.4, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_u3mxp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_5win5")

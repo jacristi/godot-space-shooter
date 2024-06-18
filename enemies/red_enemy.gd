@@ -30,9 +30,9 @@ func _ready() -> void:
         state = state as StateComponent
         state.disable()
 
-    move_strafe_component.velocity.x = [
-        -50, 50
-        ].pick_random()
+    # move_strafe_component.velocity.x = [
+    #     -50, 50
+    #     ].pick_random()
 
     enter_state.state_finished.connect(idle_state.enable)
     idle_state.state_finished.connect(strafe_state.enable)

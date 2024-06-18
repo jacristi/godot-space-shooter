@@ -4,6 +4,10 @@ extends Node2D
 @export var YellowEnemyScene: PackedScene
 @export var PinkEnemyScene: PackedScene
 @export var RedEnemyScene: PackedScene
+@export var HomingEnemyScene: PackedScene
+
+@export var BossScenes: Array[PackedScene]
+var current_boss_index := 0
 
 @export var game_stats: GameStats
 
@@ -16,6 +20,19 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var yellow_enemy_spawn_timer: Timer = $YellowEnemySpawnTimer
 @onready var pink_enemy_spawn_timer: Timer   = $PinkEnemySpawnTimer
 @onready var red_enemy_spawn_timer: Timer = $RedEnemySpawnTimer
+@onready var homing_enemy_spawn_timer: Timer = $HomingEnemySpawnTimer
+
+var is_boss_event_in_progress = false
+
+var enemy_types_enabled = {
+    'green':  false,
+    'yellow': false,
+    'pink':   false,
+    'red':    false,
+    'homing': false,
+}
+
+signal boss_event_complete()
 
 
 func _ready() -> void:
@@ -49,17 +66,38 @@ func _ready() -> void:
             )
         )
 
-    game_stats.score_changed.connect(check_enable_enemy_timers)
+    homing_enemy_spawn_timer.timeout.connect(
+        handle_enemy_spawn.bind(
+            HomingEnemyScene,
+            homing_enemy_spawn_timer,
+            150
+            )
+        )
 
-func check_enable_enemy_timers(new_score: int):
-    if new_score > 25:
+
+func enable_new_enemy(enemy_type: String) -> void:
+    if not enemy_types_enabled.has(enemy_type):
+        print('invalid enemy: ' + enemy_type)
+        return
+
+    if enemy_types_enabled[enemy_type] == true:
+        return
+
+    print("ENABLING ENEMY: " + enemy_type)
+
+    if enemy_type == 'yellow':
         yellow_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score > 80:
+    if enemy_type == 'pink':
         pink_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score > 50:
+    if enemy_type == 'red':
         red_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
+    if enemy_type == 'homing':
+        homing_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
+    enemy_types_enabled[enemy_type] = true
 
 
 func handle_enemy_spawn(
@@ -67,6 +105,7 @@ func handle_enemy_spawn(
         timer: Timer,
         time_offset: float=1.0
     ) -> void:
+
     spawner_component.scene = enemy_scene
     spawner_component.spawn(
         Vector2(
@@ -74,5 +113,7 @@ func handle_enemy_spawn(
             -16
             )
         )
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.01))
+
+    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
     timer.start(spawn_rate + randf_range(0.25, 0.5))
+
