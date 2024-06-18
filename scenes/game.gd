@@ -19,20 +19,23 @@ func _ready() -> void:
 
 func handle_score_based_events(new_score: int) -> void:
     # when score reaches certain levels, start event
-    #if new_score > 25:
-        #enemy_generator.enable_new_enemy("yellow")
-#
-    #if new_score > 80:
-        #enemy_generator.enable_new_enemy("pink")
-#
-    #if new_score > 100:
-        #enemy_generator.enable_new_enemy("red")
+    if new_score > 25:
+        enemy_generator.enable_new_enemy("yellow")
 
-    if new_score > 550 and new_score < 700 and is_event_in_progress == false:
-        is_event_in_progress = true
-        print("START BOSS EVENT!")
-        enemy_generator.is_boss_event_in_progress = true
-        enemy_generator.handle_boss_event_start()
+    if new_score > 100:
+        enemy_generator.enable_new_enemy("pink")
+
+    if new_score > 300:
+        enemy_generator.enable_new_enemy("red")
+
+    if new_score > 500:
+        enemy_generator.enable_new_enemy("homing")
+
+    #if new_score > 550 and new_score < 700 and is_event_in_progress == false:
+        #is_event_in_progress = true
+        #print("START BOSS EVENT!")
+        #enemy_generator.is_boss_event_in_progress = true
+        #enemy_generator.handle_boss_event_start()
 
 
 func event_over():

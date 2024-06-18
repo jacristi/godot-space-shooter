@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjjsl54xehrvt"]
+[gd_scene load_steps=10 format=3 uid="uid://cjjsl54xehrvt"]
 
 [ext_resource type="Script" path="res://enemies/enemy_generator.gd" id="1_x4h81"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="2_6o3sb"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://3xntr8qxh4wt" path="res://enemies/red_enemy.tscn" id="5_jkhfx"]
 [ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="5_qxjov"]
 [ext_resource type="PackedScene" uid="uid://b00xggipdcllj" path="res://enemies/bosses/boss_1.tscn" id="6_k2k3b"]
+[ext_resource type="PackedScene" uid="uid://dcfckrb4gg888" path="res://enemies/homing_enemy.tscn" id="6_tixj5"]
 
 [node name="EnemyGenerator" type="Node2D"]
 script = ExtResource("1_x4h81")
@@ -15,6 +16,7 @@ GreenEnemyScene = ExtResource("2_rl5yc")
 YellowEnemyScene = ExtResource("3_gs4yf")
 PinkEnemyScene = ExtResource("4_fjmyt")
 RedEnemyScene = ExtResource("5_jkhfx")
+HomingEnemyScene = ExtResource("6_tixj5")
 BossScenes = Array[PackedScene]([ExtResource("6_k2k3b")])
 game_stats = ExtResource("5_qxjov")
 
@@ -22,21 +24,31 @@ game_stats = ExtResource("5_qxjov")
 script = ExtResource("2_6o3sb")
 
 [node name="GreenEnemySpawnTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-autostart = true
-
-[node name="YellowEnemySpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="YellowEnemySpawnTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 5.0
+one_shot = true
+autostart = true
+
 [node name="PinkEnemySpawnTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 12.0
 one_shot = true
 autostart = true
 
 [node name="RedEnemySpawnTimer" type="Timer" parent="."]
-wait_time = 50.0
+process_mode = 4
+wait_time = 35.0
+one_shot = true
+autostart = true
+
+[node name="HomingEnemySpawnTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 45.0
 one_shot = true
 autostart = true
 

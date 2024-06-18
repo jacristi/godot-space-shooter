@@ -4,6 +4,7 @@ extends Node2D
 @export var YellowEnemyScene: PackedScene
 @export var PinkEnemyScene: PackedScene
 @export var RedEnemyScene: PackedScene
+@export var HomingEnemyScene: PackedScene
 
 @export var BossScenes: Array[PackedScene]
 var current_boss_index := 0
@@ -19,9 +20,7 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var yellow_enemy_spawn_timer: Timer = $YellowEnemySpawnTimer
 @onready var pink_enemy_spawn_timer: Timer   = $PinkEnemySpawnTimer
 @onready var red_enemy_spawn_timer: Timer = $RedEnemySpawnTimer
-
-@onready var boss_event_start_timer: Timer = $BossEventStartTimer
-@onready var boss_event_end_timer: Timer = $BossEventEndTimer
+@onready var homing_enemy_spawn_timer: Timer = $HomingEnemySpawnTimer
 
 var is_boss_event_in_progress = false
 
@@ -30,6 +29,7 @@ var enemy_types_enabled = {
     'yellow': false,
     'pink':   false,
     'red':    false,
+    'homing': false,
 }
 
 signal boss_event_complete()
@@ -66,6 +66,14 @@ func _ready() -> void:
             )
         )
 
+    homing_enemy_spawn_timer.timeout.connect(
+        handle_enemy_spawn.bind(
+            HomingEnemyScene,
+            homing_enemy_spawn_timer,
+            120
+            )
+        )
+
 
 func enable_new_enemy(enemy_type: String) -> void:
     if not enemy_types_enabled.has(enemy_type):
@@ -86,6 +94,9 @@ func enable_new_enemy(enemy_type: String) -> void:
     if enemy_type == 'red':
         red_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
+    if enemy_type == 'homing':
+        homing_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
     enemy_types_enabled[enemy_type] = true
 
 
@@ -95,39 +106,13 @@ func handle_enemy_spawn(
         time_offset: float=1.0
     ) -> void:
 
-    if not is_boss_event_in_progress:
-        spawner_component.scene = enemy_scene
-        spawner_component.spawn(
-            Vector2(
-                randf_range(margin, screen_width-margin),
-                -16
-                )
-            )
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.01))
-    timer.start(spawn_rate + randf_range(0.25, 0.5))
-
-
-func handle_boss_event_end() -> void:
-    boss_event_end_timer.start()
-    await boss_event_end_timer.timeout
-    boss_event_complete.emit()
-    is_boss_event_in_progress = false
-
-
-func handle_boss_event_start() -> void:
-    boss_event_start_timer.start()
-    await boss_event_start_timer.timeout
-    handle_boss_event()
-
-
-func handle_boss_event() -> void:
-    spawner_component.scene = BossScenes[current_boss_index]
-    current_boss_index += 1
-    var boss_instance = spawner_component.spawn(
+    spawner_component.scene = enemy_scene
+    spawner_component.spawn(
         Vector2(
             randf_range(margin, screen_width-margin),
             -16
             )
         )
-    boss_instance.stats_component.no_health.connect(handle_boss_event_end)
+    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.01))
+    timer.start()#spawn_rate + randf_range(0.25, 0.5))
 
