@@ -5,6 +5,7 @@ extends Node2D
 @export var PinkEnemyScene: PackedScene
 @export var RedEnemyScene: PackedScene
 @export var HomingEnemyScene: PackedScene
+@export var TieEnemyScene: PackedScene
 
 @export var BossScenes: Array[PackedScene]
 var current_boss_index := 0
@@ -21,6 +22,7 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var pink_enemy_spawn_timer: Timer   = $PinkEnemySpawnTimer
 @onready var red_enemy_spawn_timer: Timer = $RedEnemySpawnTimer
 @onready var homing_enemy_spawn_timer: Timer = $HomingEnemySpawnTimer
+@onready var tie_enemy_spawn_timer: Timer = $TieEnemySpawnTimer
 
 var is_boss_event_in_progress = false
 
@@ -30,6 +32,7 @@ var enemy_types_enabled = {
     'pink':   false,
     'red':    false,
     'homing': false,
+    'tie':    false,
 }
 
 signal boss_event_complete()
@@ -74,6 +77,14 @@ func _ready() -> void:
             )
         )
 
+    tie_enemy_spawn_timer.timeout.connect(
+        handle_enemy_spawn.bind(
+            TieEnemyScene,
+            tie_enemy_spawn_timer,
+            175
+            )
+        )
+
 
 func enable_new_enemy(enemy_type: String) -> void:
     if not enemy_types_enabled.has(enemy_type):
@@ -97,6 +108,9 @@ func enable_new_enemy(enemy_type: String) -> void:
     if enemy_type == 'homing':
         homing_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
+    if enemy_type == 'tie':
+        tie_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
     enemy_types_enabled[enemy_type] = true
 
 
@@ -114,6 +128,6 @@ func handle_enemy_spawn(
             )
         )
 
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
+    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.003))
     timer.start(spawn_rate + randf_range(0.25, 0.5))
 

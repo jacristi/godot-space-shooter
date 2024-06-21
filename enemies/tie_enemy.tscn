@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3 uid="uid://dnnjaxt5cgbw4"]
+
+[ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_wbq3b"]
+[ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="2_hgqp2"]
+[ext_resource type="Script" path="res://enemies/tie_enemy.gd" id="2_imm8n"]
+[ext_resource type="Script" path="res://components/lerp_component.gd" id="4_erbax"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="5_n1h00"]
+[ext_resource type="Script" path="res://components/position_clamp_component.gd" id="6_ffrgb"]
+[ext_resource type="Texture2D" uid="uid://cclwvwpiwq4o6" path="res://assets/spr_tie_enemy.png" id="7_e1yst"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="8_gvpe3"]
+[ext_resource type="PackedScene" uid="uid://cci186l67o0gy" path="res://projectiles/tie_projectile.tscn" id="9_qh6ey"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75qxb"]
+atlas = ExtResource("7_e1yst")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1aghf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75qxb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cnyb"]
+size = Vector2(8, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mdo1"]
+size = Vector2(6, 4)
+
+[node name="TieEnemy" instance=ExtResource("1_wbq3b")]
+script = ExtResource("2_imm8n")
+
+[node name="States" type="Node" parent="." index="0"]
+
+[node name="SpawnState" type="Node" parent="States" index="0"]
+unique_name_in_owner = true
+script = ExtResource("2_hgqp2")
+
+[node name="MoveComponent" type="Node" parent="States/SpawnState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_n1h00")
+velocity = Vector2(0, 60)
+actor = NodePath("../../..")
+
+[node name="MoveDownLerp" type="Node" parent="States" index="1"]
+unique_name_in_owner = true
+script = ExtResource("2_hgqp2")
+duration = 2.0
+
+[node name="LerpComponent" type="Node" parent="States/MoveDownLerp" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_erbax")
+lerp_amount = 1.5
+actor = NodePath("../../..")
+lerp_y = true
+offset_y = -25.0
+
+[node name="MoveUpComponent" type="Node" parent="States" index="2"]
+unique_name_in_owner = true
+script = ExtResource("2_hgqp2")
+duration = 2.0
+
+[node name="MoveComponent" type="Node" parent="States/MoveUpComponent" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_n1h00")
+velocity = Vector2(0, -75)
+actor = NodePath("../../..")
+
+[node name="LerpComponent" type="Node" parent="States/MoveUpComponent" index="1" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_erbax")
+actor = NodePath("../../..")
+
+[node name="PositionClampComponent" type="Node2D" parent="States/MoveUpComponent" index="2" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_ffrgb")
+actor = NodePath("../../..")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_1aghf")
+autoplay = "default"
+
+[node name="MoveComponent" parent="." index="2"]
+velocity = Vector2(0, 0)
+
+[node name="StatsComponent" parent="." index="3"]
+health = 20
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="4"]
+position = Vector2(-3.57628e-07, 1.78814e-07)
+scale = Vector2(0.5, 0.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_5cnyb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_1mdo1")
+
+[node name="ScoreComponent" parent="." index="13"]
+adjust_amount = 20
+
+[node name="ProjectileSpawner" type="Node2D" parent="." index="15"]
+script = ExtResource("8_gvpe3")
+scene = ExtResource("9_qh6ey")
+
+[node name="Timer" type="Timer" parent="ProjectileSpawner" index="0"]
+wait_time = 0.6
+autostart = true

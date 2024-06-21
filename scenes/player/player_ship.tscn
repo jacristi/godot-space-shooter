@@ -191,6 +191,7 @@ move_stats = ExtResource("4_558jw")
 [node name="PositionClampComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("5_yhg1b")
 actor = NodePath("..")
+bottom_margin = 16
 
 [node name="ProjectileSourceLeft" type="Marker2D" parent="."]
 position = Vector2(-3, -2)

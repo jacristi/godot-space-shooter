@@ -31,6 +31,9 @@ func handle_score_based_events(new_score: int) -> void:
     if new_score > 500:
         enemy_generator.enable_new_enemy("homing")
 
+    if new_score > 800:
+        enemy_generator.enable_new_enemy("tie")
+
     #if new_score > 550 and new_score < 700 and is_event_in_progress == false:
         #is_event_in_progress = true
         #print("START BOSS EVENT!")
