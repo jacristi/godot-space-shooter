@@ -14,6 +14,11 @@ extends Node2D
 @onready var shoot_audio_player: VariablePitchAudioStreamPlayer = $ShootAudioStreamPlayer
 @onready var level_up_audio_stream_player: VariablePitchAudioStreamPlayer = $LevelUpAudioStreamPlayer
 
+var has_flank_left_1 := false
+var has_flank_left_2 := false
+var has_flank_right_1 := false
+var has_flank_right_2 := false
+
 
 var TIMER_POINT_BREAKS = {
         100: .375,

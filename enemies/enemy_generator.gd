@@ -94,8 +94,6 @@ func enable_new_enemy(enemy_type: String) -> void:
     if enemy_types_enabled[enemy_type] == true:
         return
 
-    print("ENABLING ENEMY: " + enemy_type)
-
     if enemy_type == 'yellow':
         yellow_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -128,6 +126,6 @@ func handle_enemy_spawn(
             )
         )
 
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.003))
+    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
     timer.start(spawn_rate + randf_range(0.25, 0.5))
 

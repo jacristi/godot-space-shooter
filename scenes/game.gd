@@ -36,7 +36,6 @@ func handle_score_based_events(new_score: int) -> void:
 
     #if new_score > 550 and new_score < 700 and is_event_in_progress == false:
         #is_event_in_progress = true
-        #print("START BOSS EVENT!")
         #enemy_generator.is_boss_event_in_progress = true
         #enemy_generator.handle_boss_event_start()
 

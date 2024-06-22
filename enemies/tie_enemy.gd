@@ -24,7 +24,6 @@ func _ready() -> void:
     spawn_state.enable()
 
     cooldown_timer.timeout.connect(fire_projectile)
-    print(cooldown_timer.wait_time)
 
 
 func transition_move_down_lerp_state():

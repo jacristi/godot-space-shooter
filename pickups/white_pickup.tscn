@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://clewvp4mprern"]
+
+[ext_resource type="PackedScene" uid="uid://bfgfj802ng1mt" path="res://pickups/pickup.tscn" id="1_j38ps"]
+[ext_resource type="Texture2D" uid="uid://btk6gy3t3fq1d" path="res://assets/spr_white_pickup.png" id="2_5iipw"]
+[ext_resource type="PackedScene" uid="uid://lt8c5mqot8ul" path="res://scenes/player/player_flank.tscn" id="3_fpnt1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwwi5"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4otd"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnjdg"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4aub"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4bjg"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejsh1"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cohgl"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to5mv"]
+atlas = ExtResource("2_5iipw")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ovjpf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwwi5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4otd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnjdg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4aub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4bjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejsh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cohgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_to5mv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdtor"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cil4h"]
+size = Vector2(6, 6)
+
+[node name="WhitePickup" instance=ExtResource("1_j38ps")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_ovjpf")
+frame = 3
+frame_progress = 0.911113
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(0.6, 0.6)
+
+[node name="HurtboxComponent" parent="." index="7"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_sdtor")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("RectangleShape2D_cil4h")
+
+[node name="CollectedComponent" parent="." index="12" node_paths=PackedStringArray("spawner_component")]
+spawner_component = NodePath("../CollectedSpawnerComponent")
+
+[node name="CollectedSpawnerComponent" parent="." index="13"]
+scene = ExtResource("3_fpnt1")
