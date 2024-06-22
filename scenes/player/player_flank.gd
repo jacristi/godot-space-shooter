@@ -9,6 +9,7 @@ extends Node2D
 @onready var scale_component: ScaleComponent = $ScaleComponent
 @onready var shoot_audio_player: VariablePitchAudioStreamPlayer = $ShootAudioStreamPlayer
 @onready var lerp_component: LerpComponent = $LerpComponent
+@onready var pickup_audio: VariablePitchAudioStreamPlayer = $PickupAudio
 
 var player
 var is_flank_left_1 := false
@@ -55,6 +56,7 @@ func _ready() -> void:
     player.fire_rate_timer.timeout.connect(fire_projectiles)
     lerp_component.offset_y = lerp_offset_y
     spawn_flank_pos()
+    pickup_audio.play()
 
 
 func fire_projectiles():

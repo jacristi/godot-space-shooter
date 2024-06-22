@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dcfckrb4gg888"]
+[gd_scene load_steps=17 format=3 uid="uid://dcfckrb4gg888"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_a0uvx"]
 [ext_resource type="Script" path="res://enemies/homing_enemy.gd" id="2_5ai5s"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://components/move_component.gd" id="3_g8m3b"]
 [ext_resource type="Script" path="res://components/state_component.gd" id="4_dhqfv"]
 [ext_resource type="Script" path="res://components/lerp_component.gd" id="6_iwese"]
+[ext_resource type="AudioStream" uid="uid://cgjtfcaay7ile" path="res://sfx/enemy_dive_1.wav" id="8_7337a"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="9_tefdw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2b8o3"]
 atlas = ExtResource("2_168m2")
@@ -102,3 +104,9 @@ shape = SubResource("RectangleShape2D_u3mxp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_5win5")
+
+[node name="DiveAudio" type="AudioStreamPlayer" parent="." index="15"]
+stream = ExtResource("8_7337a")
+bus = &"SFX"
+script = ExtResource("9_tefdw")
+pitch_min = 0.8

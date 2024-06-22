@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnnjaxt5cgbw4"]
+[gd_scene load_steps=16 format=3 uid="uid://dnnjaxt5cgbw4"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_wbq3b"]
 [ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="2_hgqp2"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://components/position_clamp_component.gd" id="6_ffrgb"]
 [ext_resource type="Texture2D" uid="uid://cclwvwpiwq4o6" path="res://assets/spr_tie_enemy.png" id="7_e1yst"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="8_gvpe3"]
+[ext_resource type="AudioStream" uid="uid://bqsdvao6k7grs" path="res://sfx/enemy_fire_sound_3.wav" id="8_r6o3r"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="9_focnn"]
 [ext_resource type="PackedScene" uid="uid://cci186l67o0gy" path="res://projectiles/tie_projectile.tscn" id="9_qh6ey"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75qxb"]
@@ -98,7 +100,14 @@ shape = SubResource("RectangleShape2D_1mdo1")
 [node name="ScoreComponent" parent="." index="13"]
 adjust_amount = 20
 
-[node name="ProjectileSpawner" type="Node2D" parent="." index="15"]
+[node name="ShootAudio" type="AudioStreamPlayer" parent="." index="15"]
+stream = ExtResource("8_r6o3r")
+volume_db = -10.0
+bus = &"SFX"
+script = ExtResource("9_focnn")
+pitch_min = 0.8
+
+[node name="ProjectileSpawner" type="Node2D" parent="." index="16"]
 script = ExtResource("8_gvpe3")
 scene = ExtResource("9_qh6ey")
 

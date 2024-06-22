@@ -7,6 +7,7 @@ extends Enemy
 @onready var move_up_component: TimedStateComponent = %MoveUpComponent
 @onready var projectile_spawner: SpawnerComponent = $ProjectileSpawner
 @onready var cooldown_timer: Timer = $ProjectileSpawner/Timer
+@onready var shoot_audio: VariablePitchAudioStreamPlayer = $ShootAudio
 
 var can_shoot := false
 
@@ -40,5 +41,6 @@ func fire_projectile() -> void:
     if not can_shoot:
         return
 
+    shoot_audio.play()
     projectile_spawner.spawn()
     scale_component.tween_scale()

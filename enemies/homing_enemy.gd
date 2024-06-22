@@ -5,6 +5,7 @@ extends Enemy
 @onready var spawn_state: TimedStateComponent = $States/SpawnState
 @onready var line_up_state: StateComponent = $States/LineUpState
 @onready var fly_down_state: StateComponent = $States/FlyDownState
+@onready var dive_audio: VariablePitchAudioStreamPlayer = $DiveAudio
 
 
 func _ready() -> void:
@@ -14,7 +15,11 @@ func _ready() -> void:
         state.disable()
 
     spawn_state.state_finished.connect(line_up_state.enable)
-    line_up_state.state_finished.connect(fly_down_state.enable)
+    line_up_state.state_finished.connect(start_fly_down_state)
 
     spawn_state.enable()
 
+
+func start_fly_down_state() -> void:
+    fly_down_state.enable()
+    dive_audio.play()

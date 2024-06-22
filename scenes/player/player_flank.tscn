@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://lt8c5mqot8ul"]
+[gd_scene load_steps=20 format=3 uid="uid://lt8c5mqot8ul"]
 
 [ext_resource type="Texture2D" uid="uid://besyj82uwm0p8" path="res://assets/spr_flank_ship.png" id="1_c61x5"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="1_ce4hv"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://brofr43frbllx" path="res://sfx/shoot_sound_1.wav" id="9_hl7w2"]
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="10_s1my3"]
 [ext_resource type="Script" path="res://components/lerp_component.gd" id="11_xiauc"]
+[ext_resource type="AudioStream" uid="uid://b8sdh013lyo0k" path="res://sfx/flank_pickup_1.wav" id="14_y6ghq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30jot"]
 atlas = ExtResource("1_c61x5")
@@ -107,3 +108,7 @@ script = ExtResource("11_xiauc")
 lerp_amount = 25.0
 actor = NodePath("..")
 lerp_y = true
+
+[node name="PickupAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_y6ghq")
+script = ExtResource("10_s1my3")
