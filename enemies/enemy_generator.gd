@@ -126,6 +126,6 @@ func handle_enemy_spawn(
             )
         )
 
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.003))
+    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
     timer.start(spawn_rate + randf_range(0.25, 0.5))
 
