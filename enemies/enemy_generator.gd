@@ -94,8 +94,6 @@ func enable_new_enemy(enemy_type: String) -> void:
     if enemy_types_enabled[enemy_type] == true:
         return
 
-    print("ENABLING ENEMY: " + enemy_type)
-
     if enemy_type == 'yellow':
         yellow_enemy_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
