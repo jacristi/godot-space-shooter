@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjjsl54xehrvt"]
+[gd_scene load_steps=12 format=3 uid="uid://cjjsl54xehrvt"]
 
 [ext_resource type="Script" path="res://enemies/enemy_generator.gd" id="1_x4h81"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="2_6o3sb"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b00xggipdcllj" path="res://enemies/bosses/boss_1.tscn" id="6_k2k3b"]
 [ext_resource type="PackedScene" uid="uid://dcfckrb4gg888" path="res://enemies/homing_enemy.tscn" id="6_tixj5"]
 [ext_resource type="PackedScene" uid="uid://dnnjaxt5cgbw4" path="res://enemies/tie_enemy.tscn" id="7_1c2ce"]
+[ext_resource type="PackedScene" uid="uid://d0prh10tthw7" path="res://enemies/purple_enemy.tscn" id="8_1yr1t"]
 
 [node name="EnemyGenerator" type="Node2D"]
 script = ExtResource("1_x4h81")
@@ -19,6 +20,7 @@ PinkEnemyScene = ExtResource("4_fjmyt")
 RedEnemyScene = ExtResource("5_jkhfx")
 HomingEnemyScene = ExtResource("6_tixj5")
 TieEnemyScene = ExtResource("7_1c2ce")
+PurpleEnemyScene = ExtResource("8_1yr1t")
 BossScenes = Array[PackedScene]([ExtResource("6_k2k3b")])
 game_stats = ExtResource("5_qxjov")
 
@@ -50,6 +52,11 @@ one_shot = true
 autostart = true
 
 [node name="TieEnemySpawnTimer" type="Timer" parent="."]
+process_mode = 4
+one_shot = true
+autostart = true
+
+[node name="PurpleEnemySpawnTimer" type="Timer" parent="."]
 process_mode = 4
 one_shot = true
 autostart = true

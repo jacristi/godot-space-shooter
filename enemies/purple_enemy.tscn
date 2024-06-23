@@ -1,0 +1,123 @@
+[gd_scene load_steps=18 format=3 uid="uid://d0prh10tthw7"]
+
+[ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_whl3g"]
+[ext_resource type="Script" path="res://enemies/purple_enemy.gd" id="2_ve4rk"]
+[ext_resource type="Texture2D" uid="uid://bs7o05lxapplx" path="res://assets/spr_purple_enemy.png" id="3_g6imi"]
+[ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="3_s0j5w"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="4_5uad1"]
+[ext_resource type="Script" path="res://components/state_component.gd" id="4_kwqsj"]
+[ext_resource type="Script" path="res://components/lerp_component.gd" id="5_cvuma"]
+[ext_resource type="Script" path="res://components/position_clamp_component.gd" id="6_g001s"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="6_jm4ik"]
+[ext_resource type="PackedScene" uid="uid://dn6roakl4jy0x" path="res://enemies/side_projectile_left.tscn" id="9_xh0y6"]
+[ext_resource type="PackedScene" uid="uid://cuggsflso8pow" path="res://enemies/side_projectile_right.tscn" id="10_uei5i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_neo48"]
+atlas = ExtResource("3_g6imi")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkaog"]
+atlas = ExtResource("3_g6imi")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxmj8"]
+atlas = ExtResource("3_g6imi")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fjiid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_neo48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkaog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxmj8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lgwrp"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2c4t"]
+size = Vector2(6, 6)
+
+[node name="PurpleEnemy" instance=ExtResource("1_whl3g")]
+script = ExtResource("2_ve4rk")
+
+[node name="States" type="Node" parent="." index="0"]
+
+[node name="SpawnState" type="Node" parent="States" index="0"]
+script = ExtResource("3_s0j5w")
+
+[node name="MoveComponent" type="Node" parent="States/SpawnState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_5uad1")
+velocity = Vector2(0, 50)
+actor = NodePath("../../..")
+
+[node name="LerpToPlayerYState" type="Node" parent="States" index="1"]
+script = ExtResource("3_s0j5w")
+duration = 5.0
+
+[node name="LerpComponent" type="Node" parent="States/LerpToPlayerYState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_cvuma")
+lerp_amount = 2.5
+actor = NodePath("../../..")
+lerp_x = false
+lerp_y = true
+
+[node name="RetreatState" type="Node" parent="States" index="2"]
+script = ExtResource("4_kwqsj")
+
+[node name="MoveComponent" type="Node" parent="States/RetreatState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_5uad1")
+velocity = Vector2(0, -100)
+actor = NodePath("../../..")
+has_random_x_direction = false
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_fjiid")
+autoplay = "default"
+
+[node name="MoveComponent" parent="." index="2"]
+velocity = Vector2(0, 0)
+
+[node name="StatsComponent" parent="." index="3"]
+health = 10
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="4"]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(0.4, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_lgwrp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_i2c4t")
+
+[node name="LeftProjectileSpawner" type="Node2D" parent="." index="13"]
+script = ExtResource("6_jm4ik")
+scene = ExtResource("9_xh0y6")
+
+[node name="RightProjectileSpawner" type="Node2D" parent="." index="14"]
+script = ExtResource("6_jm4ik")
+scene = ExtResource("10_uei5i")
+
+[node name="FireRateTimer" type="Timer" parent="." index="15"]
+wait_time = 0.75
+autostart = true
+
+[node name="PositionClampComponent" type="Node2D" parent="." index="18" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_g001s")
+actor = NodePath("..")
+top_margin = 0
+bottom_margin = 0
+should_clamp_top = false
+should_clamp_bottom = false

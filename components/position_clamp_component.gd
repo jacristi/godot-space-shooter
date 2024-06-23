@@ -18,16 +18,16 @@ var right_clamp:  float
 var top_clamp:    float
 var bottom_clamp: float
 
-var top_border    = ProjectSettings.get_setting("display/window/size/viewport_height")
+var bottom_border    = ProjectSettings.get_setting("display/window/size/viewport_height")
 var left_border   = 0
 var right_border  = ProjectSettings.get_setting("display/window/size/viewport_width")
-var bottom_border = 0
+var top_border = 0
 
 func _ready() -> void:
-    top_clamp    = top_border - top_margin
+    bottom_clamp    = bottom_border - bottom_margin
     left_clamp   = left_border + left_margin
     right_clamp  = right_border - right_margin
-    bottom_clamp = bottom_border + bottom_margin
+    top_clamp = top_border + top_margin
 
 
 func _clamp_entity_position() -> void:
@@ -38,11 +38,11 @@ func _clamp_entity_position() -> void:
     if should_clamp_right and actor.global_position.x > right_clamp:
         actor.global_position.x = right_clamp
 
-    if should_clamp_left and actor.global_position.y > top_clamp:
-        actor.global_position.y = top_clamp
-
-    if should_clamp_left and actor.global_position.y < bottom_clamp:
+    if should_clamp_top and actor.global_position.y > bottom_clamp:
         actor.global_position.y = bottom_clamp
+
+    if should_clamp_bottom and actor.global_position.y < top_clamp:
+        actor.global_position.y = top_clamp
 
         #actor.global_position.x = clamp(
             #actor.global_position.x,

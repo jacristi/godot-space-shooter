@@ -81,6 +81,9 @@ sprite_frames = SubResource("SpriteFrames_ovjpf")
 frame = 3
 frame_progress = 0.911113
 
+[node name="MoveComponent" parent="." index="1"]
+velocity = Vector2(0, 20)
+
 [node name="VisibleOnScreenNotifier2D" parent="." index="3"]
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(0.6, 0.6)
