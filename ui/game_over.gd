@@ -12,6 +12,7 @@ var save_path = SAVE_PATH
 var high_score_key := "highscore"
 
 func _ready() -> void:
+    get_tree().paused = false
     load_high_score()
     if game_stats.score > game_stats.high_score:
         game_stats.high_score = game_stats.score
