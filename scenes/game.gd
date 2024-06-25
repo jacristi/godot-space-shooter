@@ -31,10 +31,10 @@ func handle_score_based_events(new_score: int) -> void:
     if new_score > 600:
         enemy_generator.enable_new_enemy("homing")
 
-    if new_score > 1200:
+    if new_score > 1500:
         enemy_generator.enable_new_enemy("tie")
 
-    if new_score > 2000:
+    if new_score > 2500:
         enemy_generator.enable_new_enemy("purple")
 
     #if new_score > 550 and new_score < 700 and is_event_in_progress == false:

@@ -45,50 +45,43 @@ func _ready() -> void:
     green_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             GreenEnemyScene,
-            green_enemy_spawn_timer,
-            2
+            green_enemy_spawn_timer
         )
     )
     yellow_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             YellowEnemyScene,
-            yellow_enemy_spawn_timer,
-            10
+            yellow_enemy_spawn_timer
         )
     )
     pink_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             PinkEnemyScene,
-            pink_enemy_spawn_timer,
-            50
+            pink_enemy_spawn_timer
             )
         )
     red_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             RedEnemyScene,
-            red_enemy_spawn_timer,
-            120
+            red_enemy_spawn_timer
             )
         )
     homing_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             HomingEnemyScene,
-            homing_enemy_spawn_timer,
-            150
+            homing_enemy_spawn_timer
             )
         )
     tie_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             TieEnemyScene,
-            tie_enemy_spawn_timer,
-            175
+            tie_enemy_spawn_timer
             )
         )
     purple_enemy_spawn_timer.timeout.connect(
         handle_enemy_spawn.bind(
             PurpleEnemyScene,
-            purple_enemy_spawn_timer,
-            200
+            purple_enemy_spawn_timer
             )
         )
 
@@ -129,12 +122,12 @@ func handle_enemy_spawn(
     ) -> void:
 
     spawner_component.scene = enemy_scene
-    spawner_component.spawn(
+    var ins = spawner_component.spawn(
         Vector2(
             randf_range(margin, screen_width-margin),
             -16
             )
         )
-
-    var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
+    var spawn_rate = clamp(ins.spawn_time/(.05 + game_stats.score * .005), 1, ins.spawn_time)
+    #var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
     timer.start(spawn_rate + randf_range(0.25, 0.5))

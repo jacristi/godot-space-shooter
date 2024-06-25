@@ -39,6 +39,7 @@ size = Vector2(8, 4)
 size = Vector2(6, 2)
 
 [node name="GreenEnemy" instance=ExtResource("1_hr23f")]
+spawn_time = 3.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_hpgne")
@@ -60,3 +61,6 @@ shape = SubResource("RectangleShape2D_mtwhp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_6nrxk")
+
+[node name="ScoreComponent" parent="." index="12"]
+adjust_amount = 10

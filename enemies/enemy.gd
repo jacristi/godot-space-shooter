@@ -13,6 +13,7 @@ extends Node2D
 @onready var destroyed_component: DestroyedComponent = $DestroyedComponent
 @onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 
+@export var spawn_time := 30.0
 
 func _ready() -> void:
     stats_component.no_health.connect(give_score_on_death)

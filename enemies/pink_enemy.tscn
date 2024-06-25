@@ -63,6 +63,7 @@ size = Vector2(4, 4)
 
 [node name="PinkEnemy" instance=ExtResource("1_sffww")]
 script = ExtResource("2_puikq")
+spawn_time = 25.0
 
 [node name="States" type="Node" parent="." index="0"]
 
@@ -128,7 +129,7 @@ shape = SubResource("RectangleShape2D_eygrl")
 shape = SubResource("RectangleShape2D_ryxwd")
 
 [node name="ScoreComponent" parent="." index="13"]
-adjust_amount = 20
+adjust_amount = 35
 
 [node name="FireAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("10_r84dq")

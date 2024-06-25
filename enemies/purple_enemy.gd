@@ -9,6 +9,7 @@ extends Enemy
 @onready var left_projectile_spawner: SpawnerComponent = $LeftProjectileSpawner
 @onready var right_projectile_spawner: SpawnerComponent = $RightProjectileSpawner
 @onready var fire_rate_timer: Timer = $FireRateTimer
+@onready var shoot_audio: VariablePitchAudioStreamPlayer = $ShootAudio
 
 var can_fire := false
 
@@ -21,16 +22,16 @@ func _ready() -> void:
         state = state as StateComponent
         state.disable()
 
-        spawn_state.enable()
+    spawn_state.enable()
 
-        spawn_state.state_finished.connect(start_lerp_to_player_y_state)
-        lerp_to_player_y_state.state_finished.connect(end_lerp_to_player_y_state)
+    spawn_state.state_finished.connect(start_lerp_to_player_y_state)
+    lerp_to_player_y_state.state_finished.connect(end_lerp_to_player_y_state)
 
 
 func fire_projectiles() -> void:
     if not can_fire:
         return
-
+    shoot_audio.play_with_variance()
     left_projectile_spawner.spawn()
     right_projectile_spawner.spawn()
 

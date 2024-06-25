@@ -35,6 +35,7 @@ size = Vector2(6, 4)
 
 [node name="TieEnemy" instance=ExtResource("1_wbq3b")]
 script = ExtResource("2_imm8n")
+spawn_time = 250.0
 
 [node name="States" type="Node" parent="." index="0"]
 
@@ -98,7 +99,7 @@ shape = SubResource("RectangleShape2D_5cnyb")
 shape = SubResource("RectangleShape2D_1mdo1")
 
 [node name="ScoreComponent" parent="." index="13"]
-adjust_amount = 20
+adjust_amount = 75
 
 [node name="ShootAudio" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("8_r6o3r")

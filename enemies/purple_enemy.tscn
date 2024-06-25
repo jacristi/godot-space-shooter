@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0prh10tthw7"]
+[gd_scene load_steps=20 format=3 uid="uid://d0prh10tthw7"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_whl3g"]
 [ext_resource type="Script" path="res://enemies/purple_enemy.gd" id="2_ve4rk"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="6_jm4ik"]
 [ext_resource type="PackedScene" uid="uid://dn6roakl4jy0x" path="res://enemies/side_projectile_left.tscn" id="9_xh0y6"]
 [ext_resource type="PackedScene" uid="uid://cuggsflso8pow" path="res://enemies/side_projectile_right.tscn" id="10_uei5i"]
+[ext_resource type="AudioStream" uid="uid://dg1505u2506va" path="res://sfx/enemy_fire_sound_4.wav" id="11_a8rad"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="12_nbe68"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_neo48"]
 atlas = ExtResource("3_g6imi")
@@ -49,6 +51,7 @@ size = Vector2(6, 6)
 
 [node name="PurpleEnemy" instance=ExtResource("1_whl3g")]
 script = ExtResource("2_ve4rk")
+spawn_time = 300.0
 
 [node name="States" type="Node" parent="." index="0"]
 
@@ -114,7 +117,18 @@ scene = ExtResource("10_uei5i")
 wait_time = 0.75
 autostart = true
 
-[node name="PositionClampComponent" type="Node2D" parent="." index="18" node_paths=PackedStringArray("actor")]
+[node name="ScoreComponent" parent="." index="16"]
+adjust_amount = 100
+
+[node name="ShootAudio" type="AudioStreamPlayer" parent="." index="18"]
+stream = ExtResource("11_a8rad")
+volume_db = -5.0
+bus = &"SFX"
+script = ExtResource("12_nbe68")
+pitch_min = 0.5
+pitch_max = 0.8
+
+[node name="PositionClampComponent" type="Node2D" parent="." index="19" node_paths=PackedStringArray("actor")]
 script = ExtResource("6_g001s")
 actor = NodePath("..")
 top_margin = 0

@@ -53,13 +53,13 @@ func check_enable_pickup_timers(new_score: int):
     if new_score > 100:
         blue_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score > 400:
-        yelllow_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
-
-    if new_score > 500:
+    if new_score > 300:
         green_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
-    if new_score > 750:
+    if new_score > 500:
+        yelllow_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
+
+    if new_score > 650:
         white_pickup_spawn_timer.process_mode = Node.PROCESS_MODE_INHERIT
 
 

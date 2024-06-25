@@ -11,6 +11,7 @@ extends Node
 @export var offset_x := 0.0
 @export var offset_y := 0.0
 
+
 func _ready() -> void:
     if target == null:
         target = get_tree().get_first_node_in_group("player")

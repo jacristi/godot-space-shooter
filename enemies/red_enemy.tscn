@@ -59,6 +59,7 @@ script = ExtResource("2_4p67c")
 num_projectile_shots = 3
 num_projectile_cycles = 3
 strafe_velocity = Vector2(40, 0)
+spawn_time = 110.0
 
 [node name="States" type="Node" parent="." index="0"]
 
