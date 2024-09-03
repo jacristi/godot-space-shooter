@@ -22,4 +22,3 @@ func _ready() -> void:
     idle_shoot_state.state_finished.connect(strafe_shoot_state.enable)
 
     spawn_state.enable()
-

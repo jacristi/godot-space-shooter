@@ -13,4 +13,3 @@ extends Resource
 var player: Node2D
 
 signal score_changed(new_score)
-

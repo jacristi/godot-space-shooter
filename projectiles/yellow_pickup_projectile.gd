@@ -5,4 +5,3 @@ extends Node2D
 
 func _ready() -> void:
     audio_stream_player.play()
-

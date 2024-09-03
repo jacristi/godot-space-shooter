@@ -40,4 +40,3 @@ func save_high_score() -> void:
     var config = ConfigFile.new()
     config.set_value("game", high_score_key, game_stats.high_score)
     config.save(save_path)
-
