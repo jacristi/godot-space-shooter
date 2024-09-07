@@ -3,14 +3,16 @@ extends Node2D
 @export var game_stats: GameStats
 @onready var player_ship: Node2D = $PlayerShip
 @onready var score_label: Label = $ScoreLabel
+@onready var energy_label: Label = $EnergyLabel
 
 @onready var enemy_generator: Node2D = $EnemyGenerator
-@onready var pickup_generator: Node2D = $PickupGenerator
 
 
 func _ready() -> void:
     update_score_label(game_stats.score)
+    update_energy_label(game_stats.energy)
     game_stats.score_changed.connect(update_score_label)
+    game_stats.energy_changed.connect(update_energy_label)
     player_ship.tree_exiting.connect(player_defeated)
     game_stats.score_changed.connect(handle_score_based_events)
 
@@ -43,3 +45,6 @@ func player_defeated() -> void:
 
 func update_score_label(new_score: int) -> void:
     score_label.text = "Score: %d" % [new_score]
+
+func update_energy_label(new_energy: int) -> void:
+    energy_label.text = "Energy: %d" % [new_energy]

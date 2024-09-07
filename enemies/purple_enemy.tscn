@@ -52,6 +52,7 @@ size = Vector2(6, 6)
 [node name="PurpleEnemy" instance=ExtResource("1_whl3g")]
 script = ExtResource("2_ve4rk")
 spawn_time = 300.0
+energy_dropped = 6
 
 [node name="States" type="Node" parent="." index="0"]
 

@@ -55,6 +55,7 @@ size = Vector2(4, 7)
 [node name="HomingEnemy" instance=ExtResource("1_a0uvx")]
 script = ExtResource("2_5ai5s")
 spawn_time = 170.0
+energy_dropped = 8
 
 [node name="States" type="Node" parent="." index="0"]
 
