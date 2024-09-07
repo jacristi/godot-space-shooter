@@ -19,7 +19,7 @@
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="17_7k5dx"]
 [ext_resource type="AudioStream" uid="uid://br0xxi5eq7prb" path="res://sfx/pickup_blip_sound_1.wav" id="18_0oecl"]
 
-[node name="Pickup" type="Node2D"]
+[node name="Pickup" type="Node2D" groups=["Pickups"]]
 script = ExtResource("1_q6wj0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

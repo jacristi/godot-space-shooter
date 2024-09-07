@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Events="*res://events/events.tscn"
 ResourceStash="*res://scripts/resource_stash.gd"
 GameMusic="*res://scenes/game_music.tscn"
 

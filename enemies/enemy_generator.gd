@@ -26,7 +26,6 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var tie_enemy_spawn_timer: Timer = $TieEnemySpawnTimer
 @onready var purple_enemy_spawn_timer: Timer = $PurpleEnemySpawnTimer
 
-var is_boss_event_in_progress = false
 
 var enemy_types_enabled = {
     'green':  false,
@@ -37,8 +36,6 @@ var enemy_types_enabled = {
     'tie':    false,
     'purple': false,
 }
-
-signal boss_event_complete()
 
 
 func _ready() -> void:

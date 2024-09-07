@@ -21,11 +21,13 @@ func _ready() -> void:
     hurtbox_component.hurt.connect(was_hurt)
     hitbox_component.hit_hurtbox.connect(destroyed_component.destroy.unbind(1))
 
+
 func was_hurt(_hitbox: HitboxComponent) -> void:
     flash_component.flash()
     scale_component.tween_scale()
     shake_component.tween_shake()
     audio_player.play_with_variance()
+
 
 func give_score_on_death() -> void:
     score_component.adjust_score()

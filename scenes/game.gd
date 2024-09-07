@@ -7,14 +7,12 @@ extends Node2D
 @onready var enemy_generator: Node2D = $EnemyGenerator
 @onready var pickup_generator: Node2D = $PickupGenerator
 
-var is_event_in_progress := false
 
 func _ready() -> void:
     update_score_label(game_stats.score)
     game_stats.score_changed.connect(update_score_label)
     player_ship.tree_exiting.connect(player_defeated)
     game_stats.score_changed.connect(handle_score_based_events)
-    enemy_generator.boss_event_complete.connect(event_over)
 
 
 func handle_score_based_events(new_score: int) -> void:
@@ -36,15 +34,6 @@ func handle_score_based_events(new_score: int) -> void:
 
     if new_score > 2500:
         enemy_generator.enable_new_enemy("purple")
-
-    #if new_score > 550 and new_score < 700 and is_event_in_progress == false:
-        #is_event_in_progress = true
-        #enemy_generator.is_boss_event_in_progress = true
-        #enemy_generator.handle_boss_event_start()
-
-
-func event_over():
-    is_event_in_progress = false
 
 
 func player_defeated() -> void:

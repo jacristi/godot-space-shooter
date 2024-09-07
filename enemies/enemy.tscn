@@ -17,7 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://bkaajwpyfc0qp" path="res://sfx/hit_sound_2.wav" id="15_it27a"]
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="15_y5f6p"]
 
-[node name="Enemy" type="Node2D"]
+[node name="Enemy" type="Node2D" groups=["EnemyShips"]]
 script = ExtResource("1_h2emu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
