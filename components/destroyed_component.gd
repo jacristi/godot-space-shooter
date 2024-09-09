@@ -1,14 +1,11 @@
-# Give the component a class name so it can be instanced as a custom node
 class_name DestroyedComponent
 extends Node
 
-# Export the actor this component will operate on
 @export var actor: Node2D
 @export var stats_component: StatsComponent
 @export var spawner_component: SpawnerComponent
 
 func _ready() -> void:
-    # connect no health signal to destroy function
     stats_component.no_health.connect(destroy)
 
 

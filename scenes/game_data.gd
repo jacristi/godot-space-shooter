@@ -8,6 +8,7 @@ const DEBUG_SAVE_PATH = "res://save.cfg"
 var save_path = SAVE_PATH
 var high_score_key := "highscore"
 
+var score_queue := 0
 
 var high_score: int = 0
 var score: int = 0 :
@@ -17,6 +18,9 @@ var score: int = 0 :
 
 func set_score(amt:int):
     score += amt
+
+func set_score_queue(amt:int):
+    score_queue += amt
 
 var energy: int = 0:
     set(value):
@@ -28,8 +32,14 @@ func set_energy(amt:int):
 
 
 func _ready() -> void:
-    Events.adjust_score.connect(set_score)
+    Events.adjust_score.connect(set_score_queue)
     Events.adjust_energy.connect(set_energy)
+
+func _process(delta: float) -> void:
+    if score_queue != 0:
+        score += 1
+        score_queue -= 1
+
 
 
 func load_high_score() -> void:

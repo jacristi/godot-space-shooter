@@ -15,6 +15,7 @@ extends Node2D
 @onready var energy_spawner_component: SpawnerComponent = $EnergySpawnerComponent
 
 @export var spawn_time := 30.0
+@export var score_given := 5
 @export var energy_dropped := 1
 
 var is_destroyed := false
@@ -40,4 +41,4 @@ func handle_destroyed() -> void:
     for i in range(randf_range(0, energy_dropped+1)):
         energy_spawner_component.spawn()
 
-    score_component.adjust_score()
+    Events.adjust_score.emit(score_given)
