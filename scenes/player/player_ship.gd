@@ -42,7 +42,7 @@ func incr_fire_rate():
 
 func _ready():
     fire_rate_timer.timeout.connect(fire_projectiles)
-    stats_component.no_health.connect(handle_destroyed)
+    #stats_component.no_health.connect(handle_destroyed)
 
 
 func _process(_delta: float) -> void:
@@ -68,5 +68,5 @@ func animate_ship() -> void:
         thrust_animated_sprite.play("center")
 
 
-func handle_destroyed():
-    Events.player_destroyed.emit()
+#func handle_destroyed():
+    #Events.player_destroyed.emit()
