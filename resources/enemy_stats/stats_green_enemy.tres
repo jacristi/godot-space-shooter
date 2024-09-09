@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://cn14rluyip3y2"]
+
+[ext_resource type="Script" path="res://resources/enemy_stats/enemy_stats.gd" id="1_2vxy6"]
+
+[resource]
+script = ExtResource("1_2vxy6")
+health = 3
+contact_damage = 1
+score_given = 5
+energy_dropped = Array[int]([0, 0, 0, 1, 1, 1, 2, 2])
+spawn_time = 1.0

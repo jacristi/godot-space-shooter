@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://2od6dvg0w31"]
+[gd_scene load_steps=21 format=3 uid="uid://2od6dvg0w31"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_sffww"]
 [ext_resource type="Texture2D" uid="uid://cdekgq7eljb7e" path="res://assets/pink_enemy.png" id="2_abpib"]
 [ext_resource type="Script" path="res://enemies/pink_enemy.gd" id="2_puikq"]
+[ext_resource type="Resource" uid="uid://bun0p5uv23304" path="res://resources/enemy_stats/stats_pink_enemy.tres" id="3_675qy"]
 [ext_resource type="Script" path="res://components/state_component.gd" id="3_bl5m5"]
 [ext_resource type="Script" path="res://components/border_bounce_component.gd" id="4_h2mgn"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="4_mw4kk"]
@@ -63,8 +64,7 @@ size = Vector2(4, 4)
 
 [node name="PinkEnemy" instance=ExtResource("1_sffww")]
 script = ExtResource("2_puikq")
-spawn_time = 25.0
-energy_dropped = 3
+enemy_stats = ExtResource("3_675qy")
 
 [node name="States" type="Node" parent="." index="0"]
 
@@ -128,9 +128,6 @@ shape = SubResource("RectangleShape2D_eygrl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_ryxwd")
-
-[node name="ScoreComponent" parent="." index="13"]
-adjust_amount = 35
 
 [node name="FireAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("10_r84dq")

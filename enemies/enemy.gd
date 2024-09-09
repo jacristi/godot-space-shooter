@@ -6,7 +6,6 @@ extends Node2D
 @onready var scale_component: ScaleComponent = $ScaleComponent
 @onready var flash_component: FlashComponent = $FlashComponent
 @onready var shake_component: ShakeComponent = $ShakeComponent
-@onready var score_component: ScoreComponent = $ScoreComponent
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var hitbox_component:  HitboxComponent  = $HitboxComponent
@@ -14,9 +13,7 @@ extends Node2D
 @onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 @onready var energy_spawner_component: SpawnerComponent = $EnergySpawnerComponent
 
-@export var spawn_time := 30.0
-@export var score_given := 5
-@export var energy_dropped := 1
+@export var enemy_stats: EnemyStats
 
 var is_destroyed := false
 
@@ -38,7 +35,7 @@ func handle_destroyed() -> void:
     if is_destroyed: return
     is_destroyed = true
 
-    for i in range(randf_range(0, energy_dropped+1)):
+    for i in range(enemy_stats.energy_dropped.pick_random()):
         energy_spawner_component.spawn()
 
-    Events.adjust_score.emit(score_given)
+    Events.adjust_score.emit(enemy_stats.score_given)

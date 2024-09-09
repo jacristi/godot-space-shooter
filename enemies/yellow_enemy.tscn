@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://yielnegblk1k"]
+[gd_scene load_steps=11 format=3 uid="uid://yielnegblk1k"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_gqcw3"]
 [ext_resource type="Script" path="res://enemies/yellow_enemy.gd" id="2_5qepq"]
 [ext_resource type="Texture2D" uid="uid://djdbn7851uebi" path="res://assets/yellow_enemy.png" id="2_vrej0"]
+[ext_resource type="Resource" uid="uid://b47du605eh6io" path="res://resources/enemy_stats/stats_yellow_enemy.tres" id="3_fk2uj"]
 [ext_resource type="Script" path="res://components/border_bounce_component.gd" id="4_jva1w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ruoe"]
@@ -35,8 +36,7 @@ size = Vector2(4, 4)
 
 [node name="YellowEnemy" instance=ExtResource("1_gqcw3")]
 script = ExtResource("2_5qepq")
-spawn_time = 9.0
-energy_dropped = 3
+enemy_stats = ExtResource("3_fk2uj")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_d5yub")
@@ -60,9 +60,6 @@ shape = SubResource("RectangleShape2D_y7eox")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_heybt")
-
-[node name="ScoreComponent" parent="." index="12"]
-adjust_amount = 20
 
 [node name="BorderBounceComponent" type="Node" parent="." index="13" node_paths=PackedStringArray("actor", "move_component")]
 script = ExtResource("4_jva1w")

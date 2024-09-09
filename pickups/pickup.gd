@@ -6,7 +6,6 @@ extends Node2D
 @onready var scale_component: ScaleComponent = $ScaleComponent
 @onready var flash_component: FlashComponent = $FlashComponent
 @onready var shake_component: ShakeComponent = $ShakeComponent
-@onready var score_component: ScoreComponent = $ScoreComponent
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var hitbox_component:  HitboxComponent  = $HitboxComponent

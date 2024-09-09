@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfgfj802ng1mt"]
+[gd_scene load_steps=17 format=3 uid="uid://bfgfj802ng1mt"]
 
 [ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
 [ext_resource type="Script" path="res://pickups/move_component.gd" id="2_d2aw3"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="12_4ioft"]
 [ext_resource type="PackedScene" uid="uid://nosut8si5fh1" path="res://effects/blue_explosion_effect.tscn" id="13_7tscq"]
 [ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="13_l4y4i"]
-[ext_resource type="Script" path="res://components/score_component.gd" id="14_kwssh"]
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="16_sbr21"]
 [ext_resource type="AudioStream" uid="uid://5v7oh1bvc3l4" path="res://sfx/orig/hit_sound.wav" id="16_v86n2"]
 [ext_resource type="AudioStream" uid="uid://br0xxi5eq7prb" path="res://sfx/pickup_blip_sound_1.wav" id="18_0oecl"]
@@ -75,9 +74,6 @@ stats_component = NodePath("../StatsComponent")
 [node name="CollectedSpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("12_4ioft")
 scene = ExtResource("13_7tscq")
-
-[node name="ScoreComponent" type="Node" parent="."]
-script = ExtResource("14_kwssh")
 
 [node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_v86n2")
