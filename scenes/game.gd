@@ -17,8 +17,6 @@ func _ready() -> void:
 
 
 func handle_score_based_events(new_score: int) -> void:
-    print('score-change')
-    # when score reaches certain levels, start event
     if new_score > 25:
         enemy_generator.enable_new_enemy("yellow")
 
