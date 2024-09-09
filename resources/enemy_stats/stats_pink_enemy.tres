@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_h5cgp")
-health = 3
+health = 9
 contact_damage = 1
-score_given = 5
-energy_dropped = Array[int]([0, 0, 0, 1, 1, 1, 2, 2])
-spawn_time = 1.0
+score_given = 35
+energy_dropped = Array[int]([2, 2, 2, 3, 3, 4, 4, 6])
+spawn_time = 25.0

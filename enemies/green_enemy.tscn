@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmytj650u2kqd"]
+[gd_scene load_steps=10 format=3 uid="uid://bmytj650u2kqd"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_hr23f"]
+[ext_resource type="Resource" uid="uid://cn14rluyip3y2" path="res://resources/enemy_stats/stats_green_enemy.tres" id="2_tiqvm"]
 [ext_resource type="Texture2D" uid="uid://1xnjw6ep2k7y" path="res://assets/green_enemy.png" id="2_yatp6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpwdu"]
@@ -39,6 +40,7 @@ size = Vector2(8, 4)
 size = Vector2(6, 2)
 
 [node name="GreenEnemy" instance=ExtResource("1_hr23f")]
+enemy_stats = ExtResource("2_tiqvm")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_hpgne")

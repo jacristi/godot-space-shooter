@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_wvt7a")
-health = 3
+health = 10
 contact_damage = 1
-score_given = 5
-energy_dropped = Array[int]([0, 1, 1, 2])
-spawn_time = 1.0
+score_given = 50
+energy_dropped = Array[int]([2, 2, 4, 4, 4, 6, 6, 8])
+spawn_time = 110.0
