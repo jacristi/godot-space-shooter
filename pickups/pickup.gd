@@ -27,7 +27,6 @@ func _ready() -> void:
     flash_timer.timeout.connect(blip_audio_stream_player.play)
 
 
-
 func was_hurt(_hitbox: HitboxComponent) -> void:
     flash_component.flash()
     scale_component.tween_scale()

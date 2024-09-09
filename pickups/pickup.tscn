@@ -1,9 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://bfgfj802ng1mt"]
+[gd_scene load_steps=18 format=3 uid="uid://bfgfj802ng1mt"]
 
 [ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
-[ext_resource type="Script" path="res://components/move_component.gd" id="3_8g3hp"]
-[ext_resource type="Script" path="res://components/stats_component.gd" id="4_cha0t"]
-[ext_resource type="Script" path="res://components/scale_component.gd" id="5_51djb"]
 [ext_resource type="Script" path="res://components/flash_component.gd" id="6_5oq4s"]
 [ext_resource type="Script" path="res://components/shake_component.gd" id="7_3i3aa"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="8_7brgn"]
@@ -14,10 +11,105 @@
 [ext_resource type="PackedScene" uid="uid://nosut8si5fh1" path="res://effects/blue_explosion_effect.tscn" id="13_7tscq"]
 [ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="13_l4y4i"]
 [ext_resource type="Script" path="res://components/score_component.gd" id="14_kwssh"]
-[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="15_amcmb"]
 [ext_resource type="AudioStream" uid="uid://5v7oh1bvc3l4" path="res://sfx/orig/hit_sound.wav" id="16_v86n2"]
-[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="17_7k5dx"]
 [ext_resource type="AudioStream" uid="uid://br0xxi5eq7prb" path="res://sfx/pickup_blip_sound_1.wav" id="18_0oecl"]
+
+[sub_resource type="GDScript" id="GDScript_n176m"]
+script/source = "class_name MoveComponent
+extends Node
+
+
+@export var velocity: Vector2
+@export var actor: Node2D
+@export var has_random_x_direction := true
+
+
+func _ready() -> void:
+    if has_random_x_direction:
+        velocity = Vector2(
+            [-velocity.x, velocity.x].pick_random(),
+            velocity.y
+            )
+
+
+func _process(delta: float) -> void:
+    actor.translate(delta * velocity)
+"
+
+[sub_resource type="GDScript" id="GDScript_djjd7"]
+script/source = "# Give the component a class name so it can be instanced as a custom node
+class_name StatsComponent
+extends Node
+
+# Create the health variable and connect a setter
+@export var health: int = 1:
+    set(value):
+        health = value
+
+        # Signal out that the health has changed
+        health_changed.emit()
+
+        # Signal out when health is at 0
+        if health <= 0: no_health.emit()
+
+# Create our signals for health
+signal health_changed() # Emit when the health value has changed
+signal no_health() # Emit when there is no health left
+"
+
+[sub_resource type="GDScript" id="GDScript_28tuq"]
+script/source = "# Give the component a class name so it can be instanced as a custom node
+class_name ScaleComponent
+extends Node
+
+# Export the sprite that this component will be scaling
+@export var sprite: Node2D
+
+# Export the scale amount (as a vector)
+@export var scale_amount = Vector2(1.5, 1.5)
+
+# Export the scale duration
+@export var scale_duration: = 0.4
+
+# This is the function that will activate this component
+func tween_scale() -> void:
+	# We are going to scale the sprite using a tween (so we can make is smooth)
+	# First we create the tween and set it's transition type and easing type
+	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	
+	# Next we scale the sprite from its current scale to the scale amount (in 1/10th of the scale duration)
+	tween.tween_property(sprite, \"scale\", scale_amount, scale_duration * 0.1).from_current()
+	# Finally we scale back to a value of 1 for the other 9/10ths of the scale duration
+	# Consider that we always scale back to a value of 1, you could store the starting scale amount for the sprite
+	# as well for games where your character doesn't start with a scale of 1
+	tween.tween_property(sprite, \"scale\", Vector2.ONE, scale_duration * 0.9).from(scale_amount)
+"
+
+[sub_resource type="GDScript" id="GDScript_ipep2"]
+script/source = "# Give the component a class name so it can be instanced as a custom node
+class_name VariablePitchAudioStreamPlayer
+extends AudioStreamPlayer
+
+# This custom node is used to easily play a sound with a variable pitch
+
+# Export the minimum and maximum pitch amounts
+@export var pitch_min = 0.6
+@export var pitch_max = 1.2
+
+# Allow the node to automatically play the sound with the pitch variance
+@export var auto_play_with_variance: = false
+
+func _ready() -> void:
+	# If auto play with variance is on, call the function to play the sound in the ready function
+	if auto_play_with_variance:
+		play_with_variance(0.0)
+
+# This is the function for playing the sound using a variance in the pitch
+func play_with_variance(from_position: float = 0.0) -> void:
+	# Set the pitch scale before playing the sound (picking a random amount between the minimum and maximum)
+	pitch_scale = randf_range(pitch_min, pitch_max)
+	play(from_position)
+"
 
 [node name="Pickup" type="Node2D" groups=["Pickups"]]
 script = ExtResource("1_q6wj0")
@@ -26,18 +118,18 @@ script = ExtResource("1_q6wj0")
 autoplay = "default"
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
-script = ExtResource("3_8g3hp")
+script = SubResource("GDScript_n176m")
 velocity = Vector2(0, 5)
 actor = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
-script = ExtResource("4_cha0t")
+script = SubResource("GDScript_djjd7")
 health = 10
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
-script = ExtResource("5_51djb")
+script = SubResource("GDScript_28tuq")
 sprite = NodePath("../AnimatedSprite2D")
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
@@ -83,18 +175,17 @@ scene = ExtResource("13_7tscq")
 
 [node name="ScoreComponent" type="Node" parent="."]
 script = ExtResource("14_kwssh")
-game_stats = ExtResource("15_amcmb")
 
 [node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_v86n2")
 bus = &"SFX"
-script = ExtResource("17_7k5dx")
+script = SubResource("GDScript_ipep2")
 
 [node name="BlipAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_0oecl")
 volume_db = -4.0
 bus = &"SFX"
-script = ExtResource("17_7k5dx")
+script = SubResource("GDScript_ipep2")
 pitch_min = 0.4
 pitch_max = 0.7
 

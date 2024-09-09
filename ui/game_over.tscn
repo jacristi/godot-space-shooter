@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://boilakit2mmat"]
+[gd_scene load_steps=5 format=3 uid="uid://boilakit2mmat"]
 
 [ext_resource type="PackedScene" uid="uid://dtkt6ce0d5p2g" path="res://effects/space_background.tscn" id="1_86dft"]
 [ext_resource type="Script" path="res://ui/game_over.gd" id="1_kae8q"]
 [ext_resource type="LabelSettings" uid="uid://cirqmewyf2gkq" path="res://fonts/title_label_settings.tres" id="2_5vg2m"]
-[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="2_tt40e"]
 [ext_resource type="LabelSettings" uid="uid://cjof1qwn8asa1" path="res://fonts/default_label_settings.tres" id="3_xhgei"]
 
 [node name="GameOver" type="Control"]
@@ -14,7 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kae8q")
-game_stats = ExtResource("2_tt40e")
 
 [node name="SpaceBackground" parent="." instance=ExtResource("1_86dft")]
 

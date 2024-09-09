@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var self_node: Node2D
-@export var game_stats: GameStats
 
 @onready var fire_rate_timer: Timer              = $FireRateTimer
 @onready var scale_component: ScaleComponent     = $ScaleComponent
@@ -13,6 +12,8 @@ extends Node2D
 @onready var thrust_animated_sprite: AnimatedSprite2D = $SpriteAnchor/ThrustAnimatedSprite
 @onready var shoot_audio_player: VariablePitchAudioStreamPlayer = $ShootAudioStreamPlayer
 @onready var level_up_audio_stream_player: VariablePitchAudioStreamPlayer = $LevelUpAudioStreamPlayer
+@onready var stats_component: StatsComponent = $StatsComponent
+
 
 var has_flank_left_1 := false
 var has_flank_left_2 := false
@@ -41,7 +42,7 @@ func incr_fire_rate():
 
 func _ready():
     fire_rate_timer.timeout.connect(fire_projectiles)
-    game_stats.player = self_node
+    stats_component.no_health.connect(handle_destroyed)
 
 
 func _process(_delta: float) -> void:
@@ -65,3 +66,7 @@ func animate_ship() -> void:
     else:
         ship_animated_sprite.play("center")
         thrust_animated_sprite.play("center")
+
+
+func handle_destroyed():
+    Events.player_destroyed.emit()

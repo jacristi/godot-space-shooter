@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://di2ph76flv6jj"]
+[gd_scene load_steps=8 format=3 uid="uid://di2ph76flv6jj"]
 
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="1_a116s"]
 [ext_resource type="Script" path="res://pickups/pickup_generator.gd" id="1_xw532"]
 [ext_resource type="PackedScene" uid="uid://ddfakrfu06re4" path="res://pickups/blue_attack_speed_up.tscn" id="2_3ji3i"]
-[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="3_itmc1"]
 [ext_resource type="PackedScene" uid="uid://bn37hg8rvt4in" path="res://pickups/blue_pickup.tscn" id="3_o20su"]
 [ext_resource type="PackedScene" uid="uid://dj8gox2cs60nn" path="res://projectiles/yellow_pickup_projectile.tscn" id="3_wtcxm"]
 [ext_resource type="PackedScene" uid="uid://xxsws20p7731" path="res://projectiles/player_ship_shield.tscn" id="4_ojr0q"]
@@ -19,7 +18,6 @@ BluePickupScene = ExtResource("2_3ji3i")
 YellowPickupScene = ExtResource("3_wtcxm")
 GreenPickupScene = ExtResource("4_ojr0q")
 WhitePickupScene = ExtResource("5_xajjh")
-game_stats = ExtResource("3_itmc1")
 
 [node name="SpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("1_a116s")

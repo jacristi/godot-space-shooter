@@ -1,7 +1,5 @@
 extends Node2D
 
-@export var game_stats: GameStats
-
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var states: Node = $States
 @onready var spawn_state: TimedStateComponent = $States/SpawnState
@@ -22,5 +20,5 @@ func _ready() -> void:
     spawn_state.enable()
 
 func handle_on_collect(_hurtbox: HurtboxComponent):
-    game_stats.energy += 1
+    Events.adjust_energy.emit(1)
     queue_free()

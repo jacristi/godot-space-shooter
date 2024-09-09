@@ -8,7 +8,6 @@ extends CanvasLayer
 
 @export var color_active: Color
 @export var color_inactive: Color
-@export var game_stats: GameStats
 
 var pickup_manager
 var labels_dict = {

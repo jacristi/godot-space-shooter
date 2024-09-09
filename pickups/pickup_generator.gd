@@ -19,8 +19,6 @@ extends Node2D
 var margin := 8
 var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
 
-@export var game_stats: GameStats
-
 @onready var spawner_component: SpawnerComponent = $SpawnerComponent
 var player
 
@@ -51,29 +49,29 @@ func _process(delta: float) -> void:
 
 
 func purchase_blue_powerup():
-    if game_stats.energy < blue_powerup_cost: return
-    game_stats.energy -= blue_powerup_cost
+    if GameData.energy < blue_powerup_cost: return
+    GameData.energy -= blue_powerup_cost
     handle_pickup_spawn(BluePickupScene)
     blue_pickup_spawn_timer.start()
 
 
 func purchase_yellow_powerup():
-    if game_stats.energy < yellow_powerup_cost: return
-    game_stats.energy -= yellow_powerup_cost
+    if GameData.energy < yellow_powerup_cost: return
+    GameData.energy -= yellow_powerup_cost
     handle_pickup_spawn(YellowPickupScene)
     yellow_pickup_spawn_timer.start()
 
 
 func purchase_green_powerup():
-    if game_stats.energy < green_powerup_cost: return
-    game_stats.energy -= green_powerup_cost
+    if GameData.energy < green_powerup_cost: return
+    GameData.energy -= green_powerup_cost
     handle_pickup_spawn(GreenPickupScene)
     green_pickup_spawn_timer.start()
 
 
 func purchase_white_powerup():
-    if game_stats.energy < white_powerup_cost: return
-    game_stats.energy -= white_powerup_cost
+    if GameData.energy < white_powerup_cost: return
+    GameData.energy -= white_powerup_cost
     handle_pickup_spawn(WhitePickupScene)
     white_pickup_spawn_timer.start()
 
@@ -85,9 +83,9 @@ func can_player_get_flank_ship():
         or not player.has_flank_right_1 \
         or not player.has_flank_right_2
 
-func can_spawn_blue_pickup() -> bool: return blue_pickup_spawn_timer.time_left <= 0 and game_stats.energy >= 10
-func can_spawn_green_pickup() -> bool: return green_pickup_spawn_timer.time_left <= 0 and game_stats.energy >= 20
-func can_spawn_yellow_pickup() -> bool: return yellow_pickup_spawn_timer.time_left <= 0 and game_stats.energy >= 25
+func can_spawn_blue_pickup() -> bool: return blue_pickup_spawn_timer.time_left <= 0 and GameData.energy >= 10
+func can_spawn_green_pickup() -> bool: return green_pickup_spawn_timer.time_left <= 0 and GameData.energy >= 20
+func can_spawn_yellow_pickup() -> bool: return yellow_pickup_spawn_timer.time_left <= 0 and GameData.energy >= 25
 func can_spawn_white_pickup() -> bool: return white_pickup_spawn_timer.time_left <= 0 \
-    and game_stats.energy >= 35 \
+    and GameData.energy >= 35 \
     and can_player_get_flank_ship()

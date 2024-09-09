@@ -1,6 +1,5 @@
 extends Node2D
 
-@export var game_stats: GameStats
 @onready var player_ship: Node2D = $PlayerShip
 @onready var score_label: Label = $ScoreLabel
 @onready var energy_label: Label = $EnergyLabel
@@ -9,15 +8,16 @@ extends Node2D
 
 
 func _ready() -> void:
-    update_score_label(game_stats.score)
-    update_energy_label(game_stats.energy)
-    game_stats.score_changed.connect(update_score_label)
-    game_stats.energy_changed.connect(update_energy_label)
+    update_score_label(GameData.score)
+    update_energy_label(GameData.energy)
+    Events.score_changed.connect(update_score_label)
+    Events.energy_changed.connect(update_energy_label)
     player_ship.tree_exiting.connect(player_defeated)
-    game_stats.score_changed.connect(handle_score_based_events)
+    Events.score_changed.connect(handle_score_based_events)
 
 
 func handle_score_based_events(new_score: int) -> void:
+    print('score-change')
     # when score reaches certain levels, start event
     if new_score > 25:
         enemy_generator.enable_new_enemy("yellow")

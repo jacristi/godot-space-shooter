@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdcwxughhalt3"]
+[gd_scene load_steps=11 format=3 uid="uid://cdcwxughhalt3"]
 
 [ext_resource type="Texture2D" uid="uid://cy0jpmani3m6v" path="res://assets/spr_energy_pickup.png" id="1_k05qo"]
-[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="2_gynpl"]
 [ext_resource type="Script" path="res://pickups/energy_pickup.gd" id="2_oj88c"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="4_f6f1y"]
 [ext_resource type="Script" path="res://components/move_to_component.gd" id="5_0i7n7"]
@@ -29,7 +28,6 @@ radius = 3.0
 
 [node name="EnergyPickup" type="Node2D"]
 script = ExtResource("2_oj88c")
-game_stats = ExtResource("2_gynpl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jlhej")
