@@ -34,6 +34,11 @@ var TIMER_POINT_BREAKS = {
         4000: .1,
     }
 
+func incr_fire_rate():
+    if fire_rate_timer.wait_time <= .1: return
+    fire_rate_timer.wait_time = fire_rate_timer.wait_time - .025
+
+
 func _ready():
     fire_rate_timer.timeout.connect(fire_projectiles)
     game_stats.player = self_node

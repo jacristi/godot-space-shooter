@@ -1,8 +1,6 @@
 class_name Pickup
 extends Node2D
 
-@export var pickup_score: int
-
 @onready var move_component:  MoveComponent  = $MoveComponent
 @onready var stats_component: StatsComponent = $StatsComponent
 @onready var scale_component: ScaleComponent = $ScaleComponent
@@ -18,7 +16,6 @@ extends Node2D
 
 @onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 @onready var blip_audio_stream_player: VariablePitchAudioStreamPlayer = $BlipAudioStreamPlayer
-
 
 
 func _ready() -> void:
@@ -43,5 +40,4 @@ func handle_on_death() -> void:
 
 
 func handle_on_collect(_hurtbox: HurtboxComponent) -> void:
-    score_component.adjust_score(pickup_score)
     collected_component.destroy()

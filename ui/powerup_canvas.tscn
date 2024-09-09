@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5rmsumihclp3"]
+
+[ext_resource type="Texture2D" uid="uid://bhoy2hdn6wuqv" path="res://assets/spr_ui_box.png" id="1_f3qsv"]
+[ext_resource type="Script" path="res://ui/powerup_ui.gd" id="1_ji2la"]
+[ext_resource type="Theme" uid="uid://b8bofxujashyo" path="res://resources/default_theme.tres" id="1_l5yb7"]
+
+[node name="PowerupCanvas" type="CanvasLayer"]
+script = ExtResource("1_ji2la")
+color_active = Color(1, 1, 1, 1)
+color_inactive = Color(0.266575, 0.266575, 0.266575, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_f3qsv")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Powerup1" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "1: ATTACK UP (10)"
+
+[node name="Powerup2" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "2: SHIELD (20)
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Powerup3" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "3: LIGHTNING (25)"
+
+[node name="Powerup4" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "4: ASSIST (35)
+"

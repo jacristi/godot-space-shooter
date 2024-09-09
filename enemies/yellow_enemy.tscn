@@ -36,7 +36,7 @@ size = Vector2(4, 4)
 [node name="YellowEnemy" instance=ExtResource("1_gqcw3")]
 script = ExtResource("2_5qepq")
 spawn_time = 9.0
-energy_dropped = 2
+energy_dropped = 3
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_d5yub")

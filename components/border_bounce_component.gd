@@ -20,7 +20,7 @@ var bottom_clamp: float
 var top_border    = 0
 var left_border   = 0
 var right_border  = ProjectSettings.get_setting("display/window/size/viewport_width")
-var bottom_border = ProjectSettings.get_setting("display/window/size/viewport_height")
+var bottom_border = ProjectSettings.get_setting("display/window/size/viewport_height") - 24
 
 func _ready() -> void:
     top_clamp    = top_border + margin

@@ -6,7 +6,7 @@ extends Node2D
 @export var left_margin: = 8
 @export var right_margin: = 8
 @export var top_margin: = 16
-@export var bottom_margin: = 8
+@export var bottom_margin: = 24
 
 @export var should_clamp_left   := true
 @export var should_clamp_right  := true
@@ -18,10 +18,10 @@ var right_clamp:  float
 var top_clamp:    float
 var bottom_clamp: float
 
-var bottom_border    = ProjectSettings.get_setting("display/window/size/viewport_height")
+var bottom_border = ProjectSettings.get_setting("display/window/size/viewport_height")
 var left_border   = 0
 var right_border  = ProjectSettings.get_setting("display/window/size/viewport_width")
-var top_border = 0
+var top_border    = 0
 
 func _ready() -> void:
     bottom_clamp    = bottom_border - bottom_margin
