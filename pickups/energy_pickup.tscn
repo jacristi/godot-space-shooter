@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdcwxughhalt3"]
+
+[ext_resource type="Texture2D" uid="uid://cy0jpmani3m6v" path="res://assets/spr_energy_pickup.png" id="1_k05qo"]
+[ext_resource type="Script" path="res://pickups/energy_pickup.gd" id="2_oj88c"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="4_f6f1y"]
+[ext_resource type="Script" path="res://components/move_to_component.gd" id="5_0i7n7"]
+[ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="5_ncwc8"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="6_fdpeu"]
+[ext_resource type="Script" path="res://components/state_component.gd" id="7_i4akb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3ikv"]
+atlas = ExtResource("1_k05qo")
+region = Rect2(0, 0, 4, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlhej"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3ikv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37rsw"]
+radius = 3.0
+
+[node name="EnergyPickup" type="Node2D"]
+script = ExtResource("2_oj88c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jlhej")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("4_f6f1y")
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_37rsw")
+
+[node name="States" type="Node" parent="."]
+
+[node name="SpawnState" type="Node" parent="States"]
+script = ExtResource("5_ncwc8")
+duration = 0.15
+
+[node name="MoveComponent" type="Node" parent="States/SpawnState" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_fdpeu")
+velocity = Vector2(10, -150)
+actor = NodePath("../../..")
+
+[node name="MoveToCollectState" type="Node" parent="States"]
+script = ExtResource("7_i4akb")
+
+[node name="MoveToComponent" type="Node" parent="States/MoveToCollectState" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_0i7n7")
+speed = 200.0
+actor = NodePath("../../..")

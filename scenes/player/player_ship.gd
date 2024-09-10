@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var self_node: Node2D
-@export var game_stats: GameStats
 
 @onready var fire_rate_timer: Timer              = $FireRateTimer
 @onready var scale_component: ScaleComponent     = $ScaleComponent
@@ -13,12 +12,13 @@ extends Node2D
 @onready var thrust_animated_sprite: AnimatedSprite2D = $SpriteAnchor/ThrustAnimatedSprite
 @onready var shoot_audio_player: VariablePitchAudioStreamPlayer = $ShootAudioStreamPlayer
 @onready var level_up_audio_stream_player: VariablePitchAudioStreamPlayer = $LevelUpAudioStreamPlayer
+@onready var stats_component: StatsComponent = $StatsComponent
+
 
 var has_flank_left_1 := false
 var has_flank_left_2 := false
 var has_flank_right_1 := false
 var has_flank_right_2 := false
-
 
 var TIMER_POINT_BREAKS = {
         100: .375,
@@ -35,21 +35,15 @@ var TIMER_POINT_BREAKS = {
         4000: .1,
     }
 
+func incr_fire_rate():
+    if not can_incr_fire_rate(): return
+    fire_rate_timer.wait_time = fire_rate_timer.wait_time - .025
+
 
 func _ready():
     fire_rate_timer.timeout.connect(fire_projectiles)
-    game_stats.score_changed.connect(update_fire_rate)
-    game_stats.player = self_node
-
-
-func update_fire_rate(new_score: int) -> void:
-    var t = fire_rate_timer.wait_time
-
-    for k in TIMER_POINT_BREAKS:
-        var v = TIMER_POINT_BREAKS[k]
-        if new_score >= k and t > v:
-            fire_rate_timer.wait_time = v
-            level_up_audio_stream_player.play_with_variance()
+    stats_component.no_health.connect(handle_destroyed)
+    Events.player_spawned.emit()
 
 
 func _process(_delta: float) -> void:
@@ -73,3 +67,10 @@ func animate_ship() -> void:
     else:
         ship_animated_sprite.play("center")
         thrust_animated_sprite.play("center")
+
+
+func can_incr_fire_rate() -> bool: return fire_rate_timer.wait_time > .1
+
+
+func handle_destroyed():
+    Events.player_destroyed.emit()

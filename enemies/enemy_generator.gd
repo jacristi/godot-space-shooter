@@ -11,8 +11,6 @@ extends Node2D
 @export var BossScenes: Array[PackedScene]
 var current_boss_index := 0
 
-@export var game_stats: GameStats
-
 var margin := 8
 var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
 
@@ -26,7 +24,6 @@ var screen_width = ProjectSettings.get_setting("display/window/size/viewport_wid
 @onready var tie_enemy_spawn_timer: Timer = $TieEnemySpawnTimer
 @onready var purple_enemy_spawn_timer: Timer = $PurpleEnemySpawnTimer
 
-var is_boss_event_in_progress = false
 
 var enemy_types_enabled = {
     'green':  false,
@@ -37,8 +34,6 @@ var enemy_types_enabled = {
     'tie':    false,
     'purple': false,
 }
-
-signal boss_event_complete()
 
 
 func _ready() -> void:
@@ -128,6 +123,5 @@ func handle_enemy_spawn(
             -16
             )
         )
-    var spawn_rate = clamp(ins.spawn_time/(.05 + game_stats.score * .005), 1, ins.spawn_time)
-    #var spawn_rate = time_offset / (0.5 + (game_stats.score * 0.005))
+    var spawn_rate = clamp(ins.enemy_stats.spawn_time/(.05 + GameData.score * .005), 1, ins.enemy_stats.spawn_time)
     timer.start(spawn_rate + randf_range(0.25, 0.5))

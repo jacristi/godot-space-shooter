@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Powerups" load_steps=3 format=3 uid="uid://dftc1m6bqlx0b"]
+
+[ext_resource type="PackedScene" uid="uid://dj8gox2cs60nn" path="res://projectiles/yellow_pickup_projectile.tscn" id="1_g8awx"]
+[ext_resource type="Script" path="res://resources/powerups/powerups.gd" id="1_pcvvc"]
+
+[resource]
+script = ExtResource("1_pcvvc")
+powerup_name = "lightning"
+powerup_cost = 25
+powerup_color = Color(1, 0.847059, 0.196078, 1)
+powerup_scene = ExtResource("1_g8awx")
+powerup_desc = ""

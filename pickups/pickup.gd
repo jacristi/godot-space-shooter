@@ -1,13 +1,13 @@
+class_name Pickup
 extends Node2D
 
-@export var pickup_score: int
+@export var energy_dropped: int
 
 @onready var move_component:  MoveComponent  = $MoveComponent
 @onready var stats_component: StatsComponent = $StatsComponent
 @onready var scale_component: ScaleComponent = $ScaleComponent
 @onready var flash_component: FlashComponent = $FlashComponent
 @onready var shake_component: ShakeComponent = $ShakeComponent
-@onready var score_component: ScoreComponent = $ScoreComponent
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var hitbox_component:  HitboxComponent  = $HitboxComponent
@@ -17,7 +17,7 @@ extends Node2D
 
 @onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 @onready var blip_audio_stream_player: VariablePitchAudioStreamPlayer = $BlipAudioStreamPlayer
-
+@onready var energy_spawner_component: SpawnerComponent = $EnergySpawnerComponent
 
 
 func _ready() -> void:
@@ -29,7 +29,6 @@ func _ready() -> void:
     flash_timer.timeout.connect(blip_audio_stream_player.play)
 
 
-
 func was_hurt(_hitbox: HitboxComponent) -> void:
     flash_component.flash()
     scale_component.tween_scale()
@@ -38,9 +37,9 @@ func was_hurt(_hitbox: HitboxComponent) -> void:
 
 
 func handle_on_death() -> void:
-    pass
+    for i in range(energy_dropped):
+        energy_spawner_component.spawn()
 
 
 func handle_on_collect(_hurtbox: HurtboxComponent) -> void:
-    score_component.adjust_score(pickup_score)
     collected_component.destroy()

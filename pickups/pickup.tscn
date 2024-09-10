@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bfgfj802ng1mt"]
+[gd_scene load_steps=18 format=3 uid="uid://bfgfj802ng1mt"]
 
 [ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
-[ext_resource type="Script" path="res://components/move_component.gd" id="3_8g3hp"]
-[ext_resource type="Script" path="res://components/stats_component.gd" id="4_cha0t"]
-[ext_resource type="Script" path="res://components/scale_component.gd" id="5_51djb"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="2_d2aw3"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="3_k0x86"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="4_mxb84"]
 [ext_resource type="Script" path="res://components/flash_component.gd" id="6_5oq4s"]
 [ext_resource type="Script" path="res://components/shake_component.gd" id="7_3i3aa"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="8_7brgn"]
@@ -13,31 +13,30 @@
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="12_4ioft"]
 [ext_resource type="PackedScene" uid="uid://nosut8si5fh1" path="res://effects/blue_explosion_effect.tscn" id="13_7tscq"]
 [ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="13_l4y4i"]
-[ext_resource type="Script" path="res://components/score_component.gd" id="14_kwssh"]
-[ext_resource type="Resource" uid="uid://xq5q3g3tvjm1" path="res://resources/game_stats.tres" id="15_amcmb"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="16_sbr21"]
 [ext_resource type="AudioStream" uid="uid://5v7oh1bvc3l4" path="res://sfx/orig/hit_sound.wav" id="16_v86n2"]
-[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="17_7k5dx"]
+[ext_resource type="PackedScene" uid="uid://cdcwxughhalt3" path="res://pickups/energy_pickup.tscn" id="17_dpbdw"]
 [ext_resource type="AudioStream" uid="uid://br0xxi5eq7prb" path="res://sfx/pickup_blip_sound_1.wav" id="18_0oecl"]
 
-[node name="Pickup" type="Node2D"]
+[node name="Pickup" type="Node2D" groups=["Pickups"]]
 script = ExtResource("1_q6wj0")
+energy_dropped = 25
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 autoplay = "default"
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
-script = ExtResource("3_8g3hp")
-velocity = Vector2(0, 5)
+script = ExtResource("2_d2aw3")
+velocity = Vector2(0, 15)
 actor = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
-script = ExtResource("4_cha0t")
-health = 10
+script = ExtResource("3_k0x86")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
-script = ExtResource("5_51djb")
+script = ExtResource("4_mxb84")
 sprite = NodePath("../AnimatedSprite2D")
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
@@ -56,48 +55,48 @@ script = ExtResource("8_7brgn")
 [node name="HitboxComponent" type="Area2D" parent="."]
 collision_layer = 0
 script = ExtResource("9_ly3yr")
-damage = 0.0
+damage = 0
 
 [node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
 script = ExtResource("10_73utc")
 stats_component = NodePath("../StatsComponent")
 hurtbox_component = NodePath("../HurtboxComponent")
 
-[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "spawner_component")]
 script = ExtResource("11_fqhq0")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
+spawner_component = NodePath("../DestroyedSpawnerComponent")
 
 [node name="DestroyedSpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("12_4ioft")
 scene = ExtResource("13_l4y4i")
 
-[node name="CollectedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
+[node name="CollectedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "spawner_component")]
 script = ExtResource("11_fqhq0")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
+spawner_component = NodePath("../CollectedSpawnerComponent")
 
 [node name="CollectedSpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("12_4ioft")
 scene = ExtResource("13_7tscq")
 
-[node name="ScoreComponent" type="Node" parent="."]
-script = ExtResource("14_kwssh")
-game_stats = ExtResource("15_amcmb")
-
 [node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_v86n2")
 bus = &"SFX"
-script = ExtResource("17_7k5dx")
+script = ExtResource("16_sbr21")
 
 [node name="BlipAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_0oecl")
 volume_db = -4.0
 bus = &"SFX"
-script = ExtResource("17_7k5dx")
-pitch_min = 0.4
-pitch_max = 0.7
+script = ExtResource("16_sbr21")
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.75
 autostart = true
+
+[node name="EnergySpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("12_4ioft")
+scene = ExtResource("17_dpbdw")

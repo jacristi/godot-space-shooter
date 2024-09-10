@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5rmsumihclp3"]
+
+[ext_resource type="Texture2D" uid="uid://bhoy2hdn6wuqv" path="res://assets/spr_ui_box.png" id="1_f3qsv"]
+[ext_resource type="Script" path="res://ui/powerup_ui.gd" id="1_ji2la"]
+[ext_resource type="Theme" uid="uid://b8bofxujashyo" path="res://resources/default_theme.tres" id="1_l5yb7"]
+[ext_resource type="Resource" uid="uid://4ijkmxdwfswu" path="res://resources/powerups/powerup_attack_speed.tres" id="2_k8rw5"]
+[ext_resource type="Resource" uid="uid://djgwn24aq23o" path="res://resources/powerups/powerup_temp_shield.tres" id="3_fg222"]
+[ext_resource type="Resource" uid="uid://dftc1m6bqlx0b" path="res://resources/powerups/powerup_lightning.tres" id="4_hdtag"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="4_s61og"]
+[ext_resource type="Resource" uid="uid://b8o4sjig5de5s" path="res://resources/powerups/powerup_flank_ship.tres" id="5_6qd08"]
+
+[node name="PowerupManager" type="CanvasLayer"]
+script = ExtResource("1_ji2la")
+powerup_atk_spd = ExtResource("2_k8rw5")
+powerup_shield = ExtResource("3_fg222")
+powerup_lightning = ExtResource("4_hdtag")
+powerup_flank_ship = ExtResource("5_6qd08")
+color_inactive = Color(0.0605303, 0.0605303, 0.0605303, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_f3qsv")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PowerupAtkSpeed" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "1: ATK SPD UP (10)"
+
+[node name="PowerupShield" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "2: SHIELD (20)
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PowerupLightning" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "3: LIGHTNING (25)"
+
+[node name="PowerupFlankShip" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_l5yb7")
+theme_override_font_sizes/font_size = 8
+text = "4: ASSIST (35)
+"
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("4_s61og")
+
+[node name="AtkSpdUpPurchaseTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="ShieldPurchaseTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="LightningPurchaseTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="FlankShipPurchaseTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true

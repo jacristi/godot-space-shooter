@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddfakrfu06re4"]
+
+[ext_resource type="Script" path="res://pickups/blue_attack_speed_up.gd" id="1_7f6jx"]
+[ext_resource type="AudioStream" uid="uid://dmvk7yrt6ufwy" path="res://sfx/pickup_sound_1.wav" id="2_lf5e4"]
+[ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="3_ww6yw"]
+
+[node name="AttackSpeedUp" type="Node2D"]
+script = ExtResource("1_7f6jx")
+
+[node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lf5e4")
+volume_db = -11.716
+bus = &"SFX"
+script = ExtResource("3_ww6yw")
+auto_play_with_variance = true

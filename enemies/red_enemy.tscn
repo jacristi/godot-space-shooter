@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://3xntr8qxh4wt"]
+[gd_scene load_steps=20 format=3 uid="uid://3xntr8qxh4wt"]
 
 [ext_resource type="PackedScene" uid="uid://00dbmurglq45" path="res://enemies/enemy.tscn" id="1_2ehnv"]
 [ext_resource type="Script" path="res://enemies/red_enemy.gd" id="2_4p67c"]
 [ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="2_aculg"]
 [ext_resource type="Texture2D" uid="uid://djb7bi54kko6v" path="res://assets/enemies.png" id="2_dddo1"]
+[ext_resource type="Resource" uid="uid://bsclmw3cb2vxc" path="res://resources/enemy_stats/stats_red_enemy.tres" id="3_8d4ty"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="3_mptl4"]
 [ext_resource type="Script" path="res://components/border_bounce_component.gd" id="4_ik4bt"]
 [ext_resource type="Script" path="res://components/state_component.gd" id="5_w7xsl"]
@@ -59,7 +60,7 @@ script = ExtResource("2_4p67c")
 num_projectile_shots = 3
 num_projectile_cycles = 3
 strafe_velocity = Vector2(40, 0)
-spawn_time = 110.0
+enemy_stats = ExtResource("3_8d4ty")
 
 [node name="States" type="Node" parent="." index="0"]
 
@@ -137,9 +138,6 @@ shape = SubResource("RectangleShape2D_g4qrm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_05yh8")
-
-[node name="ScoreComponent" parent="." index="13"]
-adjust_amount = 50
 
 [node name="FireAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("10_qnjuh")
