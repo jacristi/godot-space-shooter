@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_fcakp")
 powerup_name = "temp_shield"
-powerup_cost = 20
+powerup_cost = 25
 powerup_color = Color(0.443137, 0.890196, 0.572549, 1)
 powerup_scene = ExtResource("1_ksycc")
-powerup_desc = ""
+powerup_desc = "Generate a temporary shield around your ship which grants immunity to damage for the duration"

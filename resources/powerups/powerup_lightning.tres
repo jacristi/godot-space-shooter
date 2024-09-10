@@ -9,4 +9,4 @@ powerup_name = "lightning"
 powerup_cost = 25
 powerup_color = Color(1, 0.847059, 0.196078, 1)
 powerup_scene = ExtResource("1_g8awx")
-powerup_desc = ""
+powerup_desc = "Unleash a fury of lightning taking out a large swath of enemies at once"

@@ -112,23 +112,23 @@ func handle_pickup_spawn(pickup_scene: PackedScene) -> void:
 
 
 func can_purchase_atk_spd_up() -> bool: return atk_spd_up_purchase_timer.time_left <= 0 \
-    and GameData.energy >= 10 \
+    and GameData.energy >= powerup_atk_spd.powerup_cost \
     and can_player_get_atk_spd_up() \
     and is_instance_valid(player)
 
 
 func can_purchase_shield() -> bool: return shield_purchase_timer.time_left <= 0 \
-    and GameData.energy >= 20 \
+    and GameData.energy >= powerup_shield.powerup_cost \
     and is_instance_valid(player)
 
 
 func can_purchase_lightning() -> bool: return lightning_purchase_timer.time_left <= 0 \
-    and GameData.energy >= 25 \
+    and GameData.energy >= powerup_lightning.powerup_cost \
     and is_instance_valid(player)
 
 
 func can_purchase_flank_ship() -> bool: return flank_ship_purchase_timer.time_left <= 0 \
-    and GameData.energy >= 35 \
+    and GameData.energy >= powerup_flank_ship.powerup_cost \
     and can_player_get_flank_ship() \
     and is_instance_valid(player)
 

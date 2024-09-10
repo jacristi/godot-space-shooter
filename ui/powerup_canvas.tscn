@@ -85,7 +85,7 @@ text = "4: ASSIST (35)
 script = ExtResource("4_s61og")
 
 [node name="AtkSpdUpPurchaseTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 5.0
 one_shot = true
 
 [node name="ShieldPurchaseTimer" type="Timer" parent="."]
@@ -97,5 +97,5 @@ wait_time = 10.0
 one_shot = true
 
 [node name="FlankShipPurchaseTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 15.0
 one_shot = true

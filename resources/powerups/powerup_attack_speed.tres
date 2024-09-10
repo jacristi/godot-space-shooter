@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_ia15m")
 powerup_name = "attack_speed_up"
-powerup_cost = 10
+powerup_cost = 15
 powerup_color = Color(0.109804, 0.572549, 0.654902, 1)
 powerup_scene = ExtResource("1_cmcqu")
 powerup_desc = "Slightly raises player ship fire rate to a minimum of 0.1s"

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_lkvvs")
 powerup_name = "flank_ship"
-powerup_cost = 35
+powerup_cost = 40
 powerup_color = Color(1, 1, 1, 1)
 powerup_scene = ExtResource("1_45w18")
-powerup_desc = ""
+powerup_desc = "Summon a ship to your flank to assist in battle (up to 4 total)"
