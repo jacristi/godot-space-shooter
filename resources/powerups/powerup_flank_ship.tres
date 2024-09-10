@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Powerups" load_steps=3 format=3 uid="uid://b8o4sjig5de5s"]
+
+[ext_resource type="PackedScene" uid="uid://lt8c5mqot8ul" path="res://scenes/player/player_flank.tscn" id="1_45w18"]
+[ext_resource type="Script" path="res://resources/powerups/powerups.gd" id="1_lkvvs"]
+
+[resource]
+script = ExtResource("1_lkvvs")
+powerup_name = "flank_ship"
+powerup_cost = 35
+powerup_color = Color(1, 1, 1, 1)
+powerup_scene = ExtResource("1_45w18")
+powerup_desc = ""

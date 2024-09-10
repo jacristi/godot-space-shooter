@@ -36,13 +36,14 @@ var TIMER_POINT_BREAKS = {
     }
 
 func incr_fire_rate():
-    if fire_rate_timer.wait_time <= .1: return
+    if not can_incr_fire_rate(): return
     fire_rate_timer.wait_time = fire_rate_timer.wait_time - .025
 
 
 func _ready():
     fire_rate_timer.timeout.connect(fire_projectiles)
-    #stats_component.no_health.connect(handle_destroyed)
+    stats_component.no_health.connect(handle_destroyed)
+    Events.player_spawned.emit()
 
 
 func _process(_delta: float) -> void:
@@ -68,5 +69,8 @@ func animate_ship() -> void:
         thrust_animated_sprite.play("center")
 
 
-#func handle_destroyed():
-    #Events.player_destroyed.emit()
+func can_incr_fire_rate() -> bool: return fire_rate_timer.wait_time > .1
+
+
+func handle_destroyed():
+    Events.player_destroyed.emit()

@@ -6,4 +6,5 @@ signal adjust_energy(amt: int)
 signal score_changed(total: int)
 signal energy_changed(total: int)
 
-#signal player_destroyed
+signal player_spawned
+signal player_destroyed

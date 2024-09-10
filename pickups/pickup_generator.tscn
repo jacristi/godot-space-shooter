@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://xxsws20p7731" path="res://projectiles/player_ship_shield.tscn" id="4_ojr0q"]
 [ext_resource type="PackedScene" uid="uid://lt8c5mqot8ul" path="res://scenes/player/player_flank.tscn" id="5_xajjh"]
 
-[node name="PickupGenerator" type="Node2D" groups=["PickupManager"]]
+[node name="PowerupManager" type="Node2D" groups=["PickupManager"]]
 script = ExtResource("1_xw532")
 blue_powerup_cost = 10
 yellow_powerup_cost = 25
@@ -24,7 +24,7 @@ script = ExtResource("1_a116s")
 scene = ExtResource("3_o20su")
 
 [node name="BluePickupSpawnTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 2.0
 one_shot = true
 
 [node name="YellowPickupSpawnTimer" type="Timer" parent="."]

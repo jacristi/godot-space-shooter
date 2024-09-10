@@ -9,6 +9,7 @@ var save_path = SAVE_PATH
 var high_score_key := "highscore"
 
 var score_queue := 0
+var take_score_queue:= true
 
 var high_score: int = 0
 var score: int = 0 :
@@ -32,14 +33,37 @@ func set_energy(amt:int):
 
 
 func _ready() -> void:
+    take_score_queue = true
     Events.adjust_score.connect(set_score_queue)
     Events.adjust_energy.connect(set_energy)
+    Events.player_destroyed.connect(on_player_death)
+    Events.player_spawned.connect(on_player_spawn)
+    load_high_score()
+
 
 func _process(delta: float) -> void:
-    if score_queue != 0:
-        score += 1
-        score_queue -= 1
+    if score_queue > 0 and take_score_queue:
+        var amt = 100 if score_queue > 200 else 10 if score_queue > 20 else 1
+        score += amt
+        score_queue -= amt
 
+
+func on_player_death():
+    take_score_queue = false
+    var tmp = score_queue
+    score_queue = 0
+    score += tmp
+    if score > high_score:
+        high_score = score
+        print(score)
+        print(high_score)
+        save_high_score()
+
+func on_player_spawn():
+    take_score_queue = true
+    score = 0
+    score_queue = 0
+    energy = 0 if energy == 0 else energy / 30
 
 
 func load_high_score() -> void:

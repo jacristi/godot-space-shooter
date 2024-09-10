@@ -6,10 +6,6 @@ extends Control
 
 func _ready() -> void:
     get_tree().paused = false
-    #load_high_score()
-    if GameData.score > GameData.high_score:
-        GameData.high_score = GameData.score
-
 
     score_value_label.text = str(GameData.score)
     high_score_value_label.text = str(GameData.high_score)
