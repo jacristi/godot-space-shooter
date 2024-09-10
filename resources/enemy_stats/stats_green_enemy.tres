@@ -6,6 +6,6 @@
 script = ExtResource("1_2vxy6")
 health = 3
 contact_damage = 1
-score_given = 150
+score_given = 5
 energy_dropped = Array[int]([0, 0, 0, 1, 1, 1, 2, 2])
 spawn_time = 2.0

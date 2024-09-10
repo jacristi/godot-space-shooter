@@ -1,7 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfgfj802ng1mt"]
+[gd_scene load_steps=18 format=3 uid="uid://bfgfj802ng1mt"]
 
 [ext_resource type="Script" path="res://pickups/pickup.gd" id="1_q6wj0"]
-[ext_resource type="Script" path="res://pickups/move_component.gd" id="2_d2aw3"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="2_d2aw3"]
 [ext_resource type="Script" path="res://components/stats_component.gd" id="3_k0x86"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="4_mxb84"]
 [ext_resource type="Script" path="res://components/flash_component.gd" id="6_5oq4s"]
@@ -15,24 +15,29 @@
 [ext_resource type="PackedScene" uid="uid://cm375hqr0kc7t" path="res://effects/explosion_effect.tscn" id="13_l4y4i"]
 [ext_resource type="Script" path="res://components/variable_pitch_audio_stream_player.gd" id="16_sbr21"]
 [ext_resource type="AudioStream" uid="uid://5v7oh1bvc3l4" path="res://sfx/orig/hit_sound.wav" id="16_v86n2"]
+[ext_resource type="PackedScene" uid="uid://cdcwxughhalt3" path="res://pickups/energy_pickup.tscn" id="17_dpbdw"]
 [ext_resource type="AudioStream" uid="uid://br0xxi5eq7prb" path="res://sfx/pickup_blip_sound_1.wav" id="18_0oecl"]
 
 [node name="Pickup" type="Node2D" groups=["Pickups"]]
 script = ExtResource("1_q6wj0")
+energy_dropped = 25
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 autoplay = "default"
 
-[node name="MoveComponent" type="Node" parent="."]
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_d2aw3")
+velocity = Vector2(0, 15)
+actor = NodePath("..")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("3_k0x86")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="ScaleComponent" type="Node" parent="."]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("4_mxb84")
+sprite = NodePath("../AnimatedSprite2D")
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("6_5oq4s")
@@ -57,19 +62,21 @@ script = ExtResource("10_73utc")
 stats_component = NodePath("../StatsComponent")
 hurtbox_component = NodePath("../HurtboxComponent")
 
-[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "spawner_component")]
 script = ExtResource("11_fqhq0")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
+spawner_component = NodePath("../DestroyedSpawnerComponent")
 
 [node name="DestroyedSpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("12_4ioft")
 scene = ExtResource("13_l4y4i")
 
-[node name="CollectedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component")]
+[node name="CollectedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "spawner_component")]
 script = ExtResource("11_fqhq0")
 actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
+spawner_component = NodePath("../CollectedSpawnerComponent")
 
 [node name="CollectedSpawnerComponent" type="Node2D" parent="."]
 script = ExtResource("12_4ioft")
@@ -89,3 +96,7 @@ script = ExtResource("16_sbr21")
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.75
 autostart = true
+
+[node name="EnergySpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("12_4ioft")
+scene = ExtResource("17_dpbdw")

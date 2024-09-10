@@ -15,7 +15,7 @@ powerup_atk_spd = ExtResource("2_k8rw5")
 powerup_shield = ExtResource("3_fg222")
 powerup_lightning = ExtResource("4_hdtag")
 powerup_flank_ship = ExtResource("5_6qd08")
-color_inactive = Color(0.431373, 0, 0.309804, 1)
+color_inactive = Color(0.0605303, 0.0605303, 0.0605303, 1)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchors_preset = 12

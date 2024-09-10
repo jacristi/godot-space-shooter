@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bfgfj802ng1mt" path="res://pickups/pickup.tscn" id="1_lcx6e"]
 [ext_resource type="Texture2D" uid="uid://yapodnb80tn2" path="res://assets/pickups.png" id="2_rmyun"]
-[ext_resource type="PackedScene" uid="uid://ddfakrfu06re4" path="res://pickups/blue_attack_speed_up.tscn" id="3_ykay1"]
+[ext_resource type="PackedScene" uid="uid://cdcwxughhalt3" path="res://pickups/energy_pickup.tscn" id="3_405od"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1itdo"]
 atlas = ExtResource("2_rmyun")
@@ -73,19 +73,18 @@ size = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_grv4a")
 frame_progress = 0.294251
 
+[node name="StatsComponent" parent="." index="2"]
+health = 4
+
 [node name="VisibleOnScreenNotifier2D" parent="." index="3"]
 position = Vector2(2.38419e-07, 2.38419e-07)
 scale = Vector2(0.4, 0.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_1i5wb")
-disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("RectangleShape2D_ltjyi")
 
-[node name="CollectedComponent" parent="." index="12" node_paths=PackedStringArray("spawner_component")]
-spawner_component = NodePath("../CollectedSpawnerComponent")
-
 [node name="CollectedSpawnerComponent" parent="." index="13"]
-scene = ExtResource("3_ykay1")
+scene = ExtResource("3_405od")

@@ -63,7 +63,7 @@ func on_player_spawn():
     take_score_queue = true
     score = 0
     score_queue = 0
-    energy = 0 if energy == 0 else energy / 30
+    energy = 0 if energy == 0 else energy / 10
 
 
 func load_high_score() -> void:

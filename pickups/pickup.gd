@@ -1,6 +1,8 @@
 class_name Pickup
 extends Node2D
 
+@export var energy_dropped: int
+
 @onready var move_component:  MoveComponent  = $MoveComponent
 @onready var stats_component: StatsComponent = $StatsComponent
 @onready var scale_component: ScaleComponent = $ScaleComponent
@@ -15,6 +17,7 @@ extends Node2D
 
 @onready var audio_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 @onready var blip_audio_stream_player: VariablePitchAudioStreamPlayer = $BlipAudioStreamPlayer
+@onready var energy_spawner_component: SpawnerComponent = $EnergySpawnerComponent
 
 
 func _ready() -> void:
@@ -34,7 +37,8 @@ func was_hurt(_hitbox: HitboxComponent) -> void:
 
 
 func handle_on_death() -> void:
-    pass
+    for i in range(energy_dropped):
+        energy_spawner_component.spawn()
 
 
 func handle_on_collect(_hurtbox: HurtboxComponent) -> void:
