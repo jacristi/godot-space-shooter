@@ -18,7 +18,10 @@ position = Vector2(80, 202)
 
 [node name="EnemyGenerator" parent="." instance=ExtResource("3_o0xhe")]
 
+[node name="PowerupCanvas" parent="." instance=ExtResource("10_uim6s")]
+
 [node name="ScoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
 offset_top = 194.0
 offset_right = 80.0
 offset_bottom = 217.0
@@ -28,6 +31,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EnergyLabel" type="Label" parent="."]
+unique_name_in_owner = true
 offset_left = 80.0
 offset_top = 194.0
 offset_right = 160.0
@@ -37,10 +41,6 @@ label_settings = ExtResource("5_tlyl2")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseMenu" parent="." instance=ExtResource("7_of8lj")]
-offset_left = 81.0
-offset_top = 77.0
-offset_right = 81.0
-offset_bottom = 77.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PowerupCanvas" parent="." instance=ExtResource("10_uim6s")]
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_of8lj")]

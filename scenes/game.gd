@@ -1,8 +1,8 @@
 extends Node2D
 
 @onready var player_ship: Node2D = $PlayerShip
-@onready var score_label: Label = $ScoreLabel
-@onready var energy_label: Label = $EnergyLabel
+@onready var score_label: Label = %ScoreLabel
+@onready var energy_label: Label = %EnergyLabel
 
 @onready var enemy_generator: Node2D = $EnemyGenerator
 
