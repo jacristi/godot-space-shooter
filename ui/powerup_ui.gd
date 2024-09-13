@@ -13,6 +13,11 @@ extends CanvasLayer
 @onready var label_lightning: Label = $NinePatchRect/VBoxContainer/HBoxContainer2/PowerupLightning
 @onready var label_flank_ship: Label = $NinePatchRect/VBoxContainer/HBoxContainer2/PowerupFlankShip
 
+@onready var focus_atk_spd: NinePatchRect = $FocusAtkSpd
+@onready var focus_shield: NinePatchRect = $FocusShield
+@onready var focus_lightning: NinePatchRect = $FocusLightning
+@onready var focus_assist: NinePatchRect = $FocusAssist
+
 @onready var spawner_component: SpawnerComponent = $SpawnerComponent
 
 @onready var atk_spd_up_purchase_timer: Timer = $AtkSpdUpPurchaseTimer
@@ -22,6 +27,9 @@ extends CanvasLayer
 
 var player
 var pickup_manager
+
+enum focus {atk_spd, shield, lightning, assist}
+var current_focus: focus = focus.atk_spd
 
 
 func _ready() -> void:
@@ -48,18 +56,58 @@ func _process(_delta: float) -> void:
         player = get_tree().get_first_node_in_group("player")
 
     check_powerup_status()
+    handle_swtich_focus()
+    handle_current_focus()
+    handle_purchase_powerups()
 
-    if Input.is_action_just_pressed("option_1") and can_purchase_atk_spd_up():
+
+func get_focus_for_label(focus_key: focus):
+    if focus_key == focus.atk_spd:
+        return focus_atk_spd
+    if focus_key == focus.shield:
+        return focus_shield
+    if focus_key == focus.lightning:
+        return focus_lightning
+    if focus_key == focus.assist:
+        return focus_assist
+    return null
+
+
+func handle_current_focus():
+    for focus_rect in [focus_atk_spd, focus_shield, focus_lightning, focus_assist]:
+        if get_focus_for_label(current_focus) == focus_rect:
+            focus_rect.show()
+        else:
+            focus_rect.hide()
+
+
+func handle_swtich_focus():
+    if Input.is_action_just_pressed("option_1"):
+        current_focus = focus.atk_spd
+    elif Input.is_action_just_pressed("option_2"):
+        current_focus = focus.shield
+    elif Input.is_action_just_pressed("option_3"):
+        current_focus = focus.lightning
+    elif Input.is_action_just_pressed("option_4"):
+        current_focus = focus.assist
+
+    if Input.is_action_just_pressed("nav_left"):
+        current_focus = clamp(current_focus - 1, 0, len(focus)-1)
+    elif Input.is_action_just_pressed("nav_right"):
+        current_focus = clamp(current_focus + 1, 0, len(focus)-1)
+
+
+func handle_purchase_powerups():
+    if not Input.is_action_just_pressed("fire"): return
+
+    if current_focus == focus.atk_spd and can_purchase_atk_spd_up():
         purchase_atk_spd_up_powerup()
-
-    if Input.is_action_just_pressed("option_2") and can_purchase_shield():
+    elif current_focus == focus.shield and can_purchase_shield():
         purchase_shield_powerup()
-
-    if Input.is_action_just_pressed("option_3") and can_purchase_lightning():
-        purchase_yellow_powerup()
-
-    if Input.is_action_just_pressed("option_4") and can_purchase_flank_ship():
-        purchase_white_powerup()
+    elif current_focus == focus.lightning and can_purchase_lightning():
+        purchase_lightning_powerup()
+    elif current_focus == focus.assist and can_purchase_flank_ship():
+        purchase_flank_ship_powerup()
 
 
 func purchase_atk_spd_up_powerup():
@@ -76,14 +124,14 @@ func purchase_shield_powerup():
     shield_purchase_timer.start()
 
 
-func purchase_yellow_powerup():
+func purchase_lightning_powerup():
     if GameData.energy < powerup_lightning.powerup_cost: return
     GameData.energy -= powerup_lightning.powerup_cost
     handle_pickup_spawn(powerup_lightning.powerup_scene)
     lightning_purchase_timer.start()
 
 
-func purchase_white_powerup():
+func purchase_flank_ship_powerup():
     if GameData.energy < powerup_flank_ship.powerup_cost: return
     GameData.energy -= powerup_flank_ship.powerup_cost
     handle_pickup_spawn(powerup_flank_ship.powerup_scene)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5rmsumihclp3"]
+[gd_scene load_steps=10 format=3 uid="uid://c5rmsumihclp3"]
 
 [ext_resource type="Texture2D" uid="uid://bhoy2hdn6wuqv" path="res://assets/spr_ui_box.png" id="1_f3qsv"]
 [ext_resource type="Script" path="res://ui/powerup_ui.gd" id="1_ji2la"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dftc1m6bqlx0b" path="res://resources/powerups/powerup_lightning.tres" id="4_hdtag"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="4_s61og"]
 [ext_resource type="Resource" uid="uid://b8o4sjig5de5s" path="res://resources/powerups/powerup_flank_ship.tres" id="5_6qd08"]
+[ext_resource type="Texture2D" uid="uid://ccdolap621ws1" path="res://assets/spr_ui_box_outline.png" id="6_qfuyl"]
 
 [node name="PowerupManager" type="CanvasLayer"]
 script = ExtResource("1_ji2la")
@@ -17,12 +18,64 @@ powerup_lightning = ExtResource("4_hdtag")
 powerup_flank_ship = ExtResource("5_6qd08")
 color_inactive = Color(0.0605303, 0.0605303, 0.0605303, 1)
 
+[node name="FocusAtkSpd" type="NinePatchRect" parent="."]
+visible = false
+z_index = 1
+offset_left = 9.0
+offset_top = 213.0
+offset_right = 80.0
+offset_bottom = 224.0
+texture = ExtResource("6_qfuyl")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="FocusShield" type="NinePatchRect" parent="."]
+visible = false
+z_index = 1
+offset_left = 82.0
+offset_top = 213.0
+offset_right = 153.0
+offset_bottom = 224.0
+texture = ExtResource("6_qfuyl")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="FocusLightning" type="NinePatchRect" parent="."]
+visible = false
+z_index = 1
+offset_left = 9.0
+offset_top = 227.0
+offset_right = 80.0
+offset_bottom = 238.0
+texture = ExtResource("6_qfuyl")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="FocusAssist" type="NinePatchRect" parent="."]
+visible = false
+z_index = 1
+offset_left = 82.0
+offset_top = 227.0
+offset_right = 153.0
+offset_bottom = 238.0
+texture = ExtResource("6_qfuyl")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -29.0
+offset_top = -30.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0

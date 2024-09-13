@@ -150,6 +150,3 @@ shape = SubResource("RectangleShape2D_eaqwq")
 [node name="ShieldSpawnerComponent" type="Node2D" parent="." index="13"]
 script = ExtResource("4_skoqq")
 scene = ExtResource("4_4dmlc")
-
-[node name="ScoreComponent" parent="." index="14"]
-adjust_amount = 200

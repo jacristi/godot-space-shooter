@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cg04wf5r3lqtm"]
+[gd_scene load_steps=9 format=3 uid="uid://cg04wf5r3lqtm"]
 
 [ext_resource type="Script" path="res://ui/menu.gd" id="1_j7ie0"]
 [ext_resource type="PackedScene" uid="uid://dtkt6ce0d5p2g" path="res://effects/space_background.tscn" id="1_wqeil"]
 [ext_resource type="LabelSettings" uid="uid://cirqmewyf2gkq" path="res://fonts/title_label_settings.tres" id="2_6c74e"]
 [ext_resource type="LabelSettings" uid="uid://cjof1qwn8asa1" path="res://fonts/default_label_settings.tres" id="3_5iw4i"]
+[ext_resource type="PackedScene" uid="uid://cjjsl54xehrvt" path="res://enemies/enemy_generator.tscn" id="5_evcfl"]
+[ext_resource type="PackedScene" uid="uid://2od6dvg0w31" path="res://enemies/pink_enemy.tscn" id="6_r61ob"]
+[ext_resource type="PackedScene" uid="uid://dcfckrb4gg888" path="res://enemies/homing_enemy.tscn" id="7_s034t"]
+[ext_resource type="PackedScene" uid="uid://3xntr8qxh4wt" path="res://enemies/red_enemy.tscn" id="8_wywy1"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -27,10 +31,63 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
+[node name="Spacer1" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.231373, 0.580392, 1)
+text = "~~~~~~~~~~~~~~~~~~~~"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "SPACE SHOOTER!"
 label_settings = ExtResource("2_6c74e")
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.231373, 0.580392, 1)
+text = "~~~~~~~~~~~~~~~~~~~~
+"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
+[node name="GamePlay" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.109804, 0.572549, 0.654902, 1)
+text = "1. Defeat Enemy Ships"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
+[node name="GamePlay2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.443137, 0.890196, 0.572549, 1)
+text = "2. Collect Energy
+"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
+[node name="GamePlay3" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "3. Purchase Powerups
+"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
+[node name="GamePlay4" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "4. Survive
+"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.231373, 0.580392, 1)
+text = "~~~~~~~~~~~~~~~~~~~~
+"
+label_settings = ExtResource("3_5iw4i")
 horizontal_alignment = 1
 
 [node name="Start Label" type="Label" parent="CenterContainer/VBoxContainer"]
@@ -39,3 +96,23 @@ text = "PRESS 'SPACE / A' TO PLAY
 "
 label_settings = ExtResource("3_5iw4i")
 horizontal_alignment = 1
+
+[node name="Spacer4" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.231373, 0.580392, 1)
+text = "~~~~~~~~~~~~~~~~~~~~
+"
+label_settings = ExtResource("3_5iw4i")
+horizontal_alignment = 1
+
+[node name="EnemyGenerator" parent="." instance=ExtResource("5_evcfl")]
+position = Vector2(113, 38)
+
+[node name="PinkEnemy" parent="." instance=ExtResource("6_r61ob")]
+position = Vector2(54, -15)
+
+[node name="HomingEnemy" parent="." instance=ExtResource("7_s034t")]
+position = Vector2(97, -8)
+
+[node name="RedEnemy" parent="." instance=ExtResource("8_wywy1")]
+position = Vector2(128, -17)
