@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c5rmsumihclp3" path="res://ui/powerup_canvas.tscn" id="10_uim6s"]
 
 [node name="Game" type="Node2D"]
+position = Vector2(0, -1)
 script = ExtResource("1_1juuu")
 
 [node name="PlayerShip" parent="." groups=["player"] instance=ExtResource("1_pygth")]

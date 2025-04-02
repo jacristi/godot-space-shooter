@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtkt6ce0d5p2g"]
+[gd_scene load_steps=6 format=3 uid="uid://dtkt6ce0d5p2g"]
 
 [ext_resource type="Script" path="res://effects/space_background.gd" id="1_3t6qt"]
 [ext_resource type="Texture2D" uid="uid://c8kb48nqbudf" path="res://assets/space.png" id="1_c6e1s"]
 [ext_resource type="Texture2D" uid="uid://bcaopryghcbmu" path="res://assets/far_stars.png" id="2_ler7n"]
 [ext_resource type="Texture2D" uid="uid://t742v5ksqt6e" path="res://assets/close_stars.png" id="3_o6a1h"]
+[ext_resource type="Texture2D" uid="uid://fheq8nu5ulbl" path="res://assets/middle_stars.png" id="4_mlvw7"]
 
 [node name="SpaceBackground" type="ParallaxBackground"]
 script = ExtResource("1_3t6qt")
 
 [node name="SpaceLayer" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(0, 240)
+motion_mirroring = Vector2(0, 512)
 
 [node name="Space" type="TextureRect" parent="SpaceLayer"]
 offset_right = 160.0
@@ -18,7 +19,7 @@ texture = ExtResource("1_c6e1s")
 stretch_mode = 1
 
 [node name="FarStarsLayer" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(0, 240)
+motion_mirroring = Vector2(0, 512)
 
 [node name="FarStars" type="TextureRect" parent="FarStarsLayer"]
 offset_right = 160.0
@@ -26,11 +27,24 @@ offset_bottom = 240.0
 texture = ExtResource("2_ler7n")
 stretch_mode = 1
 
+[node name="MiddleStarsLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(0, 512)
+
+[node name="NearStars" type="TextureRect" parent="MiddleStarsLayer"]
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 257.0
+offset_bottom = 511.0
+texture = ExtResource("4_mlvw7")
+stretch_mode = 1
+
 [node name="NearStarsLayer" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(0, 240)
+motion_mirroring = Vector2(0, 512)
 
 [node name="NearStars" type="TextureRect" parent="NearStarsLayer"]
-offset_right = 160.0
-offset_bottom = 240.0
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 257.0
+offset_bottom = 511.0
 texture = ExtResource("3_o6a1h")
 stretch_mode = 1

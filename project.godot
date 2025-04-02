@@ -30,8 +30,8 @@ gdscript/warnings/integer_division=0
 
 window/size/viewport_width=160
 window/size/viewport_height=240
-window/size/window_width_override=1280
-window/size/window_height_override=1920
+window/size/window_width_override=640
+window/size/window_height_override=960
 window/stretch/mode="canvas_items"
 
 [gui]
