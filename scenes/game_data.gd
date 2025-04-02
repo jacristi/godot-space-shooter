@@ -41,7 +41,7 @@ func _ready() -> void:
     load_high_score()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     if score_queue > 0 and take_score_queue:
         var amt = 100 if score_queue > 200 else 10 if score_queue > 20 else 1
         score += amt

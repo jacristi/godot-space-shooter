@@ -113,8 +113,11 @@ func enable_new_enemy(enemy_type: String) -> void:
 func handle_enemy_spawn(
         enemy_scene: PackedScene,
         timer: Timer,
-        time_offset: float=1.0
+        time_offset: float=0.0
     ) -> void:
+
+    if time_offset > 0:
+        await get_tree().create_timer(time_offset).timeout
 
     spawner_component.scene = enemy_scene
     var ins = spawner_component.spawn(
